@@ -1,4 +1,5 @@
 package com.example.market_observer_android.data.datastore
 
-class DataStoreProxy : DataStore {
+class DataStoreProxy(var localDataStore: LocalDataStore, var remoteDataStore: RemoteDataStore) :
+    DataStore {
 }
