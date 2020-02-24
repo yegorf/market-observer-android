@@ -1,7 +1,7 @@
 package com.example.market_observer_android.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.market_observer_android.R
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 
@@ -13,5 +13,11 @@ class MainActivity : AppCompatActivity() {
 
         FragmentNavigator(supportFragmentManager)
             .openFragment(FragmentNavigator.SCREEN_HOME)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        FragmentNavigator(supportFragmentManager)
+            .navigateBack(this)
     }
 }
