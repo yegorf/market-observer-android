@@ -11,13 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        FragmentNavigator(supportFragmentManager)
-            .openFragment(FragmentNavigator.SCREEN_HOME)
+        FragmentNavigator(supportFragmentManager).openHome()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        FragmentNavigator(supportFragmentManager)
-            .navigateBack(this)
+        FragmentNavigator(supportFragmentManager).navigateBack(this)
     }
 }

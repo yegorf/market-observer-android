@@ -25,16 +25,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun register() {
-        val email = et_email.text
-        val password = et_password.text
+//        val email = et_email.text
+//        val password = et_password.text
 
         //todo presenter -> repo -> api
         ActivityNavigator.navigateToMainActivity(this)
     }
 
     private fun login() {
-        val email = et_email.text
-        val password = et_password.text
+//        val email = et_email.text
+//        val password = et_password.text
 
         //todo presenter -> repo -> api
         ActivityNavigator.navigateToMainActivity(this)

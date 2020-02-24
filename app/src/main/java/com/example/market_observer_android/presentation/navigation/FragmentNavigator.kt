@@ -12,11 +12,12 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         var currentScreen = SCREEN_HOME
     }
 
-    private fun open(fragment: Fragment, screenName: String) {
-        fragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(screenName)
-            .commit()
+    fun openHome() {
+        val fragment = getFragmentForScreen(SCREEN_HOME)
+        if (fragment != null) {
+            open(fragment, SCREEN_HOME)
+            currentScreen = SCREEN_HOME
+        }
     }
 
     fun openFragment(screenName: String) {
@@ -29,18 +30,25 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         }
     }
 
-    private fun getFragmentForScreen(screenName: String): Fragment? {
-        return when (screenName) {
-            SCREEN_HOME -> HomeFragment.newInstance()
-            else -> null
-        }
-    }
-
     fun navigateBack(activity: Activity) {
         if (currentScreen == SCREEN_HOME) {
             activity.finish()
         } else {
             openFragment(SCREEN_HOME)
+        }
+    }
+
+    private fun open(fragment: Fragment, screenName: String) {
+        fragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(screenName)
+            .commit()
+    }
+
+    private fun getFragmentForScreen(screenName: String): Fragment? {
+        return when (screenName) {
+            SCREEN_HOME -> HomeFragment.newInstance()
+            else -> null
         }
     }
 }
