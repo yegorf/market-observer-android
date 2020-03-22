@@ -8,10 +8,12 @@ import com.example.market_observer_android.presentation.navigation.ActivityNavig
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
 import com.example.market_observer_android.presentation.presenter.LoginPresenterImpl
 import kotlinx.android.synthetic.main.activity_login.*
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-    val presenter: LoginPresenter = LoginPresenterImpl()
+    @Inject
+    lateinit var presenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
