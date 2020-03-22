@@ -7,14 +7,7 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RestApi {
-
-    private val retrofitApi = Retrofit.Builder()
-        .baseUrl("http://localhost:8080/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(OkHttpClient.Builder().build())
-        .build()
-        .create(RetrofitApi::class.java)
+class RestApi(val retrofitApi: RetrofitApi) {
 
     fun login(credentialsEntity: CredentialsEntity): Observable<ResponseBody> {
         return retrofitApi.login(credentialsEntity)
