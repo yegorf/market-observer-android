@@ -1,12 +1,14 @@
 package com.example.market_observer_android.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.market_observer_android.R
 import com.example.market_observer_android.data.entity.CredentialsEntity
+import com.example.market_observer_android.data.injection.DataModule
+import com.example.market_observer_android.presentation.injection.DaggerPresentationComponent
+import com.example.market_observer_android.presentation.injection.PresentationModule
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
-import com.example.market_observer_android.presentation.presenter.LoginPresenterImpl
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -17,8 +19,17 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        inject()
         setContentView(R.layout.activity_login)
         initViews()
+    }
+
+    private fun inject() {
+        DaggerPresentationComponent.builder()
+            .dataModule(DataModule())
+            .presentationModule(PresentationModule())
+            .build()
+            .inject(this)
     }
 
     private fun initViews() {
