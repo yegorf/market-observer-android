@@ -1,13 +1,16 @@
 package com.example.market_observer_android.presentation.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.data.entity.CredentialsEntity
+import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
+import com.example.market_observer_android.presentation.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), LoginView {
 
     @Inject
     lateinit var presenter: LoginPresenter
@@ -38,5 +41,13 @@ class LoginActivity : BaseActivity() {
         val email = et_email.text.toString()
         val password = et_password.text.toString()
         presenter.login(CredentialsEntity(email, password))
+    }
+
+    override fun openHomeScreen() {
+        ActivityNavigator.navigateToMainActivity(this)
+    }
+
+    override fun showErrorPopup() {
+        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
     }
 }

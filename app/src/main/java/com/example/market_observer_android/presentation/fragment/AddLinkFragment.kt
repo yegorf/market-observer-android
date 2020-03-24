@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.market_observer_android.R
-import com.example.market_observer_android.presentation.presenter.HomePresenter
-import com.example.market_observer_android.presentation.view.HomeView
+import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
+import com.example.market_observer_android.presentation.view.AddLinkView
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment(), HomeView {
+class AddLinkFragment : BaseFragment(), AddLinkView {
 
     @Inject
-    lateinit var presenter: HomePresenter
+    lateinit var presenter: AddLinkPresenter
 
     companion object {
-        fun newInstance(): HomeFragment {
-            return HomeFragment()
+        fun newInstance(): AddLinkFragment {
+            return AddLinkFragment()
         }
     }
 
@@ -27,6 +26,6 @@ class HomeFragment : BaseFragment(), HomeView {
         savedInstanceState: Bundle?
     ): View? {
         component.inject(this)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_add_link, container, false)
     }
 }
