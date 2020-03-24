@@ -4,5 +4,5 @@ import com.example.market_observer_android.domain.model.ActiveLink
 
 interface HomeView {
 
-    fun setActiveLinks(links: List<ActiveLink>)
+    fun setActiveLinks(links: List<ActiveLink>?)
 }
