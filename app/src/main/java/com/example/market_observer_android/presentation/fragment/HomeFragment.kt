@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
+import com.example.market_observer_android.domain.MarketParser
 import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.presentation.adapter.LinkAdapter
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
@@ -38,16 +39,19 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rv_active_links.layoutManager = LinearLayoutManager(context)
-        rv_active_links.adapter = adapter
+//        rv_active_links.layoutManager = LinearLayoutManager(context)
+//        rv_active_links.adapter = adapter
+//
+//        btn_add_link.setOnClickListener {
+//            FragmentNavigator(activity!!.supportFragmentManager)
+//                .openFragment(FragmentNavigator.SCREEN_ADD_LINK)
+//        }
+//
+//        presenter.onCreate(this)
+//        presenter.getActiveLinks()
 
-        btn_add_link.setOnClickListener {
-            FragmentNavigator(activity!!.supportFragmentManager)
-                .openFragment(FragmentNavigator.SCREEN_ADD_LINK)
-        }
-
-        presenter.onCreate(this)
-        presenter.getActiveLinks()
+        val parser = MarketParser()
+        parser.parseUrl()
     }
 
     override fun setActiveLinks(links: List<ActiveLink>?) {

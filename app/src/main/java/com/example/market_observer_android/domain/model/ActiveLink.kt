@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class ActiveLink(
     var link: Link,
-    var results: List<Result>
+    var results: List<LinkResult>
 ) : Serializable
