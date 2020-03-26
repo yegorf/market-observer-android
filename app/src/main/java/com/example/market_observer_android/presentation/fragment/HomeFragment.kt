@@ -1,16 +1,12 @@
 package com.example.market_observer_android.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
-import com.example.market_observer_android.common.event.Event
-import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.domain.model.ActiveLink
-import com.example.market_observer_android.domain.model.Result
 import com.example.market_observer_android.presentation.adapter.LinkAdapter
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
@@ -18,12 +14,11 @@ import com.example.market_observer_android.presentation.view.HomeView
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment(), HomeView {
+class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
 
     @Inject
     lateinit var presenter: HomePresenter
-    private var adapter = LinkAdapter()
-    private val bus = RxBus
+    private var adapter = LinkAdapter(this)
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -57,5 +52,9 @@ class HomeFragment : BaseFragment(), HomeView {
 
     override fun setActiveLinks(links: List<ActiveLink>?) {
         adapter.setData(links)
+    }
+
+    override fun onLinkClicked(link: ActiveLink) {
+        FragmentNavigator(activity!!.supportFragmentManager).openLinkDetails(link)
     }
 }

@@ -3,14 +3,18 @@ package com.example.market_observer_android.presentation.navigation
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.example.market_observer_android.R
+import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.fragment.AddLinkFragment
 import com.example.market_observer_android.presentation.fragment.HomeFragment
+import com.example.market_observer_android.presentation.fragment.ResultsFragment
 
 class FragmentNavigator(private val fragmentManager: androidx.fragment.app.FragmentManager) {
 
     companion object {
         const val SCREEN_HOME = "SCREEN_HOME"
         const val SCREEN_ADD_LINK = "SCREEN_ADD_LINK"
+        const val SCREEN_LINK_RESULTS = "SCREEN_LINK_RESULTS"
         var currentScreen = SCREEN_HOME
     }
 
@@ -20,6 +24,12 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
             open(fragment, SCREEN_HOME)
             currentScreen = SCREEN_HOME
         }
+    }
+
+    fun openLinkDetails(link: ActiveLink) {
+        val fragment = ResultsFragment.newInstance(link)
+        open(fragment, SCREEN_LINK_RESULTS)
+        currentScreen = SCREEN_LINK_RESULTS
     }
 
     fun openFragment(screenName: String) {
