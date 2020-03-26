@@ -54,7 +54,11 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         adapter.setData(links)
     }
 
-    override fun onLinkClicked(link: ActiveLink) {
+    override fun onLinkClick(link: ActiveLink) {
         FragmentNavigator(activity!!.supportFragmentManager).openLinkDetails(link)
+    }
+
+    override fun onLinkLongClick(link: ActiveLink) {
+        FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link.link)
     }
 }

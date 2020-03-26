@@ -8,6 +8,7 @@ import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.ActiveLink
 import kotlinx.android.synthetic.main.item_active_link.view.*
 
+
 class LinkAdapter(private val listener: LinkAdapterListener) :
     RecyclerView.Adapter<LinkAdapter.LinkHolder>() {
 
@@ -45,12 +46,19 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
             itemView.tv_results_count.text = link.results.size.toString()
 
             itemView.setOnClickListener {
-                listener.onLinkClicked(link)
+                listener.onLinkClick(link)
+            }
+            itemView.setOnLongClickListener {
+                listener.onLinkLongClick(link)
+                true
             }
         }
     }
 
     interface LinkAdapterListener {
-        fun onLinkClicked(link: ActiveLink)
+
+        fun onLinkClick(link: ActiveLink)
+
+        fun onLinkLongClick(link: ActiveLink)
     }
 }
