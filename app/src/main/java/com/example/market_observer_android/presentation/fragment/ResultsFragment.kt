@@ -45,8 +45,7 @@ class ResultsFragment : BaseFragment() {
         tv_url.text = link.url
 
         btn_edit.setOnClickListener {
-            //todo replace with edit link screen
-            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.SCREEN_ADD_LINK)
+            FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link)
         }
 
         if (results.isEmpty()) {

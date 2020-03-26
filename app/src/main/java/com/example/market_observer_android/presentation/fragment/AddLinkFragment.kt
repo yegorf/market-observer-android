@@ -1,10 +1,13 @@
 package com.example.market_observer_android.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.get
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
@@ -47,15 +50,41 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListeners()
+        init()
+        val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?
+        if (link != null) {
+            setEditData(link)
+        }
     }
 
-    private fun setOnClickListeners() {
+    private fun setEditData(link: Link) {
+        et_name.setText(link.name)
+        et_url.setText(link.url)
+
+        val selection = when(link.periodicity) {
+            5 -> 0
+            10 -> 1
+            15 -> 2
+            else -> 0
+        }
+        spinner_periodicity.setSelection(selection)
+    }
+
+    private fun init() {
+        val spinnerValues = arrayOf(5, 10, 15)
+        val adapter =
+            ArrayAdapter<Int>(
+                context as Context,
+                android.R.layout.simple_spinner_item,
+                spinnerValues
+            )
+        spinner_periodicity.adapter = adapter
+
         btn_add_link.setOnClickListener {
             try {
                 val name = et_name.text.toString()
                 val url = et_url.text.toString()
-                val periodicity = et_periodicity.text.toString().toInt()
+                val periodicity = spinner_periodicity.selectedItem as Int
 
                 presenter.addLink(url, name, periodicity)
             } catch (e: Exception) {

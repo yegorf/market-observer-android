@@ -32,6 +32,12 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         currentScreen = SCREEN_LINK_RESULTS
     }
 
+    fun openEditLink(link: Link) {
+        val fragment = AddLinkFragment.newInstance(link)
+        open(fragment, SCREEN_ADD_LINK)
+        currentScreen = SCREEN_ADD_LINK
+    }
+
     fun openFragment(screenName: String) {
         if (currentScreen != screenName) {
             val fragment = getFragmentForScreen(screenName)
