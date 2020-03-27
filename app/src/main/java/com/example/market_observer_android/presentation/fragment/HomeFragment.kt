@@ -9,6 +9,7 @@ import com.example.market_observer_android.R
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.presentation.adapter.LinkAdapter
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
@@ -58,6 +59,16 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     }
 
     override fun setActiveLinks(links: List<ActiveLink>?) {
+        val results = mutableListOf<LinkResult>()
+        val link = LinkResult()
+        link.imageUrl = "https://apollo-ireland.akamaized.net:443/v1/files/drtm269sj3kw-UA/image;s=644x461"
+        link.title = "IPHONE 112"
+        link.url = "https://www.olx.ua/obyavlenie/chehol-silikon-iphone-11-pro-max-mi9t-redmi-7-8a-note-8-pro-p-smart-z-IDG0wYY.html?sd=1#3c2df8246d;promoted"
+        link.location = "Kyiv, Ukraine"
+        results.add(link)
+        //todo mocked
+        links?.get(0)?.results = results
+
         adapter.setData(links)
     }
 

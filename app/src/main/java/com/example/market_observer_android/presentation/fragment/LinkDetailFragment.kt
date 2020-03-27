@@ -1,5 +1,7 @@
 package com.example.market_observer_android.presentation.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +13,15 @@ import com.example.market_observer_android.presentation.adapter.LinkResultAdapte
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_link_detail.*
 import javax.inject.Inject
 
-class LinkDetailFragment : BaseFragment(), LinkDetailView {
+class LinkDetailFragment : BaseFragment(), LinkDetailView,
+    LinkResultAdapter.LinkResultListener {
 
     @Inject
     lateinit var presenter: LinkDetailPresenter
-    lateinit var adapter: LinkResultAdapter
+    private val adapter = LinkResultAdapter(this)
 
     companion object {
         private const val LINK_ARG_KEY = "LINK_ARG_KEY"
@@ -71,13 +73,19 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView {
         } else {
             tv_no_results.visibility = View.GONE
 
-            rv_active_links.layoutManager = LinearLayoutManager(context)
-            rv_active_links.adapter = adapter
+            rv_link_results.layoutManager = LinearLayoutManager(context)
+            rv_link_results.adapter = adapter
             adapter.setData(results)
         }
     }
 
     override fun onDeleteLink() {
         FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
+    }
+
+    override fun onResultClick(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        activity!!.startActivity(intent)
     }
 }
