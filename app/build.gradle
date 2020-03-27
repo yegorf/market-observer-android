@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'realm-android'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -25,6 +27,15 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:6.0.2"
     }
 }
 
