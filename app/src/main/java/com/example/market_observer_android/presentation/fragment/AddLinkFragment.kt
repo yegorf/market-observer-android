@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.view.get
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
-import com.example.market_observer_android.presentation.view.AddLinkView
+import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import kotlinx.android.synthetic.main.fragment_add_link.*
 import javax.inject.Inject
 

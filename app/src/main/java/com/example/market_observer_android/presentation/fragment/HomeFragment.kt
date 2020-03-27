@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
-import com.example.market_observer_android.domain.MarketParser
+import com.example.market_observer_android.common.event.Event
+import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.presentation.adapter.LinkAdapter
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
-import com.example.market_observer_android.presentation.view.HomeView
+import com.example.market_observer_android.presentation.mvp_view.HomeView
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     @Inject
     lateinit var presenter: HomePresenter
     private var adapter = LinkAdapter(this)
+    private val bus = RxBus
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -39,19 +41,20 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        rv_active_links.layoutManager = LinearLayoutManager(context)
-//        rv_active_links.adapter = adapter
-//
-//        btn_add_link.setOnClickListener {
-//            FragmentNavigator(activity!!.supportFragmentManager)
-//                .openFragment(FragmentNavigator.SCREEN_ADD_LINK)
-//        }
-//
-//        presenter.onCreate(this)
-//        presenter.getActiveLinks()
+        rv_active_links.layoutManager = LinearLayoutManager(context)
+        rv_active_links.adapter = adapter
 
-        val parser = MarketParser()
-        parser.parseUrl()
+        btn_add_link.setOnClickListener {
+            FragmentNavigator(activity!!.supportFragmentManager)
+                .openFragment(FragmentNavigator.SCREEN_ADD_LINK)
+        }
+
+        btn_remove_all_links.setOnClickListener {
+            bus.sendEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
+        }
+
+        presenter.onCreate(this)
+        presenter.getActiveLinks()
     }
 
     override fun setActiveLinks(links: List<ActiveLink>?) {

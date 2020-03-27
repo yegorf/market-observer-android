@@ -6,7 +6,7 @@ import com.example.market_observer_android.R
 import com.example.market_observer_android.data.entity.CredentialsEntity
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
-import com.example.market_observer_android.presentation.view.LoginView
+import com.example.market_observer_android.presentation.mvp_view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 

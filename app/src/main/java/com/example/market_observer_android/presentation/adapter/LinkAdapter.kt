@@ -43,7 +43,7 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
             itemView.tv_name.text = link.link.name
             itemView.tv_url.text = link.link.url
-            itemView.tv_results_count.text = link.results.size.toString()
+            itemView.v_circle.setCount(link.results.size)
 
             itemView.setOnClickListener {
                 listener.onLinkClick(link)

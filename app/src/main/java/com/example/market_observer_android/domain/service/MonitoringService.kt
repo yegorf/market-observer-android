@@ -1,10 +1,12 @@
 package com.example.market_observer_android.domain.service
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
+import com.example.market_observer_android.domain.MarketParser
 import com.example.market_observer_android.domain.model.Link
 import rx.Observable
 import rx.Subscription
@@ -14,12 +16,22 @@ class MonitoringService : Service() {
 
     private val bus = RxBus
     private val subscriptions = mutableMapOf<String, Subscription>()
+    private val parser = MarketParser()
 
     companion object {
-        var isAlive = false
+        fun startService(context: Context) {
+            val monitoringIntent = Intent(context, MonitoringService::class.java)
+            context.startService(monitoringIntent)
+        }
+
+        fun stopService(context: Context) {
+            val monitoringIntent = Intent(context, MonitoringService::class.java)
+            context.stopService(monitoringIntent)
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        registerBus()
         return START_NOT_STICKY
     }
 
@@ -31,9 +43,10 @@ class MonitoringService : Service() {
         bus.listenData(Event.ADD_LINK_TO_OBSERVE, Link::class.java)
             .subscribe {
                 subscriptions[it.url] =
-                    Observable.interval(it.periodicity.toLong(), TimeUnit.MINUTES)
-                        .subscribe {
-                            //todo monitoring logic
+                    Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
+                        .subscribe { _ ->
+                            val results = parser.parseUrl(it.url)
+                            bus.sendData(Event.FIND_RESULTS, results)
                         }
             }
 
@@ -43,7 +56,15 @@ class MonitoringService : Service() {
                 subscriptions.remove(it)
             }
 
-        bus.listenData(Event.PAUSE_LINK_OBSERVE, String::class.java)
+        bus.listenEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
+            .subscribe {
+                subscriptions.forEach {
+                    it.value.unsubscribe()
+                }
+                subscriptions.clear()
+            }
+
+/*        bus.listenData(Event.PAUSE_LINK_OBSERVE, String::class.java)
             .subscribe {
                 subscriptions[it]?.unsubscribe()
             }
@@ -53,10 +74,10 @@ class MonitoringService : Service() {
                 if (subscriptions.containsKey(it.url) && subscriptions[it.url]!!.isUnsubscribed) {
                     subscriptions[it.url] =
                         Observable.interval(it.periodicity.toLong(), TimeUnit.MINUTES)
-                            .subscribe {
-                                //todo monitoring logic
+                            .subscribe { _ ->
+                                parser.parseUrl(it.url)
                             }
                 }
-            }
+            }*/
     }
 }

@@ -1,11 +1,15 @@
 package com.example.market_observer_android.domain
 
+import android.util.Log
 import com.example.market_observer_android.domain.model.LinkResult
 import org.jsoup.Jsoup
 
 class MarketParser {
 
+    private val TAG = MarketParser::class.java.simpleName
+
     fun parseUrl(url: String): List<LinkResult> {
+        Log.i(TAG, "parse: $url")
         val document = Jsoup.connect(url).get()
         val rows = document.select("table#offers_table")[0]
             .select("tr.wrap")
