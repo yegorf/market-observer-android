@@ -1,13 +1,19 @@
 package com.example.market_observer_android.data.datastore
 
-import com.example.market_observer_android.data.entity.CredentialsEntity
-import okhttp3.ResponseBody
-import rx.Observable
+import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
+import io.reactivex.Observable
 
-class DataStoreProxy(var localDataStore: LocalDataStore, var remoteDataStore: RemoteDataStore) :
-    DataStore {
+class DataStoreProxy(
+    private var localDataStore: LocalDataStore,
+    private var remoteDataStore: RemoteDataStore
+) {
 
-    override fun login(credentialsEntity: CredentialsEntity): Observable<ResponseBody> {
-        return remoteDataStore.login(credentialsEntity)
+    fun getAllLinks(): Observable<List<ActiveLink>> {
+        return localDataStore.getAllLinks()
+    }
+
+    fun addLink(link: Link) {
+        localDataStore.addLink(link)
     }
 }

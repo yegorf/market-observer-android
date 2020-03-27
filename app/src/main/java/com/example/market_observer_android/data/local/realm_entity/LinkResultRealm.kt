@@ -1,12 +1,13 @@
-package com.example.market_observer_android.data.local
+package com.example.market_observer_android.data.local.realm_entity
 
+import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 open class LinkResultRealm(
 
     @PrimaryKey
-    var id: Long = 0,
+    var id: String? = null,
 
     var url: String? = null,
 

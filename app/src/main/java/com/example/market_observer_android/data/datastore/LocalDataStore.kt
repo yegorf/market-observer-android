@@ -1,13 +1,25 @@
 package com.example.market_observer_android.data.datastore
 
-import com.example.market_observer_android.common.exception.NotImplementedException
-import com.example.market_observer_android.data.entity.CredentialsEntity
-import okhttp3.ResponseBody
-import rx.Observable
+import com.example.market_observer_android.data.local.RealmService
+import com.example.market_observer_android.data.mapper.MapperFactory
+import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
+import io.reactivex.Observable
 
-class LocalDataStore : DataStore {
 
-    override fun login(credentialsEntity: CredentialsEntity): Observable<ResponseBody> {
-       throw NotImplementedException("login")
+class LocalDataStore(private val realmService: RealmService, private val mapper: MapperFactory) {
+
+    fun getAllLinks(): Observable<List<ActiveLink>> {
+        return realmService.getAllLinks()
+            .map {
+                mapper.realmsToListMapper(it)
+            }
+            .map {
+                mapper.realmLinkListMapper().transform(it)
+            }
+    }
+
+    fun addLink(link: Link) {
+        realmService.addLink(link.url, link.name, link.periodicity)
     }
 }

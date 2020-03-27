@@ -13,6 +13,7 @@ class AddLinkPresenterImpl(val repository: Repository) : AddLinkPresenter,
 
     override fun addLink(url: String, name: String, periodicity: Int) {
         //todo: 1)validation 2)add to db 3)send to api
+        repository.addLink(Link(url, name, periodicity))
         bus.sendData(Event.ADD_LINK_TO_OBSERVE, Link(url, name, periodicity))
     }
 }

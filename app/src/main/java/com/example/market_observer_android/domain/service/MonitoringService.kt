@@ -7,14 +7,14 @@ import android.os.IBinder
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.domain.model.Link
-import rx.Observable
-import rx.Subscription
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 class MonitoringService : Service() {
 
     private val bus = RxBus
-    private val subscriptions = mutableMapOf<String, Subscription>()
+    private val subscriptions = mutableMapOf<String, Disposable>()
     private val parser =
         MarketParser()
 
@@ -42,24 +42,24 @@ class MonitoringService : Service() {
     private fun registerBus() {
         bus.listenData(Event.ADD_LINK_TO_OBSERVE, Link::class.java)
             .subscribe {
-                subscriptions[it.url] =
+                subscriptions[it.url as String] =
                     Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
                         .subscribe { _ ->
-                            val results = parser.parseUrl(it.url)
+                            val results = parser.parseUrl(it.url as String)
                             bus.sendData(Event.FIND_RESULTS, results)
                         }
             }
 
         bus.listenData(Event.REMOVE_LINK_FROM_OBSERVE, String::class.java)
             .subscribe {
-                subscriptions[it]?.unsubscribe()
+                subscriptions[it]?.dispose()
                 subscriptions.remove(it)
             }
 
         bus.listenEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
             .subscribe {
                 subscriptions.forEach {
-                    it.value.unsubscribe()
+                    it.value.dispose()
                 }
                 subscriptions.clear()
             }

@@ -1,7 +1,8 @@
 package com.example.market_observer_android.common.event
 
-import rx.Observable
-import rx.subjects.PublishSubject
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+
 
 object RxBus {
 

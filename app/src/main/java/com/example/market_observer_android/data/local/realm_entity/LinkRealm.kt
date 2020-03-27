@@ -1,4 +1,4 @@
-package com.example.market_observer_android.data.local
+package com.example.market_observer_android.data.local.realm_entity
 
 import io.realm.RealmList
 import io.realm.RealmObject
@@ -8,7 +8,7 @@ import io.realm.annotations.Required
 open class LinkRealm(
 
     @PrimaryKey
-    var id: Long = 0,
+    var id: String? = null,
 
     @Required
     var url: String? = null,

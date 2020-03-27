@@ -3,6 +3,7 @@ package com.example.market_observer_android.data.injection
 import com.example.market_observer_android.data.datastore.DataStoreProxy
 import com.example.market_observer_android.data.datastore.LocalDataStore
 import com.example.market_observer_android.data.datastore.RemoteDataStore
+import com.example.market_observer_android.data.local.RealmService
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.data.repository.Repository
 import com.example.market_observer_android.data.repository.RepositoryImpl
@@ -42,8 +43,8 @@ class DataModule {
     }
 
     @Provides
-    fun provideLocalDataStore(): LocalDataStore {
-        return LocalDataStore()
+    fun provideLocalDataStore(mapper: MapperFactory, realm: RealmService): LocalDataStore {
+        return LocalDataStore(realm, mapper)
     }
 
     @Provides
@@ -56,6 +57,9 @@ class DataModule {
 
     @Provides
     fun provideMapperFactory() = MapperFactory()
+
+    @Provides
+    fun provideRealmService() = RealmService()
 
     @Provides
     fun provideRepository(
