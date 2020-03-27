@@ -8,19 +8,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
+import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
+import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_results.*
+import kotlinx.android.synthetic.main.fragment_link_detail.*
+import javax.inject.Inject
 
-class ResultsFragment : BaseFragment() {
+class LinkDetailFragment : BaseFragment(), LinkDetailView {
 
+    @Inject
+    lateinit var presenter: LinkDetailPresenter
     lateinit var adapter: LinkResultAdapter
 
     companion object {
         private const val LINK_ARG_KEY = "LINK_ARG_KEY"
 
-        fun newInstance(link: ActiveLink): ResultsFragment {
-            val fragment = ResultsFragment()
+        fun newInstance(link: ActiveLink): LinkDetailFragment {
+            val fragment = LinkDetailFragment()
             val args = Bundle()
             args.putSerializable(LINK_ARG_KEY, link)
             fragment.arguments = args
@@ -33,11 +38,14 @@ class ResultsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_results, container, false)
+        component.inject(this)
+        presenter.onCreate(this)
+        return inflater.inflate(R.layout.fragment_link_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as ActiveLink
         init(link)
     }
@@ -52,6 +60,11 @@ class ResultsFragment : BaseFragment() {
         btn_edit.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link)
         }
+        btn_delete.setOnClickListener {
+            if (link.url != null) {
+                presenter.deleteLink(link.url as String)
+            }
+        }
 
         if (results.isEmpty()) {
             results_container.visibility = View.GONE
@@ -62,5 +75,9 @@ class ResultsFragment : BaseFragment() {
             rv_active_links.adapter = adapter
             adapter.setData(results)
         }
+    }
+
+    override fun onDeleteLink() {
+        FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
     }
 }

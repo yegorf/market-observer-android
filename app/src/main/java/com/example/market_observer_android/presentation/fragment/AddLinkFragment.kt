@@ -44,6 +44,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         savedInstanceState: Bundle?
     ): View? {
         component.inject(this)
+        presenter.onCreate(this)
         return inflater.inflate(R.layout.fragment_add_link, container, false)
     }
 

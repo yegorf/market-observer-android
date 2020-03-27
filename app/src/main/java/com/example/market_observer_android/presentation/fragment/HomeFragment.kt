@@ -35,6 +35,7 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         savedInstanceState: Bundle?
     ): View? {
         component.inject(this)
+        presenter.onCreate(this)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -53,7 +54,6 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
             bus.sendEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
         }
 
-        presenter.onCreate(this)
         presenter.getActiveLinks()
     }
 

@@ -21,4 +21,8 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
     override fun addLink(link: Link) {
         dataStore.addLink(link)
     }
+
+    override fun deleteLink(url: String) {
+        dataStore.deleteLink(url)
+    }
 }

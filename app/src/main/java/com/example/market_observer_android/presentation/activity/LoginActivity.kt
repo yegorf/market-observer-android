@@ -18,6 +18,7 @@ class LoginActivity : BaseActivity(), LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         component.inject(this)
+        presenter.onCreate(this)
         setContentView(R.layout.activity_login)
         initViews()
     }

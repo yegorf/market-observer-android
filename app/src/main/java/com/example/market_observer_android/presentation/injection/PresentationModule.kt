@@ -23,4 +23,9 @@ class PresentationModule {
     fun provideAddLinkPresenter(repository: Repository): AddLinkPresenter {
         return AddLinkPresenterImpl(repository)
     }
+
+    @Provides
+    fun provideLinkDetailPresenter(repository: Repository): LinkDetailPresenter {
+        return LinkDetailPresenterImpl(repository)
+    }
 }

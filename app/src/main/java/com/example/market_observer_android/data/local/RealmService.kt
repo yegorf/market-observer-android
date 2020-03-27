@@ -11,16 +11,14 @@ class RealmService {
     val realm: Realm = Realm.getDefaultInstance()
 
     fun addLink(url: String?, name: String?, periodicity: Int) {
-        realm.beginTransaction()
-
-        val link = LinkRealm()
-        link.id = UUID.randomUUID().toString()
-        link.name = name
-        link.periodicity = periodicity
-        link.url = url
-
-        realm.insert(link)
-        realm.commitTransaction()
+        realm.executeTransaction {
+            val link = LinkRealm()
+            link.id = UUID.randomUUID().toString()
+            link.name = name
+            link.periodicity = periodicity
+            link.url = url
+            it.insert(link)
+        }
     }
 
     fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
@@ -28,5 +26,14 @@ class RealmService {
             .findAll()
             .asFlowable()
             .toObservable()
+    }
+
+    fun deleteLink(url: String) {
+        realm.executeTransaction {
+            it.where(LinkRealm::class.java)
+                .equalTo("url", url)
+                .findAll()
+                .deleteAllFromRealm()
+        }
     }
 }

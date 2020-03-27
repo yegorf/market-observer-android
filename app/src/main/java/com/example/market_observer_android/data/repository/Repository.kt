@@ -13,4 +13,6 @@ interface Repository {
     fun getActiveLinks(): Observable<List<ActiveLink>>
 
     fun addLink(link: Link)
+
+    fun deleteLink(url: String)
 }

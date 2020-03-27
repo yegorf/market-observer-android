@@ -16,4 +16,8 @@ class DataStoreProxy(
     fun addLink(link: Link) {
         localDataStore.addLink(link)
     }
+
+    fun deleteLink(url: String) {
+        localDataStore.deleteLink(url)
+    }
 }

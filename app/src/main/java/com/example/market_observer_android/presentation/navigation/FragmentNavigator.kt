@@ -7,7 +7,7 @@ import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.fragment.AddLinkFragment
 import com.example.market_observer_android.presentation.fragment.HomeFragment
-import com.example.market_observer_android.presentation.fragment.ResultsFragment
+import com.example.market_observer_android.presentation.fragment.LinkDetailFragment
 
 class FragmentNavigator(private val fragmentManager: androidx.fragment.app.FragmentManager) {
 
@@ -27,7 +27,7 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
     }
 
     fun openLinkDetails(link: ActiveLink) {
-        val fragment = ResultsFragment.newInstance(link)
+        val fragment = LinkDetailFragment.newInstance(link)
         open(fragment, SCREEN_LINK_RESULTS)
         currentScreen = SCREEN_LINK_RESULTS
     }
