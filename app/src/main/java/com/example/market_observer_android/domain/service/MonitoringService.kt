@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.IBinder
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
-import com.example.market_observer_android.domain.MarketParser
 import com.example.market_observer_android.domain.model.Link
 import rx.Observable
 import rx.Subscription
@@ -16,7 +15,8 @@ class MonitoringService : Service() {
 
     private val bus = RxBus
     private val subscriptions = mutableMapOf<String, Subscription>()
-    private val parser = MarketParser()
+    private val parser =
+        MarketParser()
 
     companion object {
         fun startService(context: Context) {

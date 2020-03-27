@@ -1,4 +1,4 @@
-package com.example.market_observer_android.domain
+package com.example.market_observer_android.domain.service
 
 import android.util.Log
 import com.example.market_observer_android.domain.model.LinkResult

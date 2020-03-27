@@ -5,13 +5,8 @@ import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.presentation.mvp_view.HomeView
 import rx.Observer
 
-class HomePresenterImpl(val repository: Repository) : HomePresenter {
-
-    lateinit var view: HomeView
-
-    override fun onCreate(view: HomeView) {
-        this.view = view
-    }
+class HomePresenterImpl(val repository: Repository) : HomePresenter,
+    BasePresenterImpl<HomeView>() {
 
     override fun getActiveLinks() {
         repository.getActiveLinks().subscribe(getObserver())
@@ -24,13 +19,12 @@ class HomePresenterImpl(val repository: Repository) : HomePresenter {
             }
 
             override fun onNext(t: List<ActiveLink>?) {
-                view.setActiveLinks(t)
+                view?.setActiveLinks(t)
             }
 
             override fun onCompleted() {
 
             }
-
         }
     }
 }
