@@ -9,9 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
-import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import kotlinx.android.synthetic.main.fragment_add_link.*
 import javax.inject.Inject
 
@@ -61,7 +61,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         et_name.setText(link.name)
         et_url.setText(link.url)
 
-        val selection = when(link.periodicity) {
+        val selection = when (link.periodicity) {
             5 -> 0
             10 -> 1
             15 -> 2

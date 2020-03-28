@@ -12,64 +12,67 @@ import com.example.market_observer_android.presentation.fragment.MyAccountFragme
 
 class FragmentNavigator(private val fragmentManager: androidx.fragment.app.FragmentManager) {
 
+    enum class Screen {
+        HOME,
+        ADD_LINK,
+        LINK_RESULTS,
+        MY_ACCOUNT
+    }
+
     companion object {
-        const val SCREEN_HOME = "SCREEN_HOME"
-        const val SCREEN_ADD_LINK = "SCREEN_ADD_LINK"
-        const val SCREEN_LINK_RESULTS = "SCREEN_LINK_RESULTS"
-        const val SCREEN_MY_ACCOUNT = "SCREEN_MY_ACCOUNT"
-        var currentScreen = SCREEN_HOME
+        var currentScreen = Screen.HOME
     }
 
     fun openHome() {
-        val fragment = getFragmentForScreen(SCREEN_HOME)
+        val fragment = getFragmentForScreen(Screen.HOME)
         if (fragment != null) {
-            open(fragment, SCREEN_HOME)
-            currentScreen = SCREEN_HOME
+            open(fragment, Screen.HOME)
+            currentScreen = Screen.HOME
         }
     }
 
     fun openLinkDetails(link: ActiveLink) {
         val fragment = LinkDetailFragment.newInstance(link)
-        open(fragment, SCREEN_LINK_RESULTS)
-        currentScreen = SCREEN_LINK_RESULTS
+        open(fragment, Screen.LINK_RESULTS)
+        currentScreen = Screen.LINK_RESULTS
     }
 
     fun openEditLink(link: Link) {
         val fragment = AddLinkFragment.newInstance(link)
-        open(fragment, SCREEN_ADD_LINK)
-        currentScreen = SCREEN_ADD_LINK
+        open(fragment, Screen.ADD_LINK)
+        currentScreen = Screen.ADD_LINK
     }
 
-    fun openFragment(screenName: String) {
-        if (currentScreen != screenName) {
-            val fragment = getFragmentForScreen(screenName)
+    fun openFragment(screen: Screen) {
+        if (currentScreen != screen) {
+            val fragment = getFragmentForScreen(screen)
             if (fragment != null) {
-                open(fragment, screenName)
-                currentScreen = screenName
+                open(fragment, screen)
+                currentScreen = screen
             }
         }
     }
 
     fun navigateBack(activity: Activity) {
-        if (currentScreen == SCREEN_HOME) {
+        if (currentScreen == Screen.HOME) {
             activity.finish()
         } else {
-            openFragment(SCREEN_HOME)
+            openFragment(Screen.HOME)
         }
     }
 
-    private fun open(fragment: Fragment, screenName: String) {
+    private fun open(fragment: Fragment, screen: Screen) {
         fragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(screenName)
+            .addToBackStack(screen.name)
             .commit()
     }
 
-    private fun getFragmentForScreen(screenName: String): Fragment? {
-        return when (screenName) {
-            SCREEN_HOME -> HomeFragment.newInstance()
-            SCREEN_ADD_LINK -> AddLinkFragment.newInstance()
-            SCREEN_MY_ACCOUNT -> MyAccountFragment.newInstance()
+    private fun getFragmentForScreen(screen: Screen): Fragment? {
+        return when (screen) {
+            Screen.HOME -> HomeFragment.newInstance()
+            Screen.ADD_LINK -> AddLinkFragment.newInstance()
+            Screen.MY_ACCOUNT -> MyAccountFragment.newInstance()
             else -> null
         }
     }
