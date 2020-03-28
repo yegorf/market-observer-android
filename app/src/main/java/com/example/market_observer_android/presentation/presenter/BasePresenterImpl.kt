@@ -7,4 +7,8 @@ open class BasePresenterImpl<T> : BasePresenter<T> {
     override fun onCreate(view: T) {
         this.view = view
     }
+
+    override fun onDestroy() {
+        view = null
+    }
 }

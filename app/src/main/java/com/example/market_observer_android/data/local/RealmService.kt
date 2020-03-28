@@ -1,5 +1,6 @@
 package com.example.market_observer_android.data.local
 
+import com.example.market_observer_android.common.application.Application
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.domain.model.LinkResult

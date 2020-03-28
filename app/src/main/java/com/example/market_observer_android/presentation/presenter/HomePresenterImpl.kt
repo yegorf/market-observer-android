@@ -1,32 +1,28 @@
 package com.example.market_observer_android.presentation.presenter
 
-import com.example.market_observer_android.data.repository.Repository
+import com.example.market_observer_android.common.util.UseCaseObserver
 import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.usecase.GetActiveLinksUseCase
 import com.example.market_observer_android.presentation.mvp_view.HomeView
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 
-class HomePresenterImpl(val repository: Repository) : HomePresenter,
+class HomePresenterImpl(private val getActiveLinksUseCase: GetActiveLinksUseCase) : HomePresenter,
     BasePresenterImpl<HomeView>() {
 
     override fun getActiveLinks() {
-        repository.getActiveLinks().subscribe(getObserver())
+        getActiveLinksUseCase.execute(getActiveLinksObserver())
     }
 
-    private fun getObserver(): Observer<List<ActiveLink>> {
-        return object : Observer<List<ActiveLink>> {
-            override fun onComplete() {
-            }
-
-            override fun onSubscribe(d: Disposable) {
-            }
-
+    private fun getActiveLinksObserver(): UseCaseObserver<List<ActiveLink>> {
+        return object : UseCaseObserver<List<ActiveLink>>() {
             override fun onNext(t: List<ActiveLink>) {
+                super.onNext(t)
                 view?.setActiveLinks(t)
             }
-
-            override fun onError(e: Throwable) {
-            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        getActiveLinksUseCase.stop()
     }
 }

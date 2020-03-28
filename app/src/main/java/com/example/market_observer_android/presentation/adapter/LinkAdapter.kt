@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_active_link.view.*
 class LinkAdapter(private val listener: LinkAdapterListener) :
     RecyclerView.Adapter<LinkAdapter.LinkHolder>() {
 
-    private lateinit var data: List<ActiveLink>
+    private var data = listOf<ActiveLink>()
 
     fun setData(data: List<ActiveLink>?) {
         if (data != null) {
@@ -40,7 +40,6 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
     inner class LinkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(link: ActiveLink) {
-
             itemView.tv_name.text = link.link.name
             itemView.tv_url.text = link.link.url
             itemView.v_circle.setCount(link.results.size)

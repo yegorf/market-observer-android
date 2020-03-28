@@ -57,6 +57,11 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         presenter.getActiveLinks()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
     override fun setActiveLinks(links: List<ActiveLink>?) {
         adapter.setData(links)
     }
