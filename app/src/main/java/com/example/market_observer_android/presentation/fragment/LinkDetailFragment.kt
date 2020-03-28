@@ -58,6 +58,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
 
         tv_name.text = link.name
         tv_url.text = link.url
+        tv_results_count.text = results.size.toString()
 
         btn_edit.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link)

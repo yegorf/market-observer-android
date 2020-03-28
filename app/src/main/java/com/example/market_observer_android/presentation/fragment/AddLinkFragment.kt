@@ -97,7 +97,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
     }
 
     override fun onSuccess() {
-
+        FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
     }
 
     override fun onFail() {

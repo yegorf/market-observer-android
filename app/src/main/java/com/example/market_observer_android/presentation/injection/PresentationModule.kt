@@ -28,4 +28,9 @@ class PresentationModule {
     fun provideLinkDetailPresenter(repository: Repository): LinkDetailPresenter {
         return LinkDetailPresenterImpl(repository)
     }
+
+    @Provides
+    fun provideMyAccountPresenter(): MyAccountPresenter {
+        return MyAccountPresenterImpl()
+    }
 }

@@ -8,6 +8,7 @@ import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.fragment.AddLinkFragment
 import com.example.market_observer_android.presentation.fragment.HomeFragment
 import com.example.market_observer_android.presentation.fragment.LinkDetailFragment
+import com.example.market_observer_android.presentation.fragment.MyAccountFragment
 
 class FragmentNavigator(private val fragmentManager: androidx.fragment.app.FragmentManager) {
 
@@ -15,6 +16,7 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         const val SCREEN_HOME = "SCREEN_HOME"
         const val SCREEN_ADD_LINK = "SCREEN_ADD_LINK"
         const val SCREEN_LINK_RESULTS = "SCREEN_LINK_RESULTS"
+        const val SCREEN_MY_ACCOUNT = "SCREEN_MY_ACCOUNT"
         var currentScreen = SCREEN_HOME
     }
 
@@ -67,6 +69,7 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         return when (screenName) {
             SCREEN_HOME -> HomeFragment.newInstance()
             SCREEN_ADD_LINK -> AddLinkFragment.newInstance()
+            SCREEN_MY_ACCOUNT -> MyAccountFragment.newInstance()
             else -> null
         }
     }
