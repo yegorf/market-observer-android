@@ -4,19 +4,30 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
+import com.example.market_observer_android.data.injection.DataModule
+import com.example.market_observer_android.data.repository.Repository
+import com.example.market_observer_android.domain.injection.DaggerDomainComponent
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class MonitoringService : Service() {
 
+    @Inject
+    lateinit var repository: Repository
+
+    private val tag = MonitoringService::class.java.simpleName
     private val bus = RxBus
+    private val busDisposables = CompositeDisposable()
     private val subscriptions = mutableMapOf<String, Disposable>()
-    private val parser =
-        MarketParser()
+    private val parser = MarketParser()
 
     companion object {
         fun startService(context: Context) {
@@ -39,30 +50,44 @@ class MonitoringService : Service() {
         return null
     }
 
+    private fun onResultsFound(url: String, results: List<LinkResult>) {
+        bus.sendData(Event.FIND_RESULTS, results)
+        results.forEach { res ->
+            Log.d(tag, res.toString())
+        }
+        repository.addResults(url, results)
+    }
+
     private fun registerBus() {
-        bus.listenData(Event.ADD_LINK_TO_OBSERVE, Link::class.java)
-            .subscribe {
-                subscriptions[it.url as String] =
-                    Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
-                        .subscribe { _ ->
-                            val results = parser.parseUrl(it.url as String)
-                            bus.sendData(Event.FIND_RESULTS, results)
-                        }
-            }
-
-        bus.listenData(Event.REMOVE_LINK_FROM_OBSERVE, String::class.java)
-            .subscribe {
-                subscriptions[it]?.dispose()
-                subscriptions.remove(it)
-            }
-
-        bus.listenEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
-            .subscribe {
-                subscriptions.forEach {
-                    it.value.dispose()
+        busDisposables.add(
+            bus.listenData(Event.ADD_LINK_TO_OBSERVE, Link::class.java)
+                .subscribe {
+                    subscriptions[it.url as String] =
+                        Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
+                            .subscribe { _ ->
+                                val results = parser.parseUrl(it.url as String)
+                                onResultsFound(it.url as String, results)
+                            }
                 }
-                subscriptions.clear()
-            }
+        )
+
+        busDisposables.add(
+            bus.listenData(Event.REMOVE_LINK_FROM_OBSERVE, String::class.java)
+                .subscribe {
+                    subscriptions[it]?.dispose()
+                    subscriptions.remove(it)
+                }
+        )
+
+        busDisposables.add(
+            bus.listenEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
+                .subscribe {
+                    subscriptions.forEach {
+                        it.value.dispose()
+                    }
+                    subscriptions.clear()
+                }
+        )
 
 /*        bus.listenData(Event.PAUSE_LINK_OBSERVE, String::class.java)
             .subscribe {
@@ -79,5 +104,22 @@ class MonitoringService : Service() {
                             }
                 }
             }*/
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        DaggerDomainComponent.builder()
+            .dataModule(DataModule())
+            .build()
+            .inject(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unsubscribeBus()
+    }
+
+    private fun unsubscribeBus() {
+        busDisposables.clear()
     }
 }

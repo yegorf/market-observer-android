@@ -19,7 +19,6 @@ class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         instance = this
         initDaggerConfig()
         initRealmConfiguration()

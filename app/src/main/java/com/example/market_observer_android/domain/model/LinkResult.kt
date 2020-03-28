@@ -6,4 +6,11 @@ data class LinkResult(
     var imageUrl: String? = null,
     var time: String? = null,
     var location: String? = null
-)
+) {
+    override fun toString(): String {
+        return """LinkResult:
+            $title\n
+            $url\n
+        """.trimMargin()
+    }
+}

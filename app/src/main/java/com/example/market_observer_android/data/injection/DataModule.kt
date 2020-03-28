@@ -59,7 +59,9 @@ class DataModule {
     fun provideMapperFactory() = MapperFactory()
 
     @Provides
-    fun provideRealmService() = RealmService()
+    fun provideRealmService(): RealmService {
+        return RealmService()
+    }
 
     @Provides
     fun provideRepository(

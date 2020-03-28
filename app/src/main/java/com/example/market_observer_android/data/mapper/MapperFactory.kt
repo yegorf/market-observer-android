@@ -6,6 +6,7 @@ import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.realm.RealmResults
+import java.util.*
 
 class MapperFactory {
 
@@ -57,6 +58,21 @@ class MapperFactory {
                     )
                 }
                 return links
+            }
+        }
+    }
+
+    fun resultToRealmMapper(): Mapper<LinkResult, LinkResultRealm> {
+        return object : Mapper<LinkResult, LinkResultRealm> {
+            override fun transform(entity: LinkResult): LinkResultRealm {
+                val realm = LinkResultRealm()
+                realm.id = UUID.randomUUID().toString()
+                realm.title = entity.title
+                realm.url = entity.url
+                realm.imageUrl = entity.imageUrl
+                realm.location = entity.location
+                realm.time = entity.time
+                return realm
             }
         }
     }
