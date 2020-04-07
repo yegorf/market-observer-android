@@ -4,12 +4,6 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btn_remove_all_links"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="remove all" />
-
-    <Button
         android:id="@+id/btn_add_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

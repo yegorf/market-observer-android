@@ -21,7 +21,6 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     @Inject
     lateinit var presenter: HomePresenter
     private var adapter = LinkAdapter(this)
-    private val bus = RxBus
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -48,10 +47,6 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         btn_add_link.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager)
                 .openFragment(FragmentNavigator.Screen.ADD_LINK)
-        }
-
-        btn_remove_all_links.setOnClickListener {
-            bus.sendEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
         }
 
         presenter.getActiveLinks()
