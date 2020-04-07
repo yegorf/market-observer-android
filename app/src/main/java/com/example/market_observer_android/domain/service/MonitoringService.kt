@@ -52,17 +52,25 @@ class MonitoringService : Service() {
     }
 
     private fun onResultsFound(url: String, results: List<LinkResult>) {
-        bus.sendData(Event.FIND_RESULTS, results)
-        results.forEach { res ->
-            Log.d(tag, res.toString())
-        }
-        repository.addResults(url, results)
+        val newResults = mutableListOf<LinkResult>()
+        val subscribe = repository.getResults(url)
+            .subscribe {
+                results.forEach { result ->
+                    if (!it!!.contains(result)) {
+                        newResults.add(result)
+                    }
+                }
 
-        NotificationHelper(applicationContext as Context)
-            .sendResultNotification(
-                "New results found!",
-                "Found ${results.size} results!"
-            )
+                if (newResults.isNotEmpty()) {
+                    bus.sendData(Event.FIND_RESULTS, newResults)
+                    repository.addResults(url, newResults)
+                    NotificationHelper(applicationContext as Context)
+                        .sendResultNotification(
+                            "New results found!",
+                            "Found ${newResults.size} results!"
+                        )
+                }
+            }
     }
 
     private fun registerBus() {

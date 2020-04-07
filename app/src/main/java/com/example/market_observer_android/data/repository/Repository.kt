@@ -18,4 +18,6 @@ interface Repository {
     fun deleteLink(url: String)
 
     fun addResults(url: String, results: List<LinkResult>)
+
+    fun getResults(url: String): Observable<List<LinkResult>?>
 }

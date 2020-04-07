@@ -25,4 +25,8 @@ class DataStoreProxy(
     fun addResults(url: String, results: List<LinkResult>) {
         localDataStore.addResults(url, results)
     }
+
+    fun getResults(url: String): Observable<List<LinkResult>?> {
+        return localDataStore.getResults(url)
+    }
 }

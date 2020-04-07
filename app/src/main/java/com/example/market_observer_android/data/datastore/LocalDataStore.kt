@@ -36,4 +36,11 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
         }
         realmService.addResults(url, realms)
     }
+
+    fun getResults(url: String): Observable<List<LinkResult>?> {
+        return realmService.getResults(url)
+            .map {
+                mapper.realmLinkResultListMapper().transform(it)
+            }
+    }
 }

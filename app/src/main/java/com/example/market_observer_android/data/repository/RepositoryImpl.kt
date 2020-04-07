@@ -37,4 +37,8 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
         Log.i(tag, "addResults")
         dataStore.addResults(url, results)
     }
+
+    override fun getResults(url: String): Observable<List<LinkResult>?> {
+        return dataStore.getResults(url)
+    }
 }

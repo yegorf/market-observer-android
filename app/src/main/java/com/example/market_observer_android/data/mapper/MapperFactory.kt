@@ -26,6 +26,18 @@ class MapperFactory {
 //        }
 //    }
 
+    fun realmLinkResultListMapper(): Mapper<List<LinkResultRealm>, List<LinkResult>> {
+        return object : Mapper<List<LinkResultRealm>, List<LinkResult>> {
+            override fun transform(entity: List<LinkResultRealm>): List<LinkResult> {
+                val list = mutableListOf<LinkResult>()
+                entity.forEach {
+                    list.add(realmLinkResultMapper().transform(it))
+                }
+                return list
+            }
+        }
+    }
+
     fun realmLinkResultMapper(): Mapper<LinkResultRealm, LinkResult> {
         return object : Mapper<LinkResultRealm, LinkResult> {
             override fun transform(entity: LinkResultRealm): LinkResult {

@@ -1,9 +1,7 @@
 package com.example.market_observer_android.data.local
 
-import com.example.market_observer_android.common.application.Application
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
-import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
 import io.realm.Realm
 import io.realm.RealmResults
@@ -52,5 +50,30 @@ class RealmService {
                 it.insertOrUpdate(link)
             }
         }
+    }
+
+    fun getResults(url: String): Observable<List<LinkResultRealm>?> {
+//        val link = realm.where(LinkRealm::class.java)
+//            .equalTo("url", url)
+//            .findFirst()
+//
+//        if (link != null) {
+//            return Observable.just(link.results)
+//        }
+//
+//        return Observable.empty()
+
+        var result: Observable<List<LinkResultRealm>?> = Observable.empty()
+        realm = Realm.getDefaultInstance()
+        realm.executeTransaction {
+            val link = realm.where(LinkRealm::class.java)
+                .equalTo("url", url)
+                .findFirst()
+
+            if (link != null) {
+                result = Observable.just(link.results)
+            }
+        }
+        return result
     }
 }
