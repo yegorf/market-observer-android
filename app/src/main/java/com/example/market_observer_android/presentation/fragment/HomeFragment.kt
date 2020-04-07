@@ -58,7 +58,12 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     }
 
     override fun setActiveLinks(links: List<ActiveLink>?) {
-        adapter.setData(links)
+        if (links != null && links.isNotEmpty()) {
+            tv_list_empty.visibility = View.GONE
+            adapter.setData(links)
+        } else {
+            tv_list_empty.visibility = View.VISIBLE
+        }
     }
 
     override fun onLinkClick(link: ActiveLink) {

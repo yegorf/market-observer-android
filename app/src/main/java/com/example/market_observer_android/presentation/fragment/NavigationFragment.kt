@@ -27,5 +27,11 @@ class NavigationFragment : BaseFragment() {
         btn_home.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openHome()
         }
+        btn_account.setOnClickListener {
+            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.MY_ACCOUNT)
+        }
+        btn_settings.setOnClickListener {
+            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.SETTINGS)
+        }
     }
 }
