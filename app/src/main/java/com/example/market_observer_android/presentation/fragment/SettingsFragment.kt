@@ -31,7 +31,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        component.inject(this)
+        getComponent().inject(this)
         presenter.onCreate(this)
     }
 

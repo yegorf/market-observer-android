@@ -23,7 +23,7 @@ class MyAccountFragment : BaseFragment(), MyAccountView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        component.inject(this)
+        getComponent().inject(this)
         return inflater.inflate(R.layout.fragment_my_account, container, false)
     }
 

@@ -9,7 +9,9 @@ import com.example.market_observer_android.presentation.injection.PresentationMo
 
 abstract class BaseFragment : Fragment() {
 
-    protected lateinit var component: PresentationComponent
+    private lateinit var component: PresentationComponent
+
+    protected fun getComponent() = component
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

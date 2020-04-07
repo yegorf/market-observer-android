@@ -40,7 +40,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        component.inject(this)
+        getComponent().inject(this)
         presenter.onCreate(this)
         return inflater.inflate(R.layout.fragment_link_detail, container, false)
     }

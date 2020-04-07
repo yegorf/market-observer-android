@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        component.inject(this)
+        getComponent().inject(this)
         presenter.onCreate(this)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
