@@ -12,6 +12,7 @@ import com.example.market_observer_android.data.repository.Repository
 import com.example.market_observer_android.domain.injection.DaggerDomainComponent
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
+import com.example.market_observer_android.domain.notification.NotificationHelper
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -56,6 +57,12 @@ class MonitoringService : Service() {
             Log.d(tag, res.toString())
         }
         repository.addResults(url, results)
+
+        NotificationHelper(applicationContext as Context)
+            .sendResultNotification(
+                "New results found!",
+                "Found ${results.size} results!"
+            )
     }
 
     private fun registerBus() {
