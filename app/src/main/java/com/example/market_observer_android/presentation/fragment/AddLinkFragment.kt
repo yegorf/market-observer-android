@@ -50,10 +50,11 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?
-        if (link != null) {
-            setEditData(link)
+        val isEdit = link != null
+        init(isEdit)
+        if (isEdit) {
+            setEditData(link!!)
         }
     }
 
@@ -70,7 +71,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         spinner_periodicity.setSelection(selection)
     }
 
-    private fun init() {
+    private fun init(isEdit: Boolean) {
         val spinnerValues = arrayOf(5, 10, 15)
         val adapter =
             ArrayAdapter<Int>(
@@ -86,7 +87,11 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 val url = et_url.text.toString()
                 val periodicity = spinner_periodicity.selectedItem as Int
 
-                presenter.addLink(url, name, periodicity)
+                if (!isEdit) {
+                    presenter.addLink(url, name, periodicity)
+                } else {
+                    presenter.editLink(url, name, periodicity)
+                }
             } catch (e: Exception) {
                 Toast.makeText(context, "Invalid data!", Toast.LENGTH_SHORT).show()
             }

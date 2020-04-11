@@ -9,6 +9,7 @@ object PreferenceManager {
     private const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_NAME"
     private const val NOTIFICATIONS_ON = "NOTIFICATIONS_ON"
     private const val EMAIL_NOTIFICATIONS_ON = "EMAIL_NOTIFICATIONS_ON"
+    private const val LINKS_REMAINING_COUNT = "LINKS_REMAINING_COUNT"
 
     fun setNotificationsOn(isNotificationsOn: Boolean) {
         getPreference().edit().putBoolean(NOTIFICATIONS_ON, isNotificationsOn).apply()
@@ -24,6 +25,14 @@ object PreferenceManager {
 
     fun isEmailNotificationsOn(): Boolean {
         return getPreference().getBoolean(EMAIL_NOTIFICATIONS_ON, true)
+    }
+
+    fun setLinksRemainingCount(count: Int) {
+        getPreference().edit().putInt(LINKS_REMAINING_COUNT, count).apply()
+    }
+
+    fun getLinksRemainingCount(): Int {
+        return getPreference().getInt(LINKS_REMAINING_COUNT, 5)
     }
 
     private fun getPreference(): SharedPreferences {

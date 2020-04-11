@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.data.injection.DataModule
@@ -83,8 +84,12 @@ class MonitoringService : Service() {
                     subscriptions[it.url as String] =
                         Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
                             .subscribe { _ ->
-                                val results = parser.parseUrl(it.url as String)
-                                onResultsFound(it.url as String, results)
+                                try {
+                                    val results = parser.parseUrl(it.url as String)
+                                    onResultsFound(it.url as String, results)
+                                } catch (e: Exception) {
+                                    Log.e(tag, e.message!!)
+                                }
                             }
                 }
         )

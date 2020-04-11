@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
-import com.example.market_observer_android.common.event.Event
-import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.adapter.LinkAdapter
+import com.example.market_observer_android.presentation.mvp_view.HomeView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
-import com.example.market_observer_android.presentation.mvp_view.HomeView
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -41,12 +41,25 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val leftCount = PreferenceManager.getLinksRemainingCount()
+        tv_links_left.text = leftCount.toString()
+
         rv_active_links.layoutManager = LinearLayoutManager(context)
         rv_active_links.adapter = adapter
 
-        btn_add_link.setOnClickListener {
-            FragmentNavigator(activity!!.supportFragmentManager)
-                .openFragment(FragmentNavigator.Screen.ADD_LINK)
+        if (leftCount != 0) {
+            btn_add_link.setOnClickListener {
+                FragmentNavigator(activity!!.supportFragmentManager)
+                    .openFragment(FragmentNavigator.Screen.ADD_LINK)
+            }
+        } else {
+            btn_add_link.setOnClickListener {
+                Toast.makeText(
+                    context,
+                    "No links left. Delete one of exist to add the new",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         presenter.getActiveLinks()
