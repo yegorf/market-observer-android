@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.market_observer_android.R
+import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
+import kotlinx.android.synthetic.main.fragment_settings.*
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment(), SettingsView {
@@ -33,6 +34,19 @@ class SettingsFragment : BaseFragment(), SettingsView {
         super.onViewCreated(view, savedInstanceState)
         getComponent().inject(this)
         presenter.onCreate(this)
+        initSwitches()
+    }
+
+    private fun initSwitches() {
+        switch_notifications.isChecked = PreferenceManager.isNotificationsOn()
+        switch_notifications.setOnCheckedChangeListener { buttonView, isChecked ->
+            PreferenceManager.setNotificationsOn(isChecked)
+        }
+
+        switch_email.isChecked = PreferenceManager.isEmailNotificationsOn()
+        switch_email.setOnCheckedChangeListener { buttonView, isChecked ->
+            PreferenceManager.setEmailNotificationsOn(isChecked)
+        }
     }
 
     override fun onDestroy() {

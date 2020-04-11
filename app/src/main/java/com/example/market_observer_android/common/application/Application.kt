@@ -15,6 +15,8 @@ class Application : Application() {
     companion object {
         private lateinit var instance:
                 com.example.market_observer_android.common.application.Application
+
+        fun getInstance() = instance
     }
 
     override fun onCreate() {

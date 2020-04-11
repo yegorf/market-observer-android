@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.data.injection.DataModule
@@ -13,6 +12,7 @@ import com.example.market_observer_android.domain.injection.DaggerDomainComponen
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.domain.notification.NotificationHelper
+import com.example.market_observer_android.domain.util.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -64,11 +64,14 @@ class MonitoringService : Service() {
                 if (newResults.isNotEmpty()) {
                     bus.sendData(Event.FIND_RESULTS, newResults)
                     repository.addResults(url, newResults)
-                    NotificationHelper(applicationContext as Context)
-                        .sendResultNotification(
-                            "New results found!",
-                            "Found ${newResults.size} results!"
-                        )
+
+                    if (PreferenceManager.isNotificationsOn()) {
+                        NotificationHelper(applicationContext as Context)
+                            .sendResultNotification(
+                                "New results found!",
+                                "Found ${newResults.size} results!"
+                            )
+                    }
                 }
             }
     }

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">market-observer-android</string>
+    <string name="app_name">Web observer</string>
+    <string name="delete">delete</string>
+    <string name="edit">edit</string>
 </resources>

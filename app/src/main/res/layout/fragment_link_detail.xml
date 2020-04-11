@@ -25,13 +25,13 @@
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="edit"/>
+            android:text="@string/edit"/>
 
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="delete"/>
+            android:text="@string/delete"/>
 
     </LinearLayout>
 
@@ -71,7 +71,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_link_results"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_link_result"/>
 
     </LinearLayout>
 
