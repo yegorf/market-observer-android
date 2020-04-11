@@ -1,4 +1,4 @@
-package com.example.market_observer_android.domain.service
+package com.example.market_observer_android.domain.util
 
 import com.example.market_observer_android.domain.model.LinkResult
 import org.jsoup.Jsoup

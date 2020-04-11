@@ -13,6 +13,7 @@ import com.example.market_observer_android.domain.injection.DaggerDomainComponen
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.domain.notification.NotificationHelper
+import com.example.market_observer_android.domain.util.MarketParser
 import com.example.market_observer_android.domain.util.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

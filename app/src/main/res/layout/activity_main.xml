@@ -17,6 +17,6 @@
         android:name="com.example.market_observer_android.presentation.fragment.NavigationFragment"
         android:id="@+id/fragment_navigation"
         android:layout_width="match_parent"
-        android:layout_height="55dp" />
+        android:layout_height="50dp" />
 
 </LinearLayout>

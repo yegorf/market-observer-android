@@ -42,7 +42,11 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
         fun bind(link: ActiveLink) {
             itemView.tv_name.text = link.link.name
             itemView.tv_url.text = link.link.url
-            itemView.v_circle.setCount(link.results.size)
+            if (link.results.isNotEmpty()) {
+                itemView.v_circle.setCount(link.results.size)
+            } else {
+                itemView.v_circle.visibility = View.GONE
+            }
 
             itemView.setOnClickListener {
                 listener.onLinkClick(link)
