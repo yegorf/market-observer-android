@@ -39,13 +39,18 @@ class SettingsFragment : BaseFragment(), SettingsView {
 
     private fun initSwitches() {
         switch_notifications.isChecked = PreferenceManager.isNotificationsOn()
-        switch_notifications.setOnCheckedChangeListener { buttonView, isChecked ->
+        switch_notifications.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setNotificationsOn(isChecked)
         }
 
         switch_email.isChecked = PreferenceManager.isEmailNotificationsOn()
-        switch_email.setOnCheckedChangeListener { buttonView, isChecked ->
+        switch_email.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setEmailNotificationsOn(isChecked)
+        }
+
+        switch_observe_links.isChecked = PreferenceManager.isObserveNewLink()
+        switch_observe_links.setOnCheckedChangeListener { _, isChecked ->
+            PreferenceManager.setObserveNewLink(isChecked)
         }
     }
 

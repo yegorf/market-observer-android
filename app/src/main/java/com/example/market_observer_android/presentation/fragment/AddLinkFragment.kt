@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
@@ -80,6 +81,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 spinnerValues
             )
         spinner_periodicity.adapter = adapter
+
+        switch_observe.isChecked = PreferenceManager.isObserveNewLink()
 
         btn_add_link.setOnClickListener {
             try {

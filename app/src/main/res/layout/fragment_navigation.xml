@@ -6,6 +6,12 @@
     android:background="@android:color/white"
     android:elevation="20dp">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/colorSilver"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/btn_home"
         android:layout_width="48dp"

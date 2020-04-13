@@ -3,6 +3,7 @@ package com.example.market_observer_android.domain.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.market_observer_android.common.application.Application
+import java.util.*
 
 object PreferenceManager {
 
@@ -10,6 +11,7 @@ object PreferenceManager {
     private const val NOTIFICATIONS_ON = "NOTIFICATIONS_ON"
     private const val EMAIL_NOTIFICATIONS_ON = "EMAIL_NOTIFICATIONS_ON"
     private const val LINKS_REMAINING_COUNT = "LINKS_REMAINING_COUNT"
+    private const val OBSERVE_NEW_LINK = "OBSERVE_NEW_LINK"
 
     fun setNotificationsOn(isNotificationsOn: Boolean) {
         getPreference().edit().putBoolean(NOTIFICATIONS_ON, isNotificationsOn).apply()
@@ -33,6 +35,14 @@ object PreferenceManager {
 
     fun getLinksRemainingCount(): Int {
         return 5//getPreference().getInt(LINKS_REMAINING_COUNT, 5)
+    }
+
+    fun setObserveNewLink(isObserveNewLink: Boolean) {
+        getPreference().edit().putBoolean(OBSERVE_NEW_LINK, isObserveNewLink).apply()
+    }
+
+    fun isObserveNewLink(): Boolean {
+        return getPreference().getBoolean(OBSERVE_NEW_LINK, false)
     }
 
     private fun getPreference(): SharedPreferences {
