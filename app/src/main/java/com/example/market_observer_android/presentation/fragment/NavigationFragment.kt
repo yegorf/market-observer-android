@@ -1,13 +1,11 @@
 package com.example.market_observer_android.presentation.fragment
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.market_observer_android.R
-import com.example.market_observer_android.domain.notification.NotificationHelper
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import kotlinx.android.synthetic.main.fragment_navigation.*
 
@@ -30,6 +28,8 @@ class NavigationFragment : BaseFragment() {
         list.add(btn_account)
         list.add(btn_history)
         list.add(btn_settings)
+
+        chooseSection(btn_home)
 
         setOnClickListeners()
     }
@@ -55,9 +55,9 @@ class NavigationFragment : BaseFragment() {
     private fun chooseSection(view: View) {
         list.forEach {
             if (it == view) {
-                it.setBackgroundColor(Color.WHITE)
+                it.setBackgroundResource(R.drawable.selected)
             } else {
-                it.setBackgroundColor(0)
+                it.setBackgroundResource(0)
             }
         }
     }
