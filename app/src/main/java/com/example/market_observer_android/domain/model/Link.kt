@@ -5,5 +5,6 @@ import java.io.Serializable
 data class Link(
     var url: String? = null,
     var name: String? = null,
-    var periodicity: Int = 0
+    var periodicity: Int = 0,
+    var isActive: Boolean = true
 ) : Serializable

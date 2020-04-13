@@ -64,7 +64,7 @@ class MapperFactory {
 
                     links.add(
                         ActiveLink(
-                            Link(it.url, it.name, it.periodicity),
+                            Link(it.url, it.name, it.periodicity, it.isActive),
                             results
                         )
                     )

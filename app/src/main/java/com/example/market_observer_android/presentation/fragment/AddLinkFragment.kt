@@ -86,11 +86,12 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 val name = et_name.text.toString()
                 val url = et_url.text.toString()
                 val periodicity = spinner_periodicity.selectedItem as Int
-
+                val isObserve = switch_observe.isChecked
+                val link = Link(url, name, periodicity, isObserve)
                 if (!isEdit) {
-                    presenter.addLink(url, name, periodicity)
+                    presenter.addLink(link)
                 } else {
-                    presenter.editLink(url, name, periodicity)
+                    presenter.editLink(link)
                 }
             } catch (e: Exception) {
                 Toast.makeText(context, "Invalid data!", Toast.LENGTH_SHORT).show()

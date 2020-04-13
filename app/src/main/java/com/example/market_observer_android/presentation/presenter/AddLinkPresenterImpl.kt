@@ -12,16 +12,20 @@ class AddLinkPresenterImpl(val repository: Repository) : AddLinkPresenter,
 
     private val bus = RxBus
 
-    override fun addLink(url: String, name: String, periodicity: Int) {
+    override fun addLink(link: Link) {
         PreferenceManager.setLinksRemainingCount(PreferenceManager.getLinksRemainingCount() - 1)
-        repository.addLink(Link(url, name, periodicity))
-        bus.sendData(Event.ADD_LINK_TO_OBSERVE, Link(url, name, periodicity))
+        repository.addLink(link)
+        if (link.isActive) {
+            bus.sendData(Event.ADD_LINK_TO_OBSERVE, link)
+        }
         view?.onSuccess()
     }
 
-    override fun editLink(url: String, name: String, periodicity: Int) {
-        repository.addLink(Link(url, name, periodicity))
-        bus.sendData(Event.ADD_LINK_TO_OBSERVE, Link(url, name, periodicity))
+    override fun editLink(link: Link) {
+        repository.addLink(link)
+        if (link.isActive) {
+            bus.sendData(Event.ADD_LINK_TO_OBSERVE, link)
+        }
         view?.onSuccess()
     }
 }

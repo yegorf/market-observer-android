@@ -16,8 +16,8 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideHomePresenter(getActiveLinksUseCase: GetActiveLinksUseCase): HomePresenter {
-        return HomePresenterImpl(getActiveLinksUseCase)
+    fun provideHomePresenter(repository: Repository, getActiveLinksUseCase: GetActiveLinksUseCase): HomePresenter {
+        return HomePresenterImpl(repository, getActiveLinksUseCase)
     }
 
     @Provides

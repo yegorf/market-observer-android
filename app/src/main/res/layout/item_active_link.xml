@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:background="@drawable/bg_active_link_item"
     android:layout_marginTop="8dp"
@@ -14,6 +14,17 @@
     android:paddingEnd="4dp"
     android:elevation="6dp"
     android:translationY="-2dp">
+
+    <ImageView
+        android:id="@+id/btn_activate_link"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_eye_closed"
+        tools:src="@drawable/ic_eye_opened"/>
+
+    <Space
+        android:layout_width="5dp"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,7 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Iphone 11"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_url"

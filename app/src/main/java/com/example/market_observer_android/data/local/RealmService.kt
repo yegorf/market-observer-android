@@ -5,20 +5,19 @@ import com.example.market_observer_android.data.local.realm_entity.LinkResultRea
 import io.reactivex.Observable
 import io.realm.Realm
 import io.realm.RealmResults
-import java.util.*
 
 class RealmService {
 
     var realm: Realm = Realm.getDefaultInstance()
 
-    fun addLink(url: String?, name: String?, periodicity: Int) {
+    fun addLink(url: String?, name: String?, periodicity: Int, isActive: Boolean) {
         realm.executeTransaction {
             val link = LinkRealm()
-            link.id = UUID.randomUUID().toString()
             link.name = name
             link.periodicity = periodicity
             link.url = url
-            it.insert(link)
+            link.isActive = isActive
+            it.insertOrUpdate(link)
         }
     }
 

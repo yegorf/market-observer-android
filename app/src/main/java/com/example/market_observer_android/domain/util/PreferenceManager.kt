@@ -32,7 +32,7 @@ object PreferenceManager {
     }
 
     fun getLinksRemainingCount(): Int {
-        return getPreference().getInt(LINKS_REMAINING_COUNT, 5)
+        return 5//getPreference().getInt(LINKS_REMAINING_COUNT, 5)
     }
 
     private fun getPreference(): SharedPreferences {

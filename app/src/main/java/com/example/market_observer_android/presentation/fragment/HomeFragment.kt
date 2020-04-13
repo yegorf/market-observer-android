@@ -86,4 +86,8 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     override fun onLinkLongClick(link: ActiveLink) {
         FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link.link)
     }
+
+    override fun onEyeClick(link: ActiveLink) {
+        presenter.updateLink(link)
+    }
 }

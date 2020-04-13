@@ -8,16 +8,18 @@ import retrofit2.http.Field
 
 open class LinkRealm(
 
-    @PrimaryKey
-    var id: String? = null,
+//    @PrimaryKey
+//    var id: String? = null,
 
-    @Required
+    @PrimaryKey
     var url: String? = null,
 
     var name: String? = null,
 
     var periodicity: Int = 0,
 
-    var results: RealmList<LinkResultRealm>? = null
+    var results: RealmList<LinkResultRealm>? = null,
+
+    var isActive: Boolean = true
 
 ) : RealmObject()
