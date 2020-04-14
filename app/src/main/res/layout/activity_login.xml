@@ -40,27 +40,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in"/>
+            android:text="@string/sign_in"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/bg_button"/>
 
         <Space
             android:layout_width="10dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"/>
+            android:text="@string/sign_up"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/bg_button"/>
 
     </LinearLayout>
 
