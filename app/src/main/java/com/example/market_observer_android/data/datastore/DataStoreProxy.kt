@@ -29,4 +29,12 @@ class DataStoreProxy(
     fun getResults(url: String): Observable<List<LinkResult>?> {
         return localDataStore.getResults(url)
     }
+
+    fun signUp(email: String, password: String): Observable<Boolean> {
+        return remoteDataStore.signUp(email, password)
+    }
+
+    fun signIn(email: String, password: String): Observable<Boolean> {
+        return remoteDataStore.signIn(email, password)
+    }
 }

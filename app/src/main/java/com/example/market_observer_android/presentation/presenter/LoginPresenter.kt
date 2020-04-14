@@ -1,11 +1,10 @@
 package com.example.market_observer_android.presentation.presenter
 
-import com.example.market_observer_android.data.entity.CredentialsEntity
 import com.example.market_observer_android.presentation.mvp_view.LoginView
 
 interface LoginPresenter : BasePresenter<LoginView> {
 
-    fun register(credentialsEntity: CredentialsEntity)
+    fun signUp(email: String, password: String)
 
-    fun login(credentialsEntity: CredentialsEntity)
+    fun signIn(email: String, password: String)
 }

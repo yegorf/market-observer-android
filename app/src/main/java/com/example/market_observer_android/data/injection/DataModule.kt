@@ -3,6 +3,7 @@ package com.example.market_observer_android.data.injection
 import com.example.market_observer_android.data.datastore.DataStoreProxy
 import com.example.market_observer_android.data.datastore.LocalDataStore
 import com.example.market_observer_android.data.datastore.RemoteDataStore
+import com.example.market_observer_android.data.firebase.FirebaseService
 import com.example.market_observer_android.data.local.RealmService
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.data.repository.Repository
@@ -38,8 +39,8 @@ class DataModule {
     }
 
     @Provides
-    fun provideRemoteDataStore(restApi: RestApi): RemoteDataStore {
-        return RemoteDataStore(restApi)
+    fun provideRemoteDataStore(firebaseService: FirebaseService): RemoteDataStore {
+        return RemoteDataStore(firebaseService)
     }
 
     @Provides
@@ -61,6 +62,11 @@ class DataModule {
     @Provides
     fun provideRealmService(): RealmService {
         return RealmService()
+    }
+
+    @Provides
+    fun provideFirebaseService(): FirebaseService {
+        return FirebaseService()
     }
 
     @Provides
