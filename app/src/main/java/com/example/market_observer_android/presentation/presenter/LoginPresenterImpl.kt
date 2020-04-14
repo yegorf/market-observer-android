@@ -1,6 +1,5 @@
 package com.example.market_observer_android.presentation.presenter
 
-import android.util.Log
 import com.example.market_observer_android.common.util.UseCaseObserver
 import com.example.market_observer_android.data.repository.Repository
 import com.example.market_observer_android.presentation.mvp_view.LoginView
@@ -34,13 +33,11 @@ class LoginPresenterImpl(val repository: Repository) : LoginPresenter,
             override fun onComplete() {
                 super.onComplete()
                 view?.openHomeScreen()
-                Log.d(tag, "success")
             }
 
             override fun onError(e: Throwable) {
                 super.onError(e)
                 view?.showErrorPopup(e.message!!)
-                Log.d(tag, "error: ${e.message}")
             }
         }
     }
@@ -50,12 +47,12 @@ class LoginPresenterImpl(val repository: Repository) : LoginPresenter,
 
             override fun onComplete() {
                 super.onComplete()
-                Log.d(tag, "success")
+                view?.openHomeScreen()
             }
 
             override fun onError(e: Throwable) {
                 super.onError(e)
-                Log.d(tag, "error: ${e.message}")
+                view?.showErrorPopup(e.message!!)
             }
         }
     }

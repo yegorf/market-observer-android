@@ -1,13 +1,11 @@
 package com.example.market_observer_android.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.presentation.mvp_view.LoginView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -22,15 +20,6 @@ class LoginActivity : BaseActivity(), LoginView {
         component.inject(this)
         presenter.onCreate(this)
         initViews()
-
-        //FirebaseAuth.getInstance().signOut()
-
-//        val user = FirebaseAuth.getInstance().currentUser
-//        if (user != null) {
-//            Log.d("jija", "${user.email}")
-//        } else {
-//            Log.d("jija", "no user")
-//        }
     }
 
     private fun initViews() {
@@ -59,6 +48,6 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun showErrorPopup(error: String) {
-        Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 }
