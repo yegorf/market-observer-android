@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/btn_activate_link"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_eye_closed"
         tools:src="@drawable/ic_eye_opened"/>
 
@@ -38,13 +38,14 @@
             android:layout_height="wrap_content"
             tools:text="Iphone 11"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/tv_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="www.olx.com"/>
+            tools:text="www.olx.com"
+            android:textSize="14sp"/>
 
     </LinearLayout>
 

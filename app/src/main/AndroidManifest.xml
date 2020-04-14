@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".domain.service.MonitoringService" />
-        <activity android:name=".presentation.activity.MainActivity"
-            android:theme="@style/MainTheme">
+        <activity android:name=".presentation.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
