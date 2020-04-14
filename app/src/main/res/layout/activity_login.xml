@@ -48,27 +48,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_in"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/bg_button"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_login"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/sign_in"-->
+<!--            android:textColor="@color/colorWhite"-->
+<!--            android:background="@drawable/bg_button"/>-->
+
+        <com.example.market_observer_android.presentation.view.StyledButton
+                android:id="@+id/btn_login"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"/>
 
         <Space
             android:layout_width="10dp"
             android:layout_height="match_parent"/>
 
-        <Button
+        <com.example.market_observer_android.presentation.view.StyledButton
             android:id="@+id/btn_register"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/bg_button"/>
+            android:text="@string/sign_up" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_register"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/sign_up"-->
+<!--            android:textColor="@color/colorWhite"-->
+<!--            android:background="@drawable/bg_button"/>-->
 
     </LinearLayout>
 

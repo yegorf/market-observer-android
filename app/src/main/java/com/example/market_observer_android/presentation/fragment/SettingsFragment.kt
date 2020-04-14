@@ -9,6 +9,7 @@ import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment(), SettingsView {
@@ -27,29 +28,26 @@ class SettingsFragment : BaseFragment(), SettingsView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         getComponent().inject(this)
         presenter.onCreate(this)
-        initSwitches()
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        initSwitches(view)
+        return view
     }
 
-    private fun initSwitches() {
-        switch_notifications.isChecked = PreferenceManager.isNotificationsOn()
-        switch_notifications.setOnCheckedChangeListener { _, isChecked ->
+    private fun initSwitches(view: View) {
+        view.switch_notifications.isChecked = PreferenceManager.isNotificationsOn()
+        view.switch_notifications.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setNotificationsOn(isChecked)
         }
 
-        switch_email.isChecked = PreferenceManager.isEmailNotificationsOn()
-        switch_email.setOnCheckedChangeListener { _, isChecked ->
+        view.switch_email.isChecked = PreferenceManager.isEmailNotificationsOn()
+        view.switch_email.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setEmailNotificationsOn(isChecked)
         }
 
-        switch_observe_links.isChecked = PreferenceManager.isObserveNewLink()
-        switch_observe_links.setOnCheckedChangeListener { _, isChecked ->
+        view.switch_observe_links.isChecked = PreferenceManager.isObserveNewLink()
+        view.switch_observe_links.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setObserveNewLink(isChecked)
         }
     }

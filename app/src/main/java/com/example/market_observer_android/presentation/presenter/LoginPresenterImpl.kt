@@ -10,13 +10,6 @@ class LoginPresenterImpl(val repository: Repository) : LoginPresenter,
 
     private val tag = LoginPresenterImpl::class.java.simpleName
 
-    override fun onCreate(view: LoginView) {
-        super.onCreate(view)
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            view.openHomeScreen()
-        }
-    }
-
     override fun signUp(email: String, password: String) {
         repository.signUp(email, password)
             .subscribe(getSignUpObserver())
