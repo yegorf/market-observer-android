@@ -90,4 +90,6 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     override fun onEyeClick(link: ActiveLink) {
         presenter.updateLink(link)
     }
+
+    override fun hasNavigationArrow() = false
 }

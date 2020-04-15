@@ -89,4 +89,6 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         intent.data = Uri.parse(url)
         activity!!.startActivity(intent)
     }
+
+    override fun hasNavigationArrow() = true
 }

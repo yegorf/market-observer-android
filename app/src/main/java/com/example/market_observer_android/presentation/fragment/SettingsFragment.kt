@@ -58,4 +58,6 @@ class SettingsFragment : BaseFragment(), SettingsView {
         super.onDestroy()
         presenter.onDestroy()
     }
+
+    override fun hasNavigationArrow() = false
 }

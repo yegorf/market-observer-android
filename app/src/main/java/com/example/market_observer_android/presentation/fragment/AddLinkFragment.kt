@@ -10,10 +10,12 @@ import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.util.PreferenceManager
+import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
 import kotlinx.android.synthetic.main.fragment_add_link.*
+import kotlinx.android.synthetic.main.fragment_add_link.view.*
 import javax.inject.Inject
 
 class AddLinkFragment : BaseFragment(), AddLinkView {
@@ -39,40 +41,24 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         }
     }
 
+    override fun hasNavigationArrow() = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_add_link, container, false)
         getComponent().inject(this)
         presenter.onCreate(this)
-        return inflater.inflate(R.layout.fragment_add_link, container, false)
+        init(view)
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun init(view: View) {
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?
         val isEdit = link != null
-        init(isEdit)
-        if (isEdit) {
-            setEditData(link!!)
-        }
-    }
 
-    private fun setEditData(link: Link) {
-        et_name.setText(link.name)
-        et_url.setText(link.url)
-
-        val selection = when (link.periodicity) {
-            5 -> 0
-            10 -> 1
-            15 -> 2
-            else -> 0
-        }
-        spinner_periodicity.setSelection(selection)
-    }
-
-    private fun init(isEdit: Boolean) {
         val spinnerValues = arrayOf(5, 10, 15)
         val adapter =
             ArrayAdapter<Int>(
@@ -80,11 +66,9 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 android.R.layout.simple_spinner_item,
                 spinnerValues
             )
-        spinner_periodicity.adapter = adapter
-
-        switch_observe.isChecked = PreferenceManager.isObserveNewLink()
-
-        btn_add_link.setOnClickListener {
+        view.spinner_periodicity.adapter = adapter
+        view.switch_observe.isChecked = PreferenceManager.isObserveNewLink()
+        view.btn_add_link.setOnClickListener {
             try {
                 val name = et_name.text.toString()
                 val url = et_url.text.toString()
@@ -100,9 +84,26 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 Toast.makeText(context, "Invalid data!", Toast.LENGTH_SHORT).show()
             }
         }
-        btn_cancel_link.setOnClickListener {
+        view.btn_cancel_link.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
         }
+
+        if (isEdit) {
+            setEditData(view, link!!)
+        }
+    }
+
+    private fun setEditData(view: View, link: Link) {
+        view.et_name.setText(link.name)
+        view.et_url.setText(link.url)
+
+        val selection = when (link.periodicity) {
+            5 -> 0
+            10 -> 1
+            15 -> 2
+            else -> 0
+        }
+        view.spinner_periodicity.setSelection(selection)
     }
 
     override fun onSuccess() {

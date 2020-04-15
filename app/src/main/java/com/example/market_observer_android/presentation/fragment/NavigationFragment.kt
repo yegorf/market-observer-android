@@ -61,4 +61,6 @@ class NavigationFragment : BaseFragment() {
             }
         }
     }
+
+    override fun hasNavigationArrow() = false
 }

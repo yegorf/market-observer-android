@@ -31,4 +31,6 @@ class MyAccountFragment : BaseFragment(), MyAccountView {
         super.onViewCreated(view, savedInstanceState)
         presenter.onCreate(this)
     }
+
+    override fun hasNavigationArrow() = false
 }
