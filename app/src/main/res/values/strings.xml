@@ -16,8 +16,9 @@
     <string name="contact_us">contact us</string>
     <string name="email">email</string>
     <string name="password">password</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="sign_in">sign in</string>
+    <string name="sign_up">sign up</string>
     <string name="no_results_found_yet">No results found yet</string>
     <string name="found_results">Found results:</string>
+    <string name="sign_out">sign out</string>
 </resources>

@@ -14,8 +14,12 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
 
     private val tag = RepositoryImpl::class.java.simpleName
 
-    override fun login(credentialsEntity: CredentialsEntity): Observable<ResponseBody> {
-        return Observable.empty()//dataStore.login(credentialsEntity)
+    override fun signUp(email: String, password: String): Observable<Boolean> {
+        return dataStore.signUp(email, password)
+    }
+
+    override fun signIn(email: String, password: String): Observable<Boolean> {
+        return dataStore.signIn(email, password)
     }
 
     override fun getActiveLinks(): Observable<List<ActiveLink>> {

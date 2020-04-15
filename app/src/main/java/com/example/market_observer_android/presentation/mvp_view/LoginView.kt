@@ -4,5 +4,5 @@ interface LoginView {
 
     fun openHomeScreen()
 
-    fun showErrorPopup()
+    fun showErrorPopup(error: String)
 }

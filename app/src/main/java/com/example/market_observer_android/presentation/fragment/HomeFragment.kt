@@ -14,6 +14,7 @@ import com.example.market_observer_android.presentation.mvp_view.HomeView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
@@ -33,27 +34,27 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         getComponent().inject(this)
         presenter.onCreate(this)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        init(view)
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    private fun init(view: View) {
         val leftCount = PreferenceManager.getLinksRemainingCount()
-        tv_links_left.text = leftCount.toString()
+        view.tv_links_left.text = leftCount.toString()
 
-        rv_active_links.layoutManager = LinearLayoutManager(context)
-        rv_active_links.adapter = adapter
+        view.rv_active_links.layoutManager = LinearLayoutManager(context)
+        view.rv_active_links.adapter = adapter
 
         if (leftCount != 0) {
-            btn_add_link.setOnClickListener {
+            view.btn_add_link.setOnClickListener {
                 FragmentNavigator(activity!!.supportFragmentManager)
                     .openFragment(FragmentNavigator.Screen.ADD_LINK)
             }
         } else {
-            btn_add_link.setOnClickListener {
+            view.btn_add_link.setOnClickListener {
                 Toast.makeText(
                     context,
                     "No links left. Delete one of exist to add the new",
