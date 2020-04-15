@@ -13,6 +13,7 @@ import com.example.market_observer_android.presentation.adapter.LinkAdapter
 import com.example.market_observer_android.presentation.mvp_view.HomeView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.HomePresenter
+import kotlinx.android.synthetic.main.fragment_add_link.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import javax.inject.Inject
@@ -42,27 +43,8 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
     }
 
     private fun init(view: View) {
-        val leftCount = PreferenceManager.getLinksRemainingCount()
-        view.tv_links_left.text = leftCount.toString()
-
         view.rv_active_links.layoutManager = LinearLayoutManager(context)
         view.rv_active_links.adapter = adapter
-
-        if (leftCount != 0) {
-            view.btn_add_link.setOnClickListener {
-                FragmentNavigator(activity!!.supportFragmentManager)
-                    .openFragment(FragmentNavigator.Screen.ADD_LINK)
-            }
-        } else {
-            view.btn_add_link.setOnClickListener {
-                Toast.makeText(
-                    context,
-                    "No links left. Delete one of exist to add the new",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
         presenter.getActiveLinks()
     }
 
