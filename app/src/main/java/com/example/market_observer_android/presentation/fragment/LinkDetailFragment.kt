@@ -6,15 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
+import com.example.market_observer_android.presentation.util.convertDpToPixel
+import com.example.market_observer_android.presentation.view.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragment_link_detail.*
 import javax.inject.Inject
+
 
 class LinkDetailFragment : BaseFragment(), LinkDetailView,
     LinkResultAdapter.LinkResultListener {
@@ -68,13 +71,17 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
                 presenter.deleteLink(link.url as String)
             }
         }
-
+9
         if (results.isEmpty()) {
             results_container.visibility = View.GONE
         } else {
             tv_no_results.visibility = View.GONE
 
-            rv_link_results.layoutManager = LinearLayoutManager(context)
+            val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            val spacingInPixels = convertDpToPixel(10.0f, context!!).toInt()
+
+            rv_link_results.addItemDecoration(SpacesItemDecoration(spacingInPixels))
+            rv_link_results.layoutManager = manager
             rv_link_results.adapter = adapter
             adapter.setData(results)
         }

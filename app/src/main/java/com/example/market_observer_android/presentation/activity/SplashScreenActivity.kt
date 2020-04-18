@@ -20,6 +20,6 @@ class SplashScreenActivity : AppCompatActivity() {
             } else {
                 ActivityNavigator.navigateToLoginActivity(this)
             }
-        }, 800)
+        }, 400)
     }
 }

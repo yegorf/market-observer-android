@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Switch
-        android:id="@+id/switch_observe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Observe link "/>
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -49,14 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <com.example.market_observer_android.presentation.view.StyledButton
             android:id="@+id/btn_cancel_link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel"/>
 
-        <Button
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent"/>
+
+        <com.example.market_observer_android.presentation.view.StyledButton
             android:id="@+id/btn_add_link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -64,5 +64,11 @@
             android:text="@string/add"/>
 
     </LinearLayout>
+
+    <Switch
+        android:id="@+id/switch_observe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observe link "/>
 
 </LinearLayout>
