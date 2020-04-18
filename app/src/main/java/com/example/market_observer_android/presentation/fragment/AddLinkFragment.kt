@@ -2,6 +2,8 @@ package com.example.market_observer_android.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.domain.util.MarketParser
 import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
@@ -56,6 +59,26 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
     }
 
     private fun init(view: View) {
+        view.et_url.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Thread {
+                    val title = MarketParser().parseTitle(view.et_url.text.toString())
+                    activity!!.runOnUiThread {
+                        view.et_name.setText(title)
+                    }
+                }.start()
+            }
+
+        })
+
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?
         val isEdit = link != null
 

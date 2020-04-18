@@ -90,8 +90,8 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         activity!!.startActivity(intent)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         (activity as MainActivity).removeToolbarTitle()
     }
 

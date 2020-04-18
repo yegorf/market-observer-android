@@ -5,6 +5,13 @@ import org.jsoup.Jsoup
 
 class MarketParser {
 
+    fun parseTitle(url: String): String {
+        return Jsoup.connect(url)
+            .get()
+            .select("input#search-text")
+            .attr("value")
+    }
+
     fun parseUrl(url: String): List<LinkResult> {
         val document = Jsoup.connect(url).get()
         val rows = document.select("table#offers_table")[0]
