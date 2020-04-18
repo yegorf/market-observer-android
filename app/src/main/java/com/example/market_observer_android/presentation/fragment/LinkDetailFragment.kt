@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
-import com.example.market_observer_android.presentation.util.convertDpToPixel
-import com.example.market_observer_android.presentation.view.SpacesItemDecoration
 import kotlinx.android.synthetic.main.fragment_link_detail.*
 import javax.inject.Inject
 
@@ -52,6 +51,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         super.onViewCreated(view, savedInstanceState)
         presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as ActiveLink
+        (activity as MainActivity).setToolbarTitle(link.link.name!!, link.link.url!!)
         init(link)
     }
 
@@ -59,10 +59,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         val link = activeLink.link
         val results = activeLink.results
 
-        tv_name.text = link.name
-        tv_url.text = link.url
-        tv_results_count.text = results.size.toString()
-
+        //tv_results_count.text = results.size.toString()
         btn_edit.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link)
         }
@@ -71,20 +68,16 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
                 presenter.deleteLink(link.url as String)
             }
         }
-9
-        if (results.isEmpty()) {
-            results_container.visibility = View.GONE
-        } else {
-            tv_no_results.visibility = View.GONE
 
+//        if (results.isEmpty()) {
+//            results_container.visibility = View.GONE
+//        } else {
+            //tv_no_results.visibility = View.GONE
             val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            val spacingInPixels = convertDpToPixel(10.0f, context!!).toInt()
-
-            rv_link_results.addItemDecoration(SpacesItemDecoration(spacingInPixels))
             rv_link_results.layoutManager = manager
             rv_link_results.adapter = adapter
             adapter.setData(results)
-        }
+//        }
     }
 
     override fun onDeleteLink() {
@@ -95,6 +88,11 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         activity!!.startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).removeToolbarTitle()
     }
 
     override fun hasNavigationArrow() = true

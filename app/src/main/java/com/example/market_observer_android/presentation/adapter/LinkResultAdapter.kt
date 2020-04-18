@@ -53,6 +53,7 @@ class LinkResultAdapter(private val listener: LinkResultListener) : RecyclerView
             }
 
             itemView.tv_location.text = result.location
+            itemView.tv_price.text = result.price
         }
     }
 

@@ -46,7 +46,8 @@ class MapperFactory {
                     entity.title,
                     entity.imageUrl,
                     entity.time,
-                    entity.location
+                    entity.location,
+                    entity.price
                 )
             }
         }
@@ -84,6 +85,7 @@ class MapperFactory {
                 realm.imageUrl = entity.imageUrl
                 realm.location = entity.location
                 realm.time = entity.time
+                realm.price = entity.price
                 return realm
             }
         }

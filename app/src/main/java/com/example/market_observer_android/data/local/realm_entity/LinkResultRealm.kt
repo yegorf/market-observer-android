@@ -1,6 +1,5 @@
 package com.example.market_observer_android.data.local.realm_entity
 
-import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
@@ -18,6 +17,8 @@ open class LinkResultRealm(
     var time: String? = null,
 
     var location: String? = null,
+
+    var price: String? = null,
 
     var link: LinkRealm? = null
 

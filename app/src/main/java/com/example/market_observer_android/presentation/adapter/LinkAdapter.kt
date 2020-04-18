@@ -37,11 +37,13 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
     override fun getItemCount() = data.size
 
+
     inner class LinkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(link: ActiveLink) {
             itemView.tv_name.text = link.link.name
             itemView.tv_url.text = link.link.url
+
             if (link.results.isNotEmpty()) {
                 itemView.v_circle.visibility = View.VISIBLE
                 itemView.v_circle.setCount(link.results.size)

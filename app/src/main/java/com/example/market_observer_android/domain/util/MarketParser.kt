@@ -18,13 +18,15 @@ class MarketParser {
             val img = it.select("img.fleft")
             val location = it.select("p.lheight16").select("span")[0].text()
             val time = it.select("p.lheight16").select("span")[1].text()
+            val price = it.select("p.price").text()
 
             result.title = select.text()
             result.url = select.attr("href")
             result.imageUrl = img.attr("src")
             result.location = location
-
+            result.price = price
             result.time = time
+
             results.add(result)
         }
         return results
