@@ -29,10 +29,8 @@ class FirebaseService {
             .signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Log.d(tag, "$email success signIn")
                     observable.onComplete()
                 } else {
-                    Log.d(tag, "$email fail signIn")
                     observable.onError(Exception(it.exception))
                 }
             }

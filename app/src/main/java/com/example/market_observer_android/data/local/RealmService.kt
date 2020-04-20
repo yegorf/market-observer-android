@@ -2,6 +2,7 @@ package com.example.market_observer_android.data.local
 
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.realm.Realm
 import io.realm.RealmResults
@@ -12,12 +13,14 @@ class RealmService {
 
     fun addLink(linkRealm: LinkRealm) {
         realm.executeTransaction {
+            linkRealm.userUid = FirebaseAuth.getInstance().currentUser?.uid
             it.insertOrUpdate(linkRealm)
         }
     }
 
     fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
         return realm.where(LinkRealm::class.java)
+            .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
             .findAll()
             .asFlowable()
             .toObservable()
@@ -26,6 +29,7 @@ class RealmService {
     fun deleteLink(url: String) {
         realm.executeTransaction {
             it.where(LinkRealm::class.java)
+                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
                 .equalTo("url", url)
                 .findAll()
                 .deleteAllFromRealm()
@@ -36,6 +40,7 @@ class RealmService {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = it.where(LinkRealm::class.java)
+                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
                 .equalTo("url", url)
                 .findFirst()
 
@@ -47,20 +52,11 @@ class RealmService {
     }
 
     fun getResults(url: String): Observable<List<LinkResultRealm>?> {
-//        val link = realm.where(LinkRealm::class.java)
-//            .equalTo("url", url)
-//            .findFirst()
-//
-//        if (link != null) {
-//            return Observable.just(link.results)
-//        }
-//
-//        return Observable.empty()
-
         var result: Observable<List<LinkResultRealm>?> = Observable.empty()
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = realm.where(LinkRealm::class.java)
+                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
                 .equalTo("url", url)
                 .findFirst()
 
