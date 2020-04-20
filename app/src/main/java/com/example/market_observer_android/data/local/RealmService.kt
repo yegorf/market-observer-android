@@ -20,7 +20,7 @@ class RealmService {
 
     fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
         return realm.where(LinkRealm::class.java)
-            .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
+            .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
             .findAll()
             .asFlowable()
             .toObservable()
@@ -29,8 +29,8 @@ class RealmService {
     fun deleteLink(url: String) {
         realm.executeTransaction {
             it.where(LinkRealm::class.java)
-                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo("url", url)
+                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkRealm.URL, url)
                 .findAll()
                 .deleteAllFromRealm()
         }
@@ -40,8 +40,8 @@ class RealmService {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = it.where(LinkRealm::class.java)
-                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo("url", url)
+                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkRealm.URL, url)
                 .findFirst()
 
             if (link != null) {
@@ -56,8 +56,8 @@ class RealmService {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = realm.where(LinkRealm::class.java)
-                .equalTo("userUid", FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo("url", url)
+                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkRealm.URL, url)
                 .findFirst()
 
             if (link != null) {
