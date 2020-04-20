@@ -9,9 +9,11 @@ object ActivityNavigator {
 
     fun navigateToMainActivity(activity: Activity) {
         activity.startActivity(Intent(activity, MainActivity::class.java))
+        activity.finish()
     }
 
     fun navigateToLoginActivity(activity: Activity) {
         activity.startActivity(Intent(activity, LoginActivity::class.java))
+        activity.finish()
     }
 }

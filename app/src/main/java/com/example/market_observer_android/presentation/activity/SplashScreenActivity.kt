@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SplashScreenActivity : AppCompatActivity() {
 
+    private val delay = 400L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -20,6 +22,6 @@ class SplashScreenActivity : AppCompatActivity() {
             } else {
                 ActivityNavigator.navigateToLoginActivity(this)
             }
-        }, 400)
+        }, delay)
     }
 }
