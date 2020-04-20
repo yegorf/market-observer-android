@@ -4,7 +4,7 @@ import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.common.util.UseCaseObserver
 import com.example.market_observer_android.data.repository.Repository
-import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.usecase.GetActiveLinksUseCase
 import com.example.market_observer_android.presentation.mvp_view.HomeView
 
@@ -18,18 +18,18 @@ class HomePresenterImpl(
         getActiveLinksUseCase.execute(getActiveLinksObserver())
     }
 
-    override fun updateLink(link: ActiveLink) {
-        repository.addLink(link.link)
-        if (link.link.isActive) {
-            RxBus.sendData(Event.ADD_LINK_TO_OBSERVE, link.link)
+    override fun updateLink(link: Link) {
+        repository.addLink(link)
+        if (link.isActive) {
+            RxBus.sendData(Event.ADD_LINK_TO_OBSERVE, link)
         } else {
-            RxBus.sendData(Event.REMOVE_LINK_FROM_OBSERVE, link.link.url!!)
+            RxBus.sendData(Event.REMOVE_LINK_FROM_OBSERVE, link.url!!)
         }
     }
 
-    private fun getActiveLinksObserver(): UseCaseObserver<List<ActiveLink>> {
-        return object : UseCaseObserver<List<ActiveLink>>() {
-            override fun onNext(t: List<ActiveLink>) {
+    private fun getActiveLinksObserver(): UseCaseObserver<List<Link>> {
+        return object : UseCaseObserver<List<Link>>() {
+            override fun onNext(t: List<Link>) {
                 super.onNext(t)
                 view?.setActiveLinks(t)
             }

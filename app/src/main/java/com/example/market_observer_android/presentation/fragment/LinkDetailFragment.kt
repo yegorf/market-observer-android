@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
-import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
@@ -28,7 +28,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
     companion object {
         private const val LINK_ARG_KEY = "LINK_ARG_KEY"
 
-        fun newInstance(link: ActiveLink): LinkDetailFragment {
+        fun newInstance(link: Link): LinkDetailFragment {
             val fragment = LinkDetailFragment()
             val args = Bundle()
             args.putSerializable(LINK_ARG_KEY, link)
@@ -50,13 +50,13 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onCreate(this)
-        val link = arguments?.getSerializable(LINK_ARG_KEY) as ActiveLink
-        (activity as MainActivity).setToolbarTitle(link.link.name!!, link.link.url!!)
+        val link = arguments?.getSerializable(LINK_ARG_KEY) as Link
+        (activity as MainActivity).setToolbarTitle(link.name!!, link.url!!)
         init(link)
     }
 
-    private fun init(activeLink: ActiveLink) {
-        val link = activeLink.link
+    private fun init(activeLink: Link) {
+        val link = activeLink
         val results = activeLink.results
 
         //tv_results_count.text = results.size.toString()

@@ -2,7 +2,6 @@ package com.example.market_observer_android.data.mapper
 
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
-import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.realm.RealmResults
@@ -53,10 +52,10 @@ class MapperFactory {
         }
     }
 
-    fun realmLinkListMapper(): Mapper<List<LinkRealm>, List<ActiveLink>> {
-        return object : Mapper<List<LinkRealm>, List<ActiveLink>> {
-            override fun transform(entity: List<LinkRealm>): List<ActiveLink> {
-                val links = mutableListOf<ActiveLink>()
+    fun realmLinkListMapper(): Mapper<List<LinkRealm>, List<Link>> {
+        return object : Mapper<List<LinkRealm>, List<Link>> {
+            override fun transform(entity: List<LinkRealm>): List<Link> {
+                val links = mutableListOf<Link>()
                 entity.forEach {
                     val results = mutableListOf<LinkResult>()
                     it.results?.forEach { res ->
@@ -64,10 +63,7 @@ class MapperFactory {
                     }
 
                     links.add(
-                        ActiveLink(
-                            Link(it.url, it.name, it.periodicity, it.isActive),
-                            results
-                        )
+                        Link(it.url, it.name, it.periodicity, it.isActive, results)
                     )
                 }
                 return links

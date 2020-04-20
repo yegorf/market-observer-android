@@ -5,16 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.market_observer_android.R
-import com.example.market_observer_android.domain.model.ActiveLink
+import com.example.market_observer_android.domain.model.Link
 import kotlinx.android.synthetic.main.item_active_link.view.*
 
 
 class LinkAdapter(private val listener: LinkAdapterListener) :
     RecyclerView.Adapter<LinkAdapter.LinkHolder>() {
 
-    private var data = listOf<ActiveLink>()
+    private var data = listOf<Link>()
 
-    fun setData(data: List<ActiveLink>?) {
+    fun setData(data: List<Link>?) {
         if (data != null) {
             this.data = data
         }
@@ -40,9 +40,9 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
     inner class LinkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(link: ActiveLink) {
-            itemView.tv_name.text = link.link.name
-            itemView.tv_url.text = link.link.url
+        fun bind(link: Link) {
+            itemView.tv_name.text = link.name
+            itemView.tv_url.text = link.url
 
             if (link.results.isNotEmpty()) {
                 itemView.v_circle.visibility = View.VISIBLE
@@ -59,9 +59,9 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
                 true
             }
 
-            setEyeImage(link.link.isActive)
+            setEyeImage(link.isActive)
             itemView.btn_activate_link.setOnClickListener {
-                link.link.isActive = !link.link.isActive
+                link.isActive = !link.isActive
                 listener.onEyeClick(link)
             }
         }
@@ -77,10 +77,10 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
     interface LinkAdapterListener {
 
-        fun onLinkClick(link: ActiveLink)
+        fun onLinkClick(link: Link)
 
-        fun onLinkLongClick(link: ActiveLink)
+        fun onLinkLongClick(link: Link)
 
-        fun onEyeClick(link: ActiveLink)
+        fun onEyeClick(link: Link)
     }
 }

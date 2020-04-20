@@ -2,13 +2,10 @@ package com.example.market_observer_android.data.repository
 
 import android.util.Log
 import com.example.market_observer_android.data.datastore.DataStoreProxy
-import com.example.market_observer_android.data.entity.CredentialsEntity
 import com.example.market_observer_android.data.mapper.MapperFactory
-import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
-import okhttp3.ResponseBody
 
 class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) : Repository {
 
@@ -22,7 +19,7 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
         return dataStore.signIn(email, password)
     }
 
-    override fun getActiveLinks(): Observable<List<ActiveLink>> {
+    override fun getActiveLinks(): Observable<List<Link>> {
         Log.i(tag, "getActiveLinks")
         return dataStore.getAllLinks()
     }

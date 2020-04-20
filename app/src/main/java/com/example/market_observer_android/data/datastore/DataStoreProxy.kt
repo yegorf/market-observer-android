@@ -1,6 +1,5 @@
 package com.example.market_observer_android.data.datastore
 
-import com.example.market_observer_android.domain.model.ActiveLink
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
@@ -10,7 +9,7 @@ class DataStoreProxy(
     private var remoteDataStore: RemoteDataStore
 ) {
 
-    fun getAllLinks(): Observable<List<ActiveLink>> {
+    fun getAllLinks(): Observable<List<Link>> {
         return localDataStore.getAllLinks()
     }
 
