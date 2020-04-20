@@ -72,11 +72,11 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
 //        if (results.isEmpty()) {
 //            results_container.visibility = View.GONE
 //        } else {
-            //tv_no_results.visibility = View.GONE
-            val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv_link_results.layoutManager = manager
-            rv_link_results.adapter = adapter
-            adapter.setData(results)
+        //tv_no_results.visibility = View.GONE
+        val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_link_results.layoutManager = manager
+        rv_link_results.adapter = adapter
+        adapter.setData(results)
 //        }
     }
 

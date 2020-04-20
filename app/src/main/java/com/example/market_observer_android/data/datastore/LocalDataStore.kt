@@ -21,7 +21,7 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
     }
 
     fun addLink(link: Link) {
-        realmService.addLink(link.url, link.name, link.periodicity, link.isActive)
+        realmService.addLink(mapper.linkToRealmMapper().transform(link))
     }
 
     fun deleteLink(url: String) {

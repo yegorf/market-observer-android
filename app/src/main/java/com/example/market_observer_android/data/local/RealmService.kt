@@ -10,14 +10,9 @@ class RealmService {
 
     var realm: Realm = Realm.getDefaultInstance()
 
-    fun addLink(url: String?, name: String?, periodicity: Int, isActive: Boolean) {
+    fun addLink(linkRealm: LinkRealm) {
         realm.executeTransaction {
-            val link = LinkRealm()
-            link.name = name
-            link.periodicity = periodicity
-            link.url = url
-            link.isActive = isActive
-            it.insertOrUpdate(link)
+            it.insertOrUpdate(linkRealm)
         }
     }
 
