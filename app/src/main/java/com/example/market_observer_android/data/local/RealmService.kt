@@ -2,6 +2,7 @@ package com.example.market_observer_android.data.local
 
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
+import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.realm.Realm
@@ -65,5 +66,26 @@ class RealmService {
             }
         }
         return result
+    }
+
+    fun addSavedResult(result: SavedResultRealm) {
+        result.userUid = FirebaseAuth.getInstance().currentUser?.uid
+        realm = Realm.getDefaultInstance()
+        realm.executeTransaction {
+            it.insertOrUpdate(result)
+        }
+    }
+
+    fun getSavedResults(): Observable<RealmResults<SavedResultRealm>> {
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        var results: Observable<RealmResults<SavedResultRealm>> = Observable.empty()
+        realm.executeTransaction {
+            results = it.where(SavedResultRealm::class.java)
+                .equalTo(LinkRealm.USER_UID, user)
+                .findAll()
+                .asFlowable()
+                .toObservable()
+        }
+        return results
     }
 }

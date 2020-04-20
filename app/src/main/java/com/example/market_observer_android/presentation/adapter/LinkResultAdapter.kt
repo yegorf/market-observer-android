@@ -54,11 +54,18 @@ class LinkResultAdapter(private val listener: LinkResultListener) : RecyclerView
 
             itemView.tv_location.text = result.location
             itemView.tv_price.text = result.price
+
+            itemView.setOnLongClickListener {
+                listener.onResultSave(result)
+                true
+            }
         }
     }
 
     interface LinkResultListener {
 
         fun onResultClick(url: String)
+
+        fun onResultSave(result: LinkResult)
     }
 }

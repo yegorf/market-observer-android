@@ -1,6 +1,5 @@
 package com.example.market_observer_android.data.repository
 
-import android.util.Log
 import com.example.market_observer_android.data.datastore.DataStoreProxy
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.domain.model.Link
@@ -20,26 +19,30 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
     }
 
     override fun getActiveLinks(): Observable<List<Link>> {
-        Log.i(tag, "getActiveLinks")
         return dataStore.getAllLinks()
     }
 
     override fun addLink(link: Link) {
-        Log.i(tag, "addLink")
         dataStore.addLink(link)
     }
 
     override fun deleteLink(url: String) {
-        Log.i(tag, "deleteLink")
         dataStore.deleteLink(url)
     }
 
     override fun addResults(url: String, results: List<LinkResult>) {
-        Log.i(tag, "addResults")
         dataStore.addResults(url, results)
     }
 
     override fun getResults(url: String): Observable<List<LinkResult>?> {
         return dataStore.getResults(url)
+    }
+
+    override fun addSavedResult(result: LinkResult) {
+        dataStore.addSavedResult(result)
+    }
+
+    override fun getSavedResults(): Observable<List<LinkResult>> {
+        return dataStore.getSavedResults()
     }
 }

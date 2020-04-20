@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
@@ -56,28 +57,21 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
     }
 
     private fun init(activeLink: Link) {
-        val link = activeLink
         val results = activeLink.results
 
-        //tv_results_count.text = results.size.toString()
         btn_edit.setOnClickListener {
-            FragmentNavigator(activity!!.supportFragmentManager).openEditLink(link)
+            FragmentNavigator(activity!!.supportFragmentManager).openEditLink(activeLink)
         }
         btn_delete.setOnClickListener {
-            if (link.url != null) {
-                presenter.deleteLink(link.url as String)
+            if (activeLink.url != null) {
+                presenter.deleteLink(activeLink.url as String)
             }
         }
 
-//        if (results.isEmpty()) {
-//            results_container.visibility = View.GONE
-//        } else {
-        //tv_no_results.visibility = View.GONE
         val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rv_link_results.layoutManager = manager
         rv_link_results.adapter = adapter
         adapter.setData(results)
-//        }
     }
 
     override fun onDeleteLink() {
@@ -88,6 +82,10 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         activity!!.startActivity(intent)
+    }
+
+    override fun onResultSave(result: LinkResult) {
+        presenter.saveResult(result)
     }
 
     override fun onStop() {
