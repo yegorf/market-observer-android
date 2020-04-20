@@ -24,9 +24,11 @@ class LoginActivity : BaseActivity(), LoginView {
 
     private fun initViews() {
         btn_login.setOnClickListener {
+            showProgressDialog()
             signIn()
         }
         btn_register.setOnClickListener {
+            showProgressDialog()
             signUp()
         }
     }
