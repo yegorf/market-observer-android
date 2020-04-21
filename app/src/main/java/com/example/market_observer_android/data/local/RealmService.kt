@@ -1,6 +1,5 @@
 package com.example.market_observer_android.data.local
 
-import android.util.Log
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
@@ -82,15 +81,10 @@ class RealmService {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         var results: Observable<RealmResults<SavedResultRealm>> = Observable.empty()
         realm.executeTransaction {
-            val findAll = it.where(SavedResultRealm::class.java)
+            results = it.where(SavedResultRealm::class.java)
                 .equalTo(LinkRealm.USER_UID, user)
                 .findAll()
-
-            findAll.forEach { res ->
-                Log.d(tag, res.title!!)
-            }
-
-            results = findAll.asFlowable().toObservable()
+                .asFlowable().toObservable()
         }
         return results
     }

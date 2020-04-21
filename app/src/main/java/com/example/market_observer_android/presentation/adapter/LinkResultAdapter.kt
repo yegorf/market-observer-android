@@ -9,7 +9,8 @@ import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.LinkResult
 import kotlinx.android.synthetic.main.item_link_result.view.*
 
-class LinkResultAdapter(private val listener: LinkResultListener) : RecyclerView.Adapter<LinkResultAdapter.LinkResultHolder>() {
+class LinkResultAdapter(private val listener: LinkResultListener) :
+    RecyclerView.Adapter<LinkResultAdapter.LinkResultHolder>() {
 
     private var data: List<LinkResult> = ArrayList()
 

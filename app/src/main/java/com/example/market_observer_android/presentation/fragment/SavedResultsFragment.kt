@@ -10,7 +10,6 @@ import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.SavedResultsView
 import com.example.market_observer_android.presentation.presenter.SavedResultsPresenter
-import kotlinx.android.synthetic.main.fragment_link_detail.*
 import kotlinx.android.synthetic.main.fragment_saved_results.view.*
 import javax.inject.Inject
 
@@ -58,10 +57,10 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
     }
 
     override fun onResultClick(url: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onResultSave(result: LinkResult) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

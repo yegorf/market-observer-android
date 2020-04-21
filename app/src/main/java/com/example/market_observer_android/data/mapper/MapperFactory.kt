@@ -10,13 +10,13 @@ import java.util.*
 
 class MapperFactory {
 
-    fun <T> realmsToListMapper(results: RealmResults<T>): List<T> {
+    fun <T> mapRealmListToList(results: RealmResults<T>): List<T> {
         val list = mutableListOf<T>()
         list.addAll(results)
         return list
     }
 
-    fun <T> listToRealmListMapper(list: List<T>): RealmList<T> {
+    fun <T> mapListToRealmList(list: List<T>): RealmList<T> {
         val realm = RealmList<T>()
         realm.addAll(list)
         return realm
@@ -36,7 +36,12 @@ class MapperFactory {
                     realms.add(resultToRealmMapper().transform(it))
                 }
 
-                realm.results = listToRealmListMapper(realms)
+                realm.results = mapListToRealmList(
+                    entity.results.map {
+                        resultToRealmMapper().transform(it)
+                    }
+                )
+
                 return realm
             }
         }

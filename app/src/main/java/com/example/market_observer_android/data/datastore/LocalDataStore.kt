@@ -13,7 +13,7 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
     fun getAllLinks(): Observable<List<Link>> {
         return realmService.getAllLinks()
             .map {
-                mapper.realmsToListMapper(it)
+                mapper.mapRealmListToList(it)
             }
             .map { list ->
                 list.map {
