@@ -46,4 +46,9 @@ class DataStoreProxy(
         return remoteDataStore.getSavedResults()
         //return localDataStore.getSavedResults()
     }
+
+    override fun deleteSavedResults(result: LinkResult) {
+        localDataStore.deleteSavedResults(result)
+        remoteDataStore.deleteSavedResults(result)
+    }
 }

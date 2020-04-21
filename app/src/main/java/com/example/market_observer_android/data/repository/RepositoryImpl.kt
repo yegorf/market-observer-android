@@ -45,4 +45,8 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
     override fun getSavedResults(): Observable<List<LinkResult>> {
         return dataStore.getSavedResults()
     }
+
+    override fun deleteSavedResults(result: LinkResult) {
+        dataStore.deleteSavedResults(result)
+    }
 }

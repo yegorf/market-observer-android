@@ -4,6 +4,8 @@ import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.data.util.LinkStructure
+import com.example.market_observer_android.data.util.SavedResultStructure
+import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.realm.Realm
@@ -74,6 +76,16 @@ class RealmService(private var realm: Realm) {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             it.insertOrUpdate(result)
+        }
+    }
+
+    fun deleteSavedResult(result: LinkResult) {
+        realm.executeTransaction {
+            it.where(SavedResultRealm::class.java)
+                .equalTo(SavedResultStructure.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(SavedResultStructure.URL, result.url)
+                .findAll()
+                .deleteAllFromRealm()
         }
     }
 

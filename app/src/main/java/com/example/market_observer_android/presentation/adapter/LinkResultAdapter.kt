@@ -49,7 +49,7 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
             itemView.setOnClickListener {
                 if (result.url != null) {
-                    listener.onResultClick(result.url as String)
+                    listener.onResultClick(result)
                 }
             }
 
@@ -65,7 +65,7 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
     interface LinkResultListener {
 
-        fun onResultClick(url: String)
+        fun onResultClick(result: LinkResult)
 
         fun onResultSave(result: LinkResult)
     }

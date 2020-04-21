@@ -24,4 +24,8 @@ class RemoteDataStore(
     override fun getSavedResults(): Observable<List<LinkResult>> {
         return firebaseService.getSavedResults()
     }
+
+    override fun deleteSavedResults(result: LinkResult) {
+        firebaseService.deleteSavedResult(result)
+    }
 }

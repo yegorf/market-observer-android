@@ -56,11 +56,11 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
         adapter.setData(results)
     }
 
-    override fun onResultClick(url: String) {
+    override fun onResultClick(result: LinkResult) {
 
     }
 
     override fun onResultSave(result: LinkResult) {
-
+        presenter.deleteSavedResult(result)
     }
 }

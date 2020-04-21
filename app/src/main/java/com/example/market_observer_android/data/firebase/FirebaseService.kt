@@ -1,6 +1,7 @@
 package com.example.market_observer_android.data.firebase
 
 import android.util.Log
+import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.data.util.SavedResultStructure
 import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
@@ -73,5 +74,19 @@ class FirebaseService {
             }
 
         return observable
+    }
+
+    fun deleteSavedResult(result: LinkResult) {
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection("saved")
+            .whereEqualTo(SavedResultStructure.USER_UID, user)
+            .whereEqualTo(SavedResultStructure.URL, result.url)
+            .get()
+            .addOnSuccessListener { res ->
+                res.documents.forEach {
+                    Firebase.firestore.collection("saved").document(it.id).delete()
+                }
+            }
     }
 }

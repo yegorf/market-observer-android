@@ -8,4 +8,6 @@ interface DataStore {
     fun addSavedResult(result: LinkResult)
 
     fun getSavedResults(): Observable<List<LinkResult>>
+
+    fun deleteSavedResults(result: LinkResult)
 }

@@ -78,9 +78,9 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
     }
 
-    override fun onResultClick(url: String) {
+    override fun onResultClick(result: LinkResult) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
+        intent.data = Uri.parse(result.url)
         activity!!.startActivity(intent)
     }
 

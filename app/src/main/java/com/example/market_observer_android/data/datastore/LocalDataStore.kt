@@ -59,4 +59,8 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
                 }
             }
     }
+
+    override fun deleteSavedResults(result: LinkResult) {
+        realmService.deleteSavedResult(result)
+    }
 }
