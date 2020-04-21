@@ -1,7 +1,6 @@
 package com.example.market_observer_android.data.datastore
 
 import com.example.market_observer_android.data.local.RealmService
-import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.domain.model.Link
@@ -16,8 +15,10 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
             .map {
                 mapper.realmsToListMapper(it)
             }
-            .map {
-                mapper.realmLinkListMapper().transform(it)
+            .map { list ->
+                list.map {
+                    mapper.realmLinkToLinkMapper().transform(it)
+                }
             }
     }
 
@@ -30,17 +31,18 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
     }
 
     fun addResults(url: String, results: List<LinkResult>) {
-        val realms = mutableListOf<LinkResultRealm>()
-        results.forEach {
-            realms.add(mapper.resultToRealmMapper().transform(it))
-        }
-        realmService.addResults(url, realms)
+        realmService.addResults(url,
+            results.map {
+                mapper.resultToRealmMapper().transform(it)
+            })
     }
 
     fun getResults(url: String): Observable<List<LinkResult>?> {
         return realmService.getResults(url)
-            .map {
-                mapper.realmLinkResultListMapper().transform(it)
+            .map { list ->
+                list.map {
+                    mapper.realmLinkResultMapper().transform(it)
+                }
             }
     }
 
@@ -50,9 +52,10 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
 
     fun getSavedResults(): Observable<List<LinkResult>> {
         return realmService.getSavedResults()
-            .flatMapIterable { it }
-            .map { it.toLinkResult() }
-            .toList()
-            .toObservable()
+            .map { list ->
+                list.map {
+                    it.toLinkResult()
+                }
+            }
     }
 }

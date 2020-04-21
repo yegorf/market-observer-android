@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_link_result.view.*
 
 class LinkResultAdapter(private val listener: LinkResultListener) : RecyclerView.Adapter<LinkResultAdapter.LinkResultHolder>() {
 
-    private lateinit var data: List<LinkResult>
+    private var data: List<LinkResult> = ArrayList()
 
     fun setData(data: List<LinkResult>?) {
         if (data != null) {

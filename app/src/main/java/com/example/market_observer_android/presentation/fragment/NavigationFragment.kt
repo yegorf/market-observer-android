@@ -49,6 +49,7 @@ class NavigationFragment : BaseFragment() {
         }
         btn_history.setOnClickListener {
             chooseSection(it)
+            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.SAVED_RESULTS)
         }
     }
 

@@ -13,7 +13,8 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         ADD_LINK,
         LINK_RESULTS,
         MY_ACCOUNT,
-        SETTINGS
+        SETTINGS,
+        SAVED_RESULTS
     }
 
     companion object {
@@ -71,6 +72,7 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
             Screen.ADD_LINK -> AddLinkFragment.newInstance()
             Screen.MY_ACCOUNT -> MyAccountFragment.newInstance()
             Screen.SETTINGS -> SettingsFragment.newInstance()
+            Screen.SAVED_RESULTS -> SavedResultsFragment.newInstance()
             else -> null
         }
     }

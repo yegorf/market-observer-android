@@ -4,7 +4,7 @@ import com.example.market_observer_android.domain.model.LinkResult
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-class SavedResultRealm(
+open class SavedResultRealm(
     @PrimaryKey
     var url: String? = null,
 

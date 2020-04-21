@@ -2,7 +2,6 @@ package com.example.market_observer_android.data.mapper
 
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
-import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.realm.RealmList
@@ -25,40 +24,20 @@ class MapperFactory {
 
     fun linkToRealmMapper(): Mapper<Link, LinkRealm> {
         return object : Mapper<Link, LinkRealm> {
-            override fun transform(link: Link): LinkRealm {
+            override fun transform(entity: Link): LinkRealm {
                 val realm = LinkRealm()
-                realm.url = link.url
-                realm.name = link.name
-                realm.periodicity = link.periodicity
-                realm.isActive = link.isActive
+                realm.url = entity.url
+                realm.name = entity.name
+                realm.periodicity = entity.periodicity
+                realm.isActive = entity.isActive
 
                 val realms = mutableListOf<LinkResultRealm>()
-                link.results.forEach {
+                entity.results.forEach {
                     realms.add(resultToRealmMapper().transform(it))
                 }
 
                 realm.results = listToRealmListMapper(realms)
                 return realm
-            }
-        }
-    }
-
-//    fun realmLinkMapper(): Mapper<LinkRealm, ActiveLink> {
-//        return object : Mapper<LinkRealm, ActiveLink> {
-//            override fun transform(entity: LinkRealm): ActiveLink {
-//                return ActiveLink(Link(entity.url, entity.name, entity.periodicity),)
-//            }
-//        }
-//    }
-
-    fun realmLinkResultListMapper(): Mapper<List<LinkResultRealm>, List<LinkResult>> {
-        return object : Mapper<List<LinkResultRealm>, List<LinkResult>> {
-            override fun transform(entity: List<LinkResultRealm>): List<LinkResult> {
-                val list = mutableListOf<LinkResult>()
-                entity.forEach {
-                    list.add(realmLinkResultMapper().transform(it))
-                }
-                return list
             }
         }
     }
@@ -78,21 +57,20 @@ class MapperFactory {
         }
     }
 
-    fun realmLinkListMapper(): Mapper<List<LinkRealm>, List<Link>> {
-        return object : Mapper<List<LinkRealm>, List<Link>> {
-            override fun transform(entity: List<LinkRealm>): List<Link> {
-                val links = mutableListOf<Link>()
-                entity.forEach {
-                    val results = mutableListOf<LinkResult>()
-                    it.results?.forEach { res ->
-                        results.add(realmLinkResultMapper().transform(res))
+    fun realmLinkToLinkMapper(): Mapper<LinkRealm, Link> {
+        return object : Mapper<LinkRealm, Link> {
+            override fun transform(entity: LinkRealm): Link {
+                val link = Link()
+                link.url = entity.url
+                link.name = entity.name
+                link.periodicity = entity.periodicity
+                link.isActive = entity.isActive
+                if (entity.results != null) {
+                    link.results = entity.results!!.map {
+                        realmLinkResultMapper().transform(it)
                     }
-
-                    links.add(
-                        Link(it.url, it.name, it.periodicity, it.isActive, results)
-                    )
                 }
-                return links
+                return link
             }
         }
     }

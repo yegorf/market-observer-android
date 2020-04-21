@@ -1,5 +1,6 @@
 package com.example.market_observer_android.data.datastore
 
+import android.util.Log
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
