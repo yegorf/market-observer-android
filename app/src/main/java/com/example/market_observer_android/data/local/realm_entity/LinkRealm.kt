@@ -19,9 +19,4 @@ open class LinkRealm(
 
     var userUid: String? = null
 
-) : RealmObject() {
-    companion object {
-        const val URL = "url"
-        const val USER_UID = "userUid"
-    }
-}
+) : RealmObject()

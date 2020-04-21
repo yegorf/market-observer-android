@@ -12,6 +12,7 @@ import com.example.market_observer_android.data.rest.RestApi
 import com.example.market_observer_android.data.rest.RetrofitApi
 import dagger.Module
 import dagger.Provides
+import io.realm.Realm
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,8 +40,8 @@ class DataModule {
     }
 
     @Provides
-    fun provideRemoteDataStore(firebaseService: FirebaseService): RemoteDataStore {
-        return RemoteDataStore(firebaseService)
+    fun provideRemoteDataStore(firebaseService: FirebaseService, mapperFactory: MapperFactory): RemoteDataStore {
+        return RemoteDataStore(firebaseService, mapperFactory)
     }
 
     @Provides
@@ -61,7 +62,7 @@ class DataModule {
 
     @Provides
     fun provideRealmService(): RealmService {
-        return RealmService()
+        return RealmService(Realm.getDefaultInstance())
     }
 
     @Provides

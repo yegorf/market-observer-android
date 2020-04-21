@@ -3,15 +3,15 @@ package com.example.market_observer_android.data.local
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
+import com.example.market_observer_android.data.util.LinkStructure
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Observable
 import io.realm.Realm
 import io.realm.RealmResults
 
-class RealmService {
+class RealmService(private var realm: Realm) {
 
     private val tag = RealmService::class.java.simpleName
-    var realm: Realm = Realm.getDefaultInstance()
 
     fun addLink(linkRealm: LinkRealm) {
         realm.executeTransaction {
@@ -22,7 +22,7 @@ class RealmService {
 
     fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
         return realm.where(LinkRealm::class.java)
-            .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+            .equalTo(LinkStructure.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
             .findAll()
             .asFlowable()
             .toObservable()
@@ -31,8 +31,8 @@ class RealmService {
     fun deleteLink(url: String) {
         realm.executeTransaction {
             it.where(LinkRealm::class.java)
-                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo(LinkRealm.URL, url)
+                .equalTo(LinkStructure.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkStructure.URL, url)
                 .findAll()
                 .deleteAllFromRealm()
         }
@@ -42,8 +42,8 @@ class RealmService {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = it.where(LinkRealm::class.java)
-                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo(LinkRealm.URL, url)
+                .equalTo(LinkStructure.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkStructure.URL, url)
                 .findFirst()
 
             if (link != null) {
@@ -58,8 +58,8 @@ class RealmService {
         realm = Realm.getDefaultInstance()
         realm.executeTransaction {
             val link = realm.where(LinkRealm::class.java)
-                .equalTo(LinkRealm.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo(LinkRealm.URL, url)
+                .equalTo(LinkStructure.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(LinkStructure.URL, url)
                 .findFirst()
 
             if (link != null) {
@@ -82,7 +82,7 @@ class RealmService {
         var results: Observable<RealmResults<SavedResultRealm>> = Observable.empty()
         realm.executeTransaction {
             results = it.where(SavedResultRealm::class.java)
-                .equalTo(LinkRealm.USER_UID, user)
+                .equalTo(LinkStructure.USER_UID, user)
                 .findAll()
                 .asFlowable().toObservable()
         }

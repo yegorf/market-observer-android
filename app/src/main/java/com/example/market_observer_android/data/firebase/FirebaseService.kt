@@ -1,6 +1,7 @@
 package com.example.market_observer_android.data.firebase
 
 import android.util.Log
+import com.example.market_observer_android.data.util.SavedResultStructure
 import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -41,7 +42,7 @@ class FirebaseService {
     }
 
     fun addSavedResult(result: HashMap<String, String?>) {
-        result["user_uid"] = FirebaseAuth.getInstance().currentUser?.uid
+        result[SavedResultStructure.USER_UID] = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
             .add(result)
@@ -59,7 +60,7 @@ class FirebaseService {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
-            .whereEqualTo("user_uid", user)
+            .whereEqualTo(SavedResultStructure.USER_UID, user)
             .get()
             .addOnSuccessListener { result ->
                 val results = result.map {
@@ -68,7 +69,6 @@ class FirebaseService {
                 observable.onNext(results)
             }
             .addOnFailureListener { exception ->
-                Log.w(tag, "Error getting documents.", exception)
                 observable.onError(exception)
             }
 
