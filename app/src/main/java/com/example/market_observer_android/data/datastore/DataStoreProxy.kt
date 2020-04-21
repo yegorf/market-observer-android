@@ -38,10 +38,12 @@ class DataStoreProxy(
     }
 
     fun addSavedResult(result: LinkResult) {
-        return localDataStore.addSavedResult(result)
+        localDataStore.addSavedResult(result)
+        remoteDataStore.addSavedResult(result)
     }
 
     fun getSavedResults(): Observable<List<LinkResult>> {
+        remoteDataStore.getSavedResults()
         return localDataStore.getSavedResults()
     }
 }
