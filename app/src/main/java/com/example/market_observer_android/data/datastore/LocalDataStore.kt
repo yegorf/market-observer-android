@@ -8,7 +8,8 @@ import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
 
 
-class LocalDataStore(private val realmService: RealmService, private val mapper: MapperFactory) {
+class LocalDataStore(private val realmService: RealmService, private val mapper: MapperFactory) :
+    DataStore {
 
     fun getAllLinks(): Observable<List<Link>> {
         return realmService.getAllLinks()
@@ -46,11 +47,11 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
             }
     }
 
-    fun addSavedResult(result: LinkResult) {
+    override fun addSavedResult(result: LinkResult) {
         realmService.addSavedResult(SavedResultRealm.fromLinkResult(result))
     }
 
-    fun getSavedResults(): Observable<List<LinkResult>> {
+    override fun getSavedResults(): Observable<List<LinkResult>> {
         return realmService.getSavedResults()
             .map { list ->
                 list.map {

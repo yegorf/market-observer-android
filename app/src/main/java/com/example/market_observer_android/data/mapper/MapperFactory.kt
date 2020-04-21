@@ -4,9 +4,11 @@ import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
+import com.google.firebase.auth.FirebaseAuth
 import io.realm.RealmList
 import io.realm.RealmResults
 import java.util.*
+import kotlin.collections.HashMap
 
 class MapperFactory {
 
@@ -92,6 +94,21 @@ class MapperFactory {
                 realm.time = entity.time
                 realm.price = entity.price
                 return realm
+            }
+        }
+    }
+
+    fun resultToMapMapper(): Mapper<LinkResult, HashMap<String, String?>> {
+        return object : Mapper<LinkResult, HashMap<String, String?>> {
+            override fun transform(entity: LinkResult): HashMap<String, String?> {
+                return hashMapOf(
+                    "url" to entity.url,
+                    "title" to entity.title,
+                    "imageUrl" to entity.imageUrl,
+                    "price" to entity.price,
+                    "location" to entity.location,
+                    "time" to entity.time
+                )
             }
         }
     }

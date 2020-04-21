@@ -7,7 +7,7 @@ import io.reactivex.Observable
 class DataStoreProxy(
     private var localDataStore: LocalDataStore,
     private var remoteDataStore: RemoteDataStore
-) {
+) : DataStore {
 
     fun getAllLinks(): Observable<List<Link>> {
         return localDataStore.getAllLinks()
@@ -37,13 +37,13 @@ class DataStoreProxy(
         return remoteDataStore.signIn(email, password)
     }
 
-    fun addSavedResult(result: LinkResult) {
+    override fun addSavedResult(result: LinkResult) {
         localDataStore.addSavedResult(result)
         remoteDataStore.addSavedResult(result)
     }
 
-    fun getSavedResults(): Observable<List<LinkResult>> {
-        remoteDataStore.getSavedResults()
-        return localDataStore.getSavedResults()
+    override fun getSavedResults(): Observable<List<LinkResult>> {
+        return remoteDataStore.getSavedResults()
+        //return localDataStore.getSavedResults()
     }
 }

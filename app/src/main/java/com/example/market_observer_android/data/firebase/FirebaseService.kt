@@ -40,20 +40,11 @@ class FirebaseService {
         return observable
     }
 
-    fun addSavedResult(result: LinkResult) {
-        val resultMap = hashMapOf(
-            "url" to result.url,
-            "title" to result.title,
-            "imageUrl" to result.imageUrl,
-            "price" to result.price,
-            "location" to result.location,
-            "time" to result.time,
-            "user_uid" to FirebaseAuth.getInstance().currentUser?.uid
-        )
-
+    fun addSavedResult(result: HashMap<String, String?>) {
+        result["user_uid"] = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
-            .add(resultMap)
+            .add(result)
             .addOnSuccessListener {
                 Log.d(tag, "Added")
             }
@@ -62,19 +53,25 @@ class FirebaseService {
             }
     }
 
-    fun getSavedResults() {
+    fun getSavedResults(): Observable<List<LinkResult>> {
+        val observable = PublishSubject.create<List<LinkResult>>()
+
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
             .whereEqualTo("user_uid", user)
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(tag, "${document.id} -> ${document.data}")
+                val results = result.map {
+                    it.toObject(LinkResult::class.java)
                 }
+                observable.onNext(results)
             }
             .addOnFailureListener { exception ->
                 Log.w(tag, "Error getting documents.", exception)
+                observable.onError(exception)
             }
+
+        return observable
     }
 }
