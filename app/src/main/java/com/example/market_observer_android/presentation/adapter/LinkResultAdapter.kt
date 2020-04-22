@@ -1,13 +1,13 @@
 package com.example.market_observer_android.presentation.adapter
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.LinkResult
 import kotlinx.android.synthetic.main.item_link_result.view.*
+
 
 class LinkResultAdapter(private val listener: LinkResultListener) :
     RecyclerView.Adapter<LinkResultAdapter.LinkResultHolder>() {
@@ -56,9 +56,19 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
             itemView.tv_location.text = result.location
             itemView.tv_price.text = result.price
 
-            itemView.setOnLongClickListener {
-                listener.onResultSave(result)
-                true
+            itemView.iv_result_menu.setOnClickListener {
+                val popup = PopupMenu(itemView.context, itemView.iv_result_menu)
+                popup.menuInflater.inflate(R.menu.found_result_context_menu, popup.menu)
+                popup.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.save -> {
+                            listener.onResultSave(result)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                popup.show()
             }
         }
     }

@@ -10,6 +10,7 @@ import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.SavedResultsView
 import com.example.market_observer_android.presentation.presenter.SavedResultsPresenter
+import kotlinx.android.synthetic.main.fragment_saved_results.*
 import kotlinx.android.synthetic.main.fragment_saved_results.view.*
 import javax.inject.Inject
 
@@ -54,6 +55,7 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
 
     override fun setSavedResults(results: List<LinkResult>) {
         adapter.setData(results)
+        saved_results_progress_bar.visibility = View.GONE
     }
 
     override fun onResultClick(result: LinkResult) {
