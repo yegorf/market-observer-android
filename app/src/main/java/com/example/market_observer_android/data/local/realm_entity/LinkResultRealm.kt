@@ -20,6 +20,8 @@ open class LinkResultRealm(
 
     var price: String? = null,
 
-    var link: LinkRealm? = null
+    var link: LinkRealm? = null,
+
+    var isSaved: Boolean = false
 
 ) : RealmObject()

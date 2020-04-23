@@ -39,8 +39,8 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
         return view
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         presenter.onDestroy()
     }
 
