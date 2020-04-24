@@ -12,7 +12,6 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         HOME,
         ADD_LINK,
         LINK_RESULTS,
-        MY_ACCOUNT,
         SETTINGS,
         SAVED_RESULTS
     }
@@ -70,7 +69,6 @@ class FragmentNavigator(private val fragmentManager: androidx.fragment.app.Fragm
         return when (screen) {
             Screen.HOME -> HomeFragment.newInstance()
             Screen.ADD_LINK -> AddLinkFragment.newInstance()
-            Screen.MY_ACCOUNT -> MyAccountFragment.newInstance()
             Screen.SETTINGS -> SettingsFragment.newInstance()
             Screen.SAVED_RESULTS -> SavedResultsFragment.newInstance()
             else -> null

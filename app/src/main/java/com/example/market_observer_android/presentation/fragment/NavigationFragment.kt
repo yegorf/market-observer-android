@@ -1,6 +1,5 @@
 package com.example.market_observer_android.presentation.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +24,10 @@ class NavigationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         list.add(btn_home)
-        list.add(btn_account)
         list.add(btn_history)
         list.add(btn_settings)
 
         chooseSection(btn_home)
-
         setOnClickListeners()
     }
 
@@ -38,10 +35,6 @@ class NavigationFragment : BaseFragment() {
         btn_home.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openHome()
-        }
-        btn_account.setOnClickListener {
-            chooseSection(it)
-            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.MY_ACCOUNT)
         }
         btn_settings.setOnClickListener {
             chooseSection(it)

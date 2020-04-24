@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
+import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
+import kotlinx.android.synthetic.main.fragment_my_account.*
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.tv_email
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import javax.inject.Inject
 
@@ -29,10 +32,14 @@ class SettingsFragment : BaseFragment(), SettingsView {
         savedInstanceState: Bundle?
     ): View? {
         getComponent().inject(this)
-        presenter.onCreate(this)
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         initSwitches(view)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.onCreate(this)
     }
 
     private fun initSwitches(view: View) {
@@ -52,9 +59,20 @@ class SettingsFragment : BaseFragment(), SettingsView {
         }
     }
 
+    override fun setUserData(email: String) {
+        tv_email.text = email
+        btn_sign_out.setOnClickListener {
+            presenter.signOut()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+    }
+
+    override fun openLoginScreen() {
+        ActivityNavigator.navigateToLoginActivity(activity!!)
     }
 
     override fun hasNavigationArrow() = false

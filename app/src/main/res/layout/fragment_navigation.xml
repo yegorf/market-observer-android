@@ -10,45 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:background="@color/colorSilver"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/btn_home"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="5dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_account"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_account"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="5dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_history"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_home"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_settings"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="5dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_settings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_history"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -58,10 +19,30 @@
         android:padding="5dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_history"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_settings"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_account"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btn_home" />
+
+    <ImageView
+        android:id="@+id/btn_settings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_history" />
+
+    <ImageView
+        android:id="@+id/btn_home"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_list"
+        app:layout_constraintEnd_toStartOf="@+id/btn_history"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

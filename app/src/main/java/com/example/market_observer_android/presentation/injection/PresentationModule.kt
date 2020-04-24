@@ -31,11 +31,6 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideMyAccountPresenter(): MyAccountPresenter {
-        return MyAccountPresenterImpl()
-    }
-
-    @Provides
     fun provideSettingsPresenter(): SettingsPresenter {
         return SettingsPresenterImpl()
     }

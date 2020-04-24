@@ -15,8 +15,6 @@ interface PresentationComponent {
 
     fun inject(linkDetailFragment: LinkDetailFragment)
 
-    fun inject(myAccountFragment: MyAccountFragment)
-
     fun inject(settingsFragment: SettingsFragment)
 
     fun inject(savedResultsFragment: SavedResultsFragment)
