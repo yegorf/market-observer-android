@@ -8,36 +8,12 @@ import com.example.market_observer_android.data.local.RealmService
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.data.repository.Repository
 import com.example.market_observer_android.data.repository.RepositoryImpl
-import com.example.market_observer_android.data.rest.RestApi
-import com.example.market_observer_android.data.rest.RetrofitApi
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class DataModule {
-
-    @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(OkHttpClient.Builder().build())
-            .build()
-    }
-
-    @Provides
-    fun provideRetrofitApi(retrofit: Retrofit): RetrofitApi {
-        return retrofit.create(RetrofitApi::class.java)
-    }
-
-    @Provides
-    fun provideRestApi(retrofitApi: RetrofitApi): RestApi {
-        return RestApi(retrofitApi)
-    }
 
     @Provides
     fun provideRemoteDataStore(firebaseService: FirebaseService, mapperFactory: MapperFactory): RemoteDataStore {
