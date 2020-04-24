@@ -13,6 +13,7 @@ import com.example.market_observer_android.presentation.navigation.FragmentNavig
 import com.example.market_observer_android.presentation.presenter.HomePresenter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_progress.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
@@ -57,6 +58,7 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         } else {
             tv_list_empty.visibility = View.VISIBLE
         }
+        links_progress_bar.visibility = View.GONE
     }
 
     override fun onLinkClick(link: Link) {

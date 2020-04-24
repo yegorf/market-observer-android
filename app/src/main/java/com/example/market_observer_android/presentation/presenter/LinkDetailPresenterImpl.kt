@@ -17,4 +17,11 @@ class LinkDetailPresenterImpl(private val repository: Repository) : LinkDetailPr
     override fun saveResult(result: LinkResult) {
         repository.addSavedResult(result)
     }
+
+    override fun getResults(url: String) {
+        repository.getResults(url)
+            .subscribe {
+                view?.setResults(it!!)
+            }
+    }
 }

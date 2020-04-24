@@ -9,7 +9,6 @@ import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
-import kotlinx.android.synthetic.main.fragment_my_account.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.tv_email
 import kotlinx.android.synthetic.main.fragment_settings.view.*

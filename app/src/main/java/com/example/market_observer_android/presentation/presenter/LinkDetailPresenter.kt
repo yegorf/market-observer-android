@@ -8,4 +8,6 @@ interface LinkDetailPresenter : BasePresenter<LinkDetailView> {
     fun deleteLink(url: String)
 
     fun saveResult(result: LinkResult)
+
+    fun getResults(url: String)
 }

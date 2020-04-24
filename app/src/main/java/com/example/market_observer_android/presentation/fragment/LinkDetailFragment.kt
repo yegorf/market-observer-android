@@ -16,6 +16,7 @@ import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
 import kotlinx.android.synthetic.main.fragment_link_detail.*
+import kotlinx.android.synthetic.main.fragment_progress.*
 import javax.inject.Inject
 
 
@@ -57,8 +58,6 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
     }
 
     private fun init(activeLink: Link) {
-        val results = activeLink.results
-
         btn_edit.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openEditLink(activeLink)
         }
@@ -71,11 +70,16 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rv_link_results.layoutManager = manager
         rv_link_results.adapter = adapter
-        adapter.setData(results)
+        presenter.getResults(activeLink.url!!)
     }
 
     override fun onDeleteLink() {
         FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
+    }
+
+    override fun setResults(results: List<LinkResult>) {
+        adapter.setData(results)
+        results_progress_bar.visibility = View.GONE
     }
 
     override fun onResultClick(result: LinkResult) {
