@@ -26,6 +26,7 @@ class NavigationFragment : BaseFragment() {
         list.add(btn_home)
         list.add(btn_history)
         list.add(btn_settings)
+        list.add(btn_info)
 
         chooseSection(btn_home)
         setOnClickListeners()
@@ -43,6 +44,10 @@ class NavigationFragment : BaseFragment() {
         btn_history.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.SAVED_RESULTS)
+        }
+        btn_info.setOnClickListener {
+            chooseSection(it)
+            FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.INFO)
         }
     }
 

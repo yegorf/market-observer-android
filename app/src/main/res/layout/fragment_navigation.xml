@@ -21,7 +21,7 @@
         android:src="@drawable/ic_history"
         app:layout_constraintEnd_toStartOf="@+id/btn_settings"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_home" />
+        app:layout_constraintStart_toEndOf="@+id/btn_info" />
 
     <ImageView
         android:id="@+id/btn_settings"
@@ -30,7 +30,7 @@
         android:padding="5dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_settings"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_home"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_history" />
 
@@ -41,6 +41,17 @@
         android:padding="5dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_settings" />
+
+    <ImageView
+        android:id="@+id/btn_info"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_info"
         app:layout_constraintEnd_toStartOf="@+id/btn_history"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
