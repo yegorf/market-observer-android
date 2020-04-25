@@ -12,6 +12,7 @@ object PreferenceManager {
     private const val EMAIL_NOTIFICATIONS_ON = "EMAIL_NOTIFICATIONS_ON"
     private const val LINKS_REMAINING_COUNT = "LINKS_REMAINING_COUNT"
     private const val OBSERVE_NEW_LINK = "OBSERVE_NEW_LINK"
+    private const val STORE_REMOTE = "STORE_REMOTE"
 
     fun setNotificationsOn(isNotificationsOn: Boolean) {
         getPreference().edit().putBoolean(NOTIFICATIONS_ON, isNotificationsOn).apply()
@@ -48,5 +49,13 @@ object PreferenceManager {
     private fun getPreference(): SharedPreferences {
         return Application.getInstance()
             .getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    }
+
+    fun setStoreRemote(isStoreRemote: Boolean) {
+        getPreference().edit().putBoolean(STORE_REMOTE, isStoreRemote).apply()
+    }
+
+    fun isStoreRemote(): Boolean {
+        return getPreference().getBoolean(STORE_REMOTE, true)
     }
 }

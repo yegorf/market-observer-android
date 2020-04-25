@@ -22,7 +22,7 @@
         android:id="@+id/btn_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:text="@string/sign_out"
         android:textColor="@color/colorBlack"
@@ -35,9 +35,9 @@
         android:id="@+id/label_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Account"
+        android:text="@string/account"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:text="@string/notifications"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
         android:id="@+id/switch_notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:textSize="16sp"
         android:text="@string/app_notifications"
@@ -66,7 +66,7 @@
         android:id="@+id/switch_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:textSize="16sp"
         android:text="@string/email_notifications"
@@ -77,9 +77,9 @@
         android:id="@+id/tv_links_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Links"
+        android:text="@string/links"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch_email" />
 
@@ -87,12 +87,33 @@
         android:id="@+id/switch_observe_links"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:textSize="16sp"
-        android:text="Always observe new link"
+        android:text="@string/always_observe_new_link"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_links_settings" />
+
+    <TextView
+        android:id="@+id/tv_data_storage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/data_storage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_observe_links" />
+
+    <Switch
+        android:id="@+id/switch_data_storage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/use_remote_storage"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_data_storage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

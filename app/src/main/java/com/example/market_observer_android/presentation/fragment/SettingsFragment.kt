@@ -56,6 +56,11 @@ class SettingsFragment : BaseFragment(), SettingsView {
         view.switch_observe_links.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setObserveNewLink(isChecked)
         }
+
+        view.switch_data_storage.isChecked = PreferenceManager.isStoreRemote()
+        view.switch_data_storage.setOnCheckedChangeListener { _, isChecked ->
+            PreferenceManager.setStoreRemote(isChecked)
+        }
     }
 
     override fun setUserData(email: String) {

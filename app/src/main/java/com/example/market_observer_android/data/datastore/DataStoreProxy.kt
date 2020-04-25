@@ -2,6 +2,7 @@ package com.example.market_observer_android.data.datastore
 
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
+import com.example.market_observer_android.domain.util.PreferenceManager
 import io.reactivex.Observable
 
 class DataStoreProxy(
@@ -39,12 +40,16 @@ class DataStoreProxy(
 
     override fun addSavedResult(result: LinkResult) {
         localDataStore.addSavedResult(result)
-        remoteDataStore.addSavedResult(result)
+        if (PreferenceManager.isStoreRemote()) {
+            remoteDataStore.addSavedResult(result)
+        }
     }
 
     override fun getSavedResults(): Observable<List<LinkResult>> {
-        return remoteDataStore.getSavedResults()
-        //return localDataStore.getSavedResults()
+        if (PreferenceManager.isStoreRemote()) {
+            return remoteDataStore.getSavedResults()
+        }
+        return localDataStore.getSavedResults()
     }
 
     override fun deleteSavedResults(result: LinkResult) {

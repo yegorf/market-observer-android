@@ -21,4 +21,12 @@
     <string name="no_results_found_yet">No results found yet</string>
     <string name="found_results">Found results:</string>
     <string name="sign_out">sign out</string>
+    <string name="application_version">Application version:</string>
+    <string name="supported_markets">Supported markets:</string>
+    <string name="market_olx">olx</string>
+    <string name="account">Account</string>
+    <string name="links">Links</string>
+    <string name="always_observe_new_link">Always observe new link</string>
+    <string name="data_storage">Data storage</string>
+    <string name="use_remote_storage">Use remote storage</string>
 </resources>
