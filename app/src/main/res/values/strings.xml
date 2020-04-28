@@ -28,5 +28,5 @@
     <string name="links">Links</string>
     <string name="always_observe_new_link">Always observe new link</string>
     <string name="data_storage">Data storage</string>
-    <string name="use_remote_storage">Use remote storage</string>
+    <string name="use_remote_storage">Auto-backup</string>
 </resources>

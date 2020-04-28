@@ -1,5 +1,6 @@
 package com.example.market_observer_android.data.datastore
 
+import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.data.firebase.FirebaseService
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.domain.model.LinkResult
@@ -27,5 +28,13 @@ class RemoteDataStore(
 
     override fun deleteSavedResults(result: LinkResult) {
         firebaseService.deleteSavedResult(result)
+    }
+
+    fun saveSettings(settings: SettingsEntity) {
+        firebaseService.saveSettings(settings)
+    }
+
+    fun getSettings(): Observable<SettingsEntity> {
+        return firebaseService.getSettings()
     }
 }

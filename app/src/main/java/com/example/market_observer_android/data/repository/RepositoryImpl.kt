@@ -1,6 +1,7 @@
 package com.example.market_observer_android.data.repository
 
 import com.example.market_observer_android.data.datastore.DataStoreProxy
+import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
@@ -48,5 +49,13 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
 
     override fun deleteSavedResults(result: LinkResult) {
         dataStore.deleteSavedResults(result)
+    }
+
+    override fun saveSettings(settings: SettingsEntity) {
+        dataStore.saveSettings(settings)
+    }
+
+    override fun getSettings(): Observable<SettingsEntity> {
+        return dataStore.getSettings()
     }
 }

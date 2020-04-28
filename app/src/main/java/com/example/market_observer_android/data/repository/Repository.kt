@@ -1,5 +1,6 @@
 package com.example.market_observer_android.data.repository
 
+import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
@@ -25,4 +26,8 @@ interface Repository {
     fun getSavedResults(): Observable<List<LinkResult>>
 
     fun deleteSavedResults(result: LinkResult)
+
+    fun saveSettings(settings: SettingsEntity)
+
+    fun getSettings(): Observable<SettingsEntity>
 }

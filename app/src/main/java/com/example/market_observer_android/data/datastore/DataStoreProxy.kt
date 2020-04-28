@@ -1,5 +1,6 @@
 package com.example.market_observer_android.data.datastore
 
+import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.domain.util.PreferenceManager
@@ -55,5 +56,13 @@ class DataStoreProxy(
     override fun deleteSavedResults(result: LinkResult) {
         localDataStore.deleteSavedResults(result)
         remoteDataStore.deleteSavedResults(result)
+    }
+
+    fun saveSettings(settings: SettingsEntity) {
+        remoteDataStore.saveSettings(settings)
+    }
+
+    fun getSettings(): Observable<SettingsEntity> {
+        return remoteDataStore.getSettings()
     }
 }

@@ -31,8 +31,8 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideSettingsPresenter(): SettingsPresenter {
-        return SettingsPresenterImpl()
+    fun provideSettingsPresenter(repository: Repository): SettingsPresenter {
+        return SettingsPresenterImpl(repository)
     }
 
     @Provides

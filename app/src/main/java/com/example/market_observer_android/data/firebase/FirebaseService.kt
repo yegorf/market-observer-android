@@ -1,8 +1,9 @@
 package com.example.market_observer_android.data.firebase
 
 import android.util.Log
-import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
+import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.data.util.SavedResultStructure
+import com.example.market_observer_android.data.util.SettingsStructure
 import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -88,5 +89,43 @@ class FirebaseService {
                     Firebase.firestore.collection("saved").document(it.id).delete()
                 }
             }
+    }
+
+    fun saveSettings(settings: SettingsEntity) {
+        val settingsMap = hashMapOf(
+            SettingsStructure.USER_UID to FirebaseAuth.getInstance().currentUser?.uid,
+            SettingsStructure.APP_NOTIFICATIONS to settings.appNotificationsOn,
+            SettingsStructure.EMAIL_NOTIFICATIONS to settings.emailNotificationsOn,
+            SettingsStructure.OBSERVE_NEW_LINK to settings.observeNewLinkOn,
+            SettingsStructure.AUTO_BACKUP to settings.autoBackupOn
+        )
+
+        Firebase.firestore
+            .collection(SettingsStructure.NAME)
+            .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            .set(settingsMap)
+    }
+
+    fun getSettings(): Observable<SettingsEntity> {
+        val observable = PublishSubject.create<SettingsEntity>()
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection(SettingsStructure.NAME)
+            .whereEqualTo(SettingsStructure.USER_UID, user)
+            .get()
+            .addOnSuccessListener { result ->
+                val map = result.map {
+                    it.toObject(SettingsEntity::class.java)
+                }
+                if (map.isNotEmpty()) {
+                    observable.onNext(map[0])
+                } else {
+                    observable.onNext(SettingsEntity())
+                }
+            }
+            .addOnFailureListener {
+                observable.onError(it)
+            }
+        return observable
     }
 }
