@@ -1,18 +1,18 @@
-package com.example.market_observer_android.domain.util
+package com.example.market_observer_android.domain.parser
 
 import com.example.market_observer_android.domain.model.LinkResult
 import org.jsoup.Jsoup
 
-class MarketParser {
+class OlxParser : MarketParser {
 
-    fun parseTitle(url: String): String {
+    override fun parseTitle(url: String): String {
         return Jsoup.connect(url)
             .get()
             .select("input#search-text")
             .attr("value")
     }
 
-    fun parseUrl(url: String): List<LinkResult> {
+    override fun parseUrl(url: String): List<LinkResult> {
         val document = Jsoup.connect(url).get()
         val rows = document.select("table#offers_table")[0]
             .select("tr.wrap")

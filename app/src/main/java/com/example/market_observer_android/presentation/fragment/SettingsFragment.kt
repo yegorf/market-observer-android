@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.market_observer_android.R
+import com.example.market_observer_android.common.util.AssetsManager
 import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
+import kotlinx.android.synthetic.main.fragment_info.view.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import javax.inject.Inject
@@ -46,50 +48,36 @@ class SettingsFragment : BaseFragment(), SettingsView {
         view.switch_notifications.isChecked = PreferenceManager.isNotificationsOn()
         view.switch_notifications.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setNotificationsOn(isChecked)
-            val settings = SettingsEntity(
-                PreferenceManager.isNotificationsOn(),
-                PreferenceManager.isEmailNotificationsOn(),
-                PreferenceManager.isObserveNewLink(),
-                PreferenceManager.isStoreRemote()
-            )
-            presenter.saveSettings(settings)
+            saveSettings()
         }
 
         view.switch_email.isChecked = PreferenceManager.isEmailNotificationsOn()
         view.switch_email.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setEmailNotificationsOn(isChecked)
-            val settings = SettingsEntity(
-                PreferenceManager.isNotificationsOn(),
-                PreferenceManager.isEmailNotificationsOn(),
-                PreferenceManager.isObserveNewLink(),
-                PreferenceManager.isStoreRemote()
-            )
-            presenter.saveSettings(settings)
+            saveSettings()
         }
 
         view.switch_observe_links.isChecked = PreferenceManager.isObserveNewLink()
         view.switch_observe_links.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setObserveNewLink(isChecked)
-            val settings = SettingsEntity(
-                PreferenceManager.isNotificationsOn(),
-                PreferenceManager.isEmailNotificationsOn(),
-                PreferenceManager.isObserveNewLink(),
-                PreferenceManager.isStoreRemote()
-            )
-            presenter.saveSettings(settings)
+            saveSettings()
         }
 
         view.switch_data_storage.isChecked = PreferenceManager.isStoreRemote()
         view.switch_data_storage.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setStoreRemote(isChecked)
-            val settings = SettingsEntity(
-                PreferenceManager.isNotificationsOn(),
-                PreferenceManager.isEmailNotificationsOn(),
-                PreferenceManager.isObserveNewLink(),
-                PreferenceManager.isStoreRemote()
-            )
-            presenter.saveSettings(settings)
+            saveSettings()
         }
+    }
+
+    private fun saveSettings() {
+        val settings = SettingsEntity(
+            PreferenceManager.isNotificationsOn(),
+            PreferenceManager.isEmailNotificationsOn(),
+            PreferenceManager.isObserveNewLink(),
+            PreferenceManager.isStoreRemote()
+        )
+        presenter.saveSettings(settings)
     }
 
     override fun setUserData(email: String) {

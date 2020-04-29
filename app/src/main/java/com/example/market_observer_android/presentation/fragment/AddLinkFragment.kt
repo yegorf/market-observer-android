@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
-import com.example.market_observer_android.domain.util.MarketParser
+import com.example.market_observer_android.domain.parser.BesplatkaParser
+import com.example.market_observer_android.domain.parser.MarketParserFactory
+import com.example.market_observer_android.domain.parser.OlxParser
+import com.example.market_observer_android.domain.parser.PlaceUAParser
 import com.example.market_observer_android.domain.util.PreferenceManager
-import com.example.market_observer_android.presentation.activity.MainActivity
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
@@ -70,9 +72,30 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Thread {
-                    val title = MarketParser().parseTitle(view.et_url.text.toString())
-                    activity!!.runOnUiThread {
-                        view.et_name.setText(title)
+                    try {
+                        val url = view.et_url.text.toString()
+                        val parser = MarketParserFactory.createParser(url)
+                        if (parser != null) {
+                            val title = parser.parseTitle(url)
+                            activity!!.runOnUiThread {
+                                when (parser) {
+                                    is OlxParser -> view.tv_market.text = "olx.ua"
+                                    is PlaceUAParser -> view.tv_market.text = "place.ua"
+                                    is BesplatkaParser -> view.tv_market.text = "besplatka.ua"
+                                }
+                                view.et_name.setText(title)
+                            }
+                        } else {
+                            activity!!.runOnUiThread {
+                                Toast.makeText(
+                                    context,
+                                    "Incorrect url. Please check supported markets.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } catch (_: Exception) {
+
                     }
                 }.start()
             }

@@ -1,8 +1,11 @@
 package com.example.market_observer_android
 
+import io.opencensus.internal.StringUtils
+import org.jsoup.helper.StringUtil
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.regex.Pattern
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,6 +15,13 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val url = "https://www.olx.ua/list/q-iphone-11/"
+        val pattern = Pattern.compile("//(.*?)/")
+        val matcher = pattern.matcher(url)
+        if (matcher.find()) {
+            println(matcher.group(1))
+        } else {
+            println("Not found")
+        }
     }
 }

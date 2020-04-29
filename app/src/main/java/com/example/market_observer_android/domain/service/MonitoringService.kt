@@ -13,7 +13,7 @@ import com.example.market_observer_android.domain.injection.DaggerDomainComponen
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.domain.notification.NotificationHelper
-import com.example.market_observer_android.domain.util.MarketParser
+import com.example.market_observer_android.domain.parser.OlxParser
 import com.example.market_observer_android.domain.util.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -30,7 +30,7 @@ class MonitoringService : Service() {
     private val bus = RxBus
     private val busDisposables = CompositeDisposable()
     private val subscriptions = mutableMapOf<String, Disposable>()
-    private val parser = MarketParser()
+    private val parser = OlxParser()
 
     companion object {
         fun startService(context: Context) {
