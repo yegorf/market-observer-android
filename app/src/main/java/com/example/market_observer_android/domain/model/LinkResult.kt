@@ -13,9 +13,6 @@ data class LinkResult(
 ) : Serializable {
 
     override fun toString(): String {
-        return """LinkResult:
-            $title\n
-            $url\n
-        """.trimMargin()
+        return "$title\n$url\n"
     }
 }

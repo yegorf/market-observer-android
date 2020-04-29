@@ -1,5 +1,7 @@
 package com.example.market_observer_android
 
+import com.example.market_observer_android.domain.parser.OlxParser
+import com.example.market_observer_android.domain.parser.PlaceUAParser
 import io.opencensus.internal.StringUtils
 import org.jsoup.helper.StringUtil
 import org.junit.Test
@@ -15,13 +17,9 @@ import java.util.regex.Pattern
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        val url = "https://www.olx.ua/list/q-iphone-11/"
-        val pattern = Pattern.compile("//(.*?)/")
-        val matcher = pattern.matcher(url)
-        if (matcher.find()) {
-            println(matcher.group(1))
-        } else {
-            println("Not found")
+        val list = PlaceUAParser().parseUrl("https://besplatka.ua/all/q-iphone+11")
+        list.forEach {
+            println(it.toString())
         }
     }
 }

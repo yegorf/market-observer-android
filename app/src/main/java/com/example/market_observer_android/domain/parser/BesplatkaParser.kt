@@ -14,11 +14,19 @@ class BesplatkaParser: MarketParser {
 
     override fun parseUrl(url: String): List<LinkResult> {
         val document = Jsoup.connect(url).get()
-        val rows = document.select("table#offers_table")[0]
-            .select("tr.wrap")
+        val rows = document.select("div.messages-list")[0]
+            .select("div.msg-one")
 
         val results = mutableListOf<LinkResult>()
-
+        rows.forEach {
+            val result = LinkResult()
+            result.title = it.select("a.m-title").text()
+            result.price = it.select("p.m-price").text()
+            result.location = it.select("li.m-region").text()
+            result.url = "https://besplatka.ua/" + it.select("a.w-image").attr("href")
+            result.imageUrl = it.select("img.img-responsive lazy loaded").attr("data-src")
+            results.add(result)
+        }
         return results
     }
 }

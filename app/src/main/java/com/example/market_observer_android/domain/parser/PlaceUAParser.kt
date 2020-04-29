@@ -14,8 +14,8 @@ class PlaceUAParser : MarketParser {
 
     override fun parseUrl(url: String): List<LinkResult> {
         val document = Jsoup.connect(url).get()
-        val rows = document.select("table#offers_table")[0]
-            .select("tr.wrap")
+        val rows = document.select("div.messages-list")[0]
+            .select("div.msg-one")
 
         val results = mutableListOf<LinkResult>()
 

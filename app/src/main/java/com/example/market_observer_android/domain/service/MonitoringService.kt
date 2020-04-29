@@ -13,6 +13,7 @@ import com.example.market_observer_android.domain.injection.DaggerDomainComponen
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import com.example.market_observer_android.domain.notification.NotificationHelper
+import com.example.market_observer_android.domain.parser.MarketParserFactory
 import com.example.market_observer_android.domain.parser.OlxParser
 import com.example.market_observer_android.domain.util.PreferenceManager
 import io.reactivex.Observable
@@ -30,7 +31,6 @@ class MonitoringService : Service() {
     private val bus = RxBus
     private val busDisposables = CompositeDisposable()
     private val subscriptions = mutableMapOf<String, Disposable>()
-    private val parser = OlxParser()
 
     companion object {
         fun startService(context: Context) {
@@ -86,8 +86,10 @@ class MonitoringService : Service() {
                         Observable.interval(it.periodicity.toLong(), TimeUnit.SECONDS)
                             .subscribe { _ ->
                                 try {
-                                    val results = parser.parseUrl(it.url as String)
-                                    onResultsFound(it.url as String, results)
+                                    val results = MarketParserFactory.createParser(it.url as String)?.parseUrl(it.url as String)
+                                    if (results != null) {
+                                        onResultsFound(it.url as String, results)
+                                    }
                                 } catch (e: Exception) {
                                     Log.e(tag, e.message!!)
                                 }
