@@ -11,10 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
-import com.example.market_observer_android.domain.parser.BesplatkaParser
 import com.example.market_observer_android.domain.parser.MarketParserFactory
-import com.example.market_observer_android.domain.parser.OlxParser
-import com.example.market_observer_android.domain.parser.PlaceUAParser
 import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
@@ -78,12 +75,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                         if (parser != null) {
                             val title = parser.parseTitle(url)
                             activity!!.runOnUiThread {
-                                when (parser) {
-                                    is OlxParser -> view.tv_market.text = "olx.ua"
-                                    is PlaceUAParser -> view.tv_market.text = "place.ua"
-                                    is BesplatkaParser -> view.tv_market.text = "besplatka.ua"
-                                }
                                 view.et_name.setText(title)
+                                view.tv_market.text = parser.getMarketName()
                             }
                         } else {
                             activity!!.runOnUiThread {
@@ -99,7 +92,6 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                     }
                 }.start()
             }
-
         })
 
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?

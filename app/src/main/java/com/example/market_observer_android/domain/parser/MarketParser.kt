@@ -4,6 +4,8 @@ import com.example.market_observer_android.domain.model.LinkResult
 
 interface MarketParser {
 
+    fun getMarketName(): String
+
     fun parseTitle(url: String): String
 
     fun parseUrl(url: String): List<LinkResult>

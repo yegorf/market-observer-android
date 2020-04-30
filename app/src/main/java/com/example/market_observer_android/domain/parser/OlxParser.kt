@@ -5,6 +5,8 @@ import org.jsoup.Jsoup
 
 class OlxParser : MarketParser {
 
+    override fun getMarketName() = "olx.ua"
+
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)
             .get()
