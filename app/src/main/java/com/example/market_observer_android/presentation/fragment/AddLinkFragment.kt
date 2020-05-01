@@ -82,16 +82,17 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                             activity!!.runOnUiThread {
                                 if (title.isNotEmpty()) {
                                     view.et_name.setText(title)
+                                    view.tv_market.text = parser.getMarketName()
+                                    view.iv_status.setImageResource(R.drawable.ic_success)
+                                } else {
+                                    view.tv_market.text = "Invalid url"
+                                    view.iv_status.setImageResource(R.drawable.ic_error)
                                 }
-                                view.tv_market.text = parser.getMarketName()
                             }
                         } else {
                             activity!!.runOnUiThread {
-                                Toast.makeText(
-                                    context,
-                                    "Incorrect url. Please check supported markets.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                view.tv_market.text = "Invalid url"
+                                view.iv_status.setImageResource(R.drawable.ic_error)
                             }
                         }
                     } catch (_: Exception) {

@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
+            android:textSize="@dimen/global_text_size"
             android:text="@string/periodicity_min"/>
 
         <Spinner
@@ -59,20 +60,42 @@
             android:id="@+id/switch_observe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/observe_link"/>
+            android:text="@string/observe_link"
+            android:textSize="@dimen/global_text_size"/>
 
         <Space
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/tv_market"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/colorDarkBlue"
-            tools:text="olx.ua"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/styled_edit_text"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/iv_status"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                tools:src="@drawable/ic_success"/>
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/tv_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/colorDarkBlue"
+                android:textSize="@dimen/global_text_size"
+                tools:text="olx.ua"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -118,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/supported_markets"
-            android:textSize="16sp" />
+            android:textSize="@dimen/global_text_size" />
 
         <Space
             android:layout_width="@dimen/value_margin"
@@ -129,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/global_text_size" />
 
     </LinearLayout>
 

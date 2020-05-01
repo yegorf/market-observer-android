@@ -69,6 +69,8 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
         if (results.isNotEmpty()) {
             adapter.setData(results)
             noResultsTv.visibility = View.GONE
+        } else {
+            noResultsTv.visibility = View.VISIBLE
         }
     }
 
