@@ -4,7 +4,7 @@
     <string name="edit">edit</string>
     <string name="url">url</string>
     <string name="name">name</string>
-    <string name="periodicity_min">periodicity (min)</string>
+    <string name="periodicity_min">Periodicity (min)</string>
     <string name="cancel">cancel</string>
     <string name="add">add</string>
     <string name="add_link">add link</string>

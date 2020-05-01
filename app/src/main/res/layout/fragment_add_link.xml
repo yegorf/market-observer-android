@@ -4,28 +4,46 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp">
+    android:paddingTop="30dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:layout_marginStart="5dp"
         android:text="@string/url"/>
 
     <EditText
         android:id="@+id/et_url"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/styled_edit_text"
+        android:padding="10dp"
+        tools:text="www.olx.ua"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:layout_marginStart="5dp"
         android:text="@string/name"/>
 
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/styled_edit_text"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
             android:text="@string/periodicity_min"/>
 
         <Spinner
@@ -42,6 +61,40 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/switch_observe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Observe link "/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_market"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkBlue"
+            tools:text="olx.ua"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,16 +120,34 @@
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/switch_observe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Observe link "/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 
-    <TextView
-        android:id="@+id/tv_market"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="olx.ua"/>
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/supported_markets"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="@dimen/value_margin"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_add_link_market_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

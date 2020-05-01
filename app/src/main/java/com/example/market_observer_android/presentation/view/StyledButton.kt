@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import com.example.market_observer_android.R
 
+
 class StyledButton : androidx.appcompat.widget.AppCompatButton {
 
     constructor(context: Context) : super(context) {

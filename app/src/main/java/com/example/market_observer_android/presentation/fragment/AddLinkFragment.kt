@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.market_observer_android.R
+import com.example.market_observer_android.common.util.AssetsManager
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.parser.MarketParserFactory
 import com.example.market_observer_android.domain.util.PreferenceManager
@@ -18,6 +19,7 @@ import com.example.market_observer_android.presentation.navigation.FragmentNavig
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
 import kotlinx.android.synthetic.main.fragment_add_link.*
 import kotlinx.android.synthetic.main.fragment_add_link.view.*
+import kotlinx.android.synthetic.main.fragment_info.view.*
 import javax.inject.Inject
 
 class AddLinkFragment : BaseFragment(), AddLinkView {
@@ -58,6 +60,10 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
     }
 
     private fun init(view: View) {
+        view.tv_add_link_market_list.text = AssetsManager.getMarketsList(context!!)
+            .map { it.name }
+            .reduce { n1, n2 -> n1 + "\n" + n2 }
+
         view.et_url.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -97,7 +103,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link?
         val isEdit = link != null
 
-        val spinnerValues = arrayOf(5, 10, 15)
+        val spinnerValues = arrayOf(5, 30, 60)
         val adapter =
             ArrayAdapter<Int>(
                 context as Context,
@@ -137,8 +143,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
 
         val selection = when (link.periodicity) {
             5 -> 0
-            10 -> 1
-            15 -> 2
+            30 -> 1
+            60 -> 2
             else -> 0
         }
         view.spinner_periodicity.setSelection(selection)
