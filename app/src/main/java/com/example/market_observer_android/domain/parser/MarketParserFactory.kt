@@ -8,6 +8,7 @@ object MarketParserFactory {
         return when (getName(url)) {
             "place.ua" -> PlaceUAParser()
             "olx.ua" -> OlxParser()
+            "m.olx.ua" -> OlxParser()
             "besplatka.ua" -> BesplatkaParser()
             "ria.com" -> RiaParser()
             else -> return null

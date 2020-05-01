@@ -19,7 +19,6 @@ import com.example.market_observer_android.presentation.navigation.FragmentNavig
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
 import kotlinx.android.synthetic.main.fragment_add_link.*
 import kotlinx.android.synthetic.main.fragment_add_link.view.*
-import kotlinx.android.synthetic.main.fragment_info.view.*
 import javax.inject.Inject
 
 class AddLinkFragment : BaseFragment(), AddLinkView {
@@ -64,7 +63,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
             .map { it.name }
             .reduce { n1, n2 -> n1 + "\n" + n2 }
 
-        view.et_url.addTextChangedListener(object : TextWatcher {
+        view.et_url.addTextChangeListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -76,7 +75,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Thread {
                     try {
-                        val url = view.et_url.text.toString()
+                        val url = view.et_url.getText()
                         val parser = MarketParserFactory.createParser(url)
                         if (parser != null) {
                             val title = parser.parseTitle(url)
@@ -114,8 +113,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         view.switch_observe.isChecked = PreferenceManager.isObserveNewLink()
         view.btn_add_link.setOnClickListener {
             try {
-                val name = et_name.text.toString()
-                val url = et_url.text.toString()
+                val name = et_name.getText()
+                val url = et_url.getText()
                 val periodicity = spinner_periodicity.selectedItem as Int
                 val isObserve = switch_observe.isChecked
                 val link = Link(url, name, periodicity, isObserve)
@@ -138,8 +137,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
     }
 
     private fun setEditData(view: View, link: Link) {
-        view.et_name.setText(link.name)
-        view.et_url.setText(link.url)
+        view.et_name.setText(link.name!!)
+        view.et_url.setText(link.url!!)
 
         val selection = when (link.periodicity) {
             5 -> 0

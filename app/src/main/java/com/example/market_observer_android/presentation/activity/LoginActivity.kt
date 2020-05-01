@@ -34,14 +34,14 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     private fun signUp() {
-        val email = et_email.text.toString()
-        val password = et_password.text.toString()
+        val email = et_email.getText()
+        val password = et_password.getText()
         presenter.signUp(email, password)
     }
 
     private fun signIn() {
-        val email = et_email.text.toString()
-        val password = et_password.text.toString()
+        val email = et_email.getText()
+        val password = et_password.getText()
         presenter.signIn(email, password)
     }
 

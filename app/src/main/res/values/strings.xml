@@ -29,4 +29,6 @@
     <string name="always_observe_new_link">Always observe new link</string>
     <string name="data_storage">Data storage</string>
     <string name="use_remote_storage">Auto-backup</string>
+    <string name="weltome_title">Welcome to Web Eye.\nPlease sign in or sign up if you don\'t have account yet.</string>
+    <string name="observe_link">Observe link</string>
 </resources>
