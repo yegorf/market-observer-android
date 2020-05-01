@@ -11,6 +11,7 @@ object MarketParserFactory {
             "m.olx.ua" -> OlxParser()
             "besplatka.ua" -> BesplatkaParser()
             "ria.com" -> RiaParser()
+            "prom.ua" -> PromParser()
             else -> return null
         }
     }

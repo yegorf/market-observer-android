@@ -2,6 +2,7 @@ package com.example.market_observer_android
 
 import com.example.market_observer_android.domain.parser.OlxParser
 import com.example.market_observer_android.domain.parser.PlaceUAParser
+import com.example.market_observer_android.domain.parser.PromParser
 import com.example.market_observer_android.domain.parser.RiaParser
 import io.opencensus.internal.StringUtils
 import org.jsoup.helper.StringUtil
@@ -18,7 +19,12 @@ import java.util.regex.Pattern
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        val list = PlaceUAParser().parseUrl("https://place.ua/elektronika/?lt=1&q=iphone%2011")
+        val url = "https://prom.ua/search?search_term=iphone+11"
+
+        val title = PromParser().parseTitle(url)
+        println(title)
+
+        val list = PromParser().parseUrl(url)
         list.forEach {
             println(it.toString())
         }

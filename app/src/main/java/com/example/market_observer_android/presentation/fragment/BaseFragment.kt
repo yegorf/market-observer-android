@@ -20,14 +20,17 @@ abstract class BaseFragment : Fragment() {
             .dataModule(DataModule())
             .presentationModule(PresentationModule())
             .build()
+    }
 
+    override fun onResume() {
+        super.onResume()
         if (hasNavigationArrow()) {
             (activity as MainActivity).showArrow()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         (activity as MainActivity).hideArrow()
     }
 

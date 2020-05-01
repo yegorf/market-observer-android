@@ -80,7 +80,9 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                         if (parser != null) {
                             val title = parser.parseTitle(url)
                             activity!!.runOnUiThread {
-                                view.et_name.setText(title)
+                                if (title.isNotEmpty()) {
+                                    view.et_name.setText(title)
+                                }
                                 view.tv_market.text = parser.getMarketName()
                             }
                         } else {
