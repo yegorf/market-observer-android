@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.LinkResult
@@ -23,6 +24,7 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
     lateinit var presenter: SavedResultsPresenter
     private val adapter = LinkResultAdapter(this)
     private lateinit var progressBar: ProgressBar
+    private lateinit var noResultsTv: TextView
 
     companion object {
         fun newInstance(): SavedResultsFragment {
@@ -57,13 +59,17 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
 
     private fun initViews(view: View) {
         progressBar = view.saved_results_progress_bar
+        noResultsTv = view.tv_no_saved_results
     }
 
     override fun hasNavigationArrow() = false
 
     override fun setSavedResults(results: List<LinkResult>) {
-        adapter.setData(results)
         progressBar.visibility = View.GONE
+        if (results.isNotEmpty()) {
+            adapter.setData(results)
+            noResultsTv.visibility = View.GONE
+        }
     }
 
     override fun onResultClick(result: LinkResult) {

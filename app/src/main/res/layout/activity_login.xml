@@ -17,11 +17,18 @@
         android:textColor="@color/colorDarkBlue"
         android:text="@string/weltome_title"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
     <com.example.market_observer_android.presentation.view.StyledEditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/email"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
     <com.example.market_observer_android.presentation.view.StyledEditText
         android:id="@+id/et_password"
@@ -31,7 +38,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

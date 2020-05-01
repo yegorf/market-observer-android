@@ -31,4 +31,7 @@
     <string name="use_remote_storage">Auto-backup</string>
     <string name="weltome_title">Welcome to Web Eye.\nPlease sign in or sign up if you don\'t have account yet.</string>
     <string name="observe_link">Observe link</string>
+    <string name="you_have_no_saved_results_yet">You have no saved results yet</string>
+    <string name="english">English</string>
+    <string name="supported_languages">Supported languages:</string>
 </resources>

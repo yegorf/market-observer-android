@@ -1,67 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/app_version_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
         android:layout_marginStart="@dimen/global_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/application_version" />
+            android:text="@string/application_version"
+            android:textSize="@dimen/global_text_size" />
 
         <Space
             android:layout_width="@dimen/value_margin"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tv_info_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:textColor="@color/colorBlack"
+            android:textSize="@dimen/global_text_size"
             tools:text="1.0" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/supported_languages_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
+        android:layout_below="@+id/app_version_layout"
         android:layout_marginStart="@dimen/global_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        android:layout_marginTop="@dimen/global_text_size"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/supported_languages"
+            android:textSize="@dimen/global_text_size" />
+
+        <Space
+            android:layout_width="@dimen/value_margin"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/global_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/supported_markets_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/supported_languages_layout"
+        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/supported_markets"
-            android:textSize="16sp" />
+            android:textSize="@dimen/global_text_size" />
 
         <Space
             android:layout_width="@dimen/value_margin"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tv_market_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"/>
+            android:textSize="@dimen/global_text_size" />
 
     </LinearLayout>
 
@@ -69,10 +93,9 @@
         android:id="@+id/contact_us_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:paddingBottom="8dp">
 
         <TextView
@@ -85,9 +108,9 @@
             android:layout_height="wrap_content"
             android:text="@string/contact_us"
             android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/global_text_size"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

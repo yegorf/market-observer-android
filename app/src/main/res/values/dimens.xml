@@ -2,4 +2,5 @@
 <resources>
     <dimen name="global_margin">16dp</dimen>
     <dimen name="value_margin">8dp</dimen>
+    <dimen name="global_text_size">16sp</dimen>
 </resources>
