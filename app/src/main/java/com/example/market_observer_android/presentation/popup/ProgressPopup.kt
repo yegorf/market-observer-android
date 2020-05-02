@@ -1,4 +1,4 @@
-package com.example.market_observer_android.presentation.fragment
+package com.example.market_observer_android.presentation.popup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.market_observer_android.R
 
-class ProgressDialog : DialogFragment() {
+class ProgressPopup : BaseFullscreenPopup() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

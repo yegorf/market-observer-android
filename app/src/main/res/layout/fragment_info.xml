@@ -68,7 +68,7 @@
         android:layout_below="@+id/supported_languages_layout"
         android:layout_marginStart="@dimen/global_margin"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,15 +77,13 @@
             android:textSize="@dimen/global_text_size" />
 
         <Space
-            android:layout_width="@dimen/value_margin"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
-        <TextView
-            android:id="@+id/tv_market_list"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_info_market_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/global_text_size" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

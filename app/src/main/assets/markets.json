@@ -1,22 +1,22 @@
 [
   {
-    "name": "olx.ua",
+    "name": "olx",
     "url": "https://www.olx.ua/"
   },
   {
-    "name": "besplatka.ua",
+    "name": "besplatka",
     "url": "https://besplatka.ua/"
   },
   {
-    "name": "place.ua",
+    "name": "place",
     "url": "https://place.ua/"
   },
   {
-    "name": "ria.com",
+    "name": "ria",
     "url": "https://www.ria.com/"
   },
   {
-    "name": "prom.ua",
+    "name": "prom",
     "url": "https://prom.ua/"
   }
 ]

@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.util.AssetsManager
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.parser.MarketParserFactory
 import com.example.market_observer_android.domain.util.PreferenceManager
+import com.example.market_observer_android.presentation.adapter.MarketAdapter
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
@@ -59,9 +62,8 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
     }
 
     private fun init(view: View) {
-        view.tv_add_link_market_list.text = AssetsManager.getMarketsList(context!!)
-            .map { it.name }
-            .reduce { n1, n2 -> n1 + "\n" + n2 }
+        view.rv_add_link_market_list.layoutManager = LinearLayoutManager(context)
+        view.rv_add_link_market_list.adapter = MarketAdapter(AssetsManager.getMarketsList(context!!))
 
         view.et_url.addTextChangeListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

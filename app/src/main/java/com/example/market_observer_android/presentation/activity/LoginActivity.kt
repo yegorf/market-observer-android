@@ -50,6 +50,7 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun showErrorPopup(error: String) {
+        dismissProgressDialog()
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 }

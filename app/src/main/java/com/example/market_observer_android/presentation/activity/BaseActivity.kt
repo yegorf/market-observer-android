@@ -2,11 +2,12 @@ package com.example.market_observer_android.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.market_observer_android.data.injection.DataModule
-import com.example.market_observer_android.presentation.fragment.ProgressDialog
 import com.example.market_observer_android.presentation.injection.DaggerPresentationComponent
 import com.example.market_observer_android.presentation.injection.PresentationComponent
 import com.example.market_observer_android.presentation.injection.PresentationModule
+import com.example.market_observer_android.presentation.popup.ProgressPopup
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -21,12 +22,15 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun showProgressDialog() {
-        ProgressDialog().show(supportFragmentManager, ProgressDialog::class.java.simpleName)
+        ProgressPopup().show(supportFragmentManager, ProgressPopup::class.java.simpleName)
     }
 
     protected fun dismissProgressDialog() {
-        val dialog = supportFragmentManager.findFragmentByTag(ProgressDialog::class.java.simpleName)
+        val dialog = supportFragmentManager.findFragmentByTag(ProgressPopup::class.java.simpleName)
         if (dialog != null) {
+            if (dialog is DialogFragment) {
+                dialog.dismiss()
+            }
             supportFragmentManager.beginTransaction().remove(dialog)
         }
     }
