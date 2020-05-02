@@ -34,4 +34,5 @@
     <string name="you_have_no_saved_results_yet">You have no saved results yet</string>
     <string name="english">English</string>
     <string name="supported_languages">Supported languages:</string>
+    <string name="invalid_data">Invalid data!</string>
 </resources>

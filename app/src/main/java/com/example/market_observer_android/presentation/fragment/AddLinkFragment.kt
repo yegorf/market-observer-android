@@ -20,6 +20,7 @@ import com.example.market_observer_android.presentation.adapter.MarketAdapter
 import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
+import com.example.market_observer_android.presentation.util.showShortToast
 import kotlinx.android.synthetic.main.fragment_add_link.*
 import kotlinx.android.synthetic.main.fragment_add_link.view.*
 import javax.inject.Inject
@@ -129,7 +130,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                     presenter.editLink(link)
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Invalid data!", Toast.LENGTH_SHORT).show()
+                showShortToast(R.string.invalid_data)
             }
         }
         view.btn_cancel_link.setOnClickListener {
