@@ -6,6 +6,7 @@ import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 
 class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) : Repository {
 
@@ -35,7 +36,19 @@ class RepositoryImpl(var dataStore: DataStoreProxy, var mapper: MapperFactory) :
         dataStore.addResults(url, results)
     }
 
-    override fun getResults(url: String): Observable<List<LinkResult>?> {
+    override fun getResultsWithSaved(url: String): Observable<List<LinkResult>> {
+        return dataStore.getResults(url)
+            .zipWith(dataStore.getSavedResults(),
+                BiFunction { results: List<LinkResult>, saved: List<LinkResult> ->
+                    results.map {
+                        it.isSaved = saved.contains(it)
+                        return@map it
+                    }
+                    return@BiFunction results
+                })
+    }
+
+    override fun getResults(url: String): Observable<List<LinkResult>> {
         return dataStore.getResults(url)
     }
 

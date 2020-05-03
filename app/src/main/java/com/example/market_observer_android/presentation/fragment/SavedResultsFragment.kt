@@ -79,6 +79,10 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
     }
 
     override fun onResultSave(result: LinkResult) {
+        presenter.saveResult(result)
+    }
+
+    override fun onResultUnsave(result: LinkResult) {
         presenter.deleteSavedResult(result)
     }
 }

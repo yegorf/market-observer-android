@@ -19,7 +19,9 @@ interface Repository {
 
     fun addResults(url: String, results: List<LinkResult>)
 
-    fun getResults(url: String): Observable<List<LinkResult>?>
+    fun getResultsWithSaved(url: String): Observable<List<LinkResult>>
+
+    fun getResults(url: String): Observable<List<LinkResult>>
 
     fun addSavedResult(result: LinkResult)
 

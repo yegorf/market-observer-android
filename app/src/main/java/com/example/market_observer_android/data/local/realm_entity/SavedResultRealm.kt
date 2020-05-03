@@ -19,6 +19,7 @@ open class SavedResultRealm(
     var price: String? = null,
 
     var userUid: String? = null
+
 ) : RealmObject() {
 
     fun toLinkResult(): LinkResult {
@@ -29,6 +30,7 @@ open class SavedResultRealm(
         result.time = time
         result.location = location
         result.price = price
+        result.isSaved = true
         return result
     }
 

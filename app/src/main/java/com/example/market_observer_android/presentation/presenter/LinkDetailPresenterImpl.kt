@@ -18,8 +18,12 @@ class LinkDetailPresenterImpl(private val repository: Repository) : LinkDetailPr
         repository.addSavedResult(result)
     }
 
+    override fun unsaveResult(result: LinkResult) {
+        repository.deleteSavedResults(result)
+    }
+
     override fun getResults(url: String) {
-        repository.getResults(url)
+        repository.getResultsWithSaved(url)
             .subscribe {
                 view?.setResults(it!!)
             }

@@ -7,5 +7,7 @@ interface SavedResultsPresenter : BasePresenter<SavedResultsView> {
 
     fun getSavedResults()
 
+    fun saveResult(result: LinkResult)
+
     fun deleteSavedResult(result: LinkResult)
 }

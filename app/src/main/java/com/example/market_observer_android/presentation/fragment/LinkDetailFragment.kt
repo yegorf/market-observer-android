@@ -92,6 +92,10 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         presenter.saveResult(result)
     }
 
+    override fun onResultUnsave(result: LinkResult) {
+        presenter.unsaveResult(result)
+    }
+
     override fun onStop() {
         super.onStop()
         (activity as MainActivity).removeToolbarTitle()

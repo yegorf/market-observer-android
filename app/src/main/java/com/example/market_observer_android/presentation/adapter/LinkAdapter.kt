@@ -44,12 +44,7 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
             itemView.tv_name.text = link.name
             itemView.tv_url.text = link.url
 
-            if (link.results.isNotEmpty()) {
-                itemView.v_circle.visibility = View.VISIBLE
-                itemView.v_circle.setCount(link.results.size)
-            } else {
-                itemView.v_circle.visibility = View.GONE
-            }
+            setCircleCount(link)
 
             itemView.setOnClickListener {
                 listener.onLinkClick(link)
@@ -63,6 +58,16 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
             itemView.btn_activate_link.setOnClickListener {
                 link.isActive = !link.isActive
                 listener.onEyeClick(link)
+            }
+        }
+
+        private fun setCircleCount(link: Link) {
+            if (link.results.isNotEmpty()) {
+                val newResults = link.results.filter { !it.isViewed }
+                itemView.v_circle.visibility = View.VISIBLE
+                itemView.v_circle.setCount(newResults.size)
+            } else {
+                itemView.v_circle.visibility = View.GONE
             }
         }
 

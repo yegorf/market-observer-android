@@ -9,10 +9,22 @@ data class LinkResult(
     var time: String? = null,
     var location: String? = null,
     var price: String? = null,
-    var isSaved: Boolean = false
+    var isSaved: Boolean = false,
+    var isViewed: Boolean = false
 ) : Serializable {
 
     override fun toString(): String {
         return "$title\n$url\n"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (url != null && other != null && other is LinkResult) {
+            return url.equals(other.url)
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return url?.hashCode() ?: 0
     }
 }

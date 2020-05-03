@@ -18,6 +18,10 @@ class SavedResultsPresenterImpl(private val repository: Repository) : SavedResul
         compositeDisposable.add(subscribe)
     }
 
+    override fun saveResult(result: LinkResult) {
+        repository.addSavedResult(result)
+    }
+
     override fun deleteSavedResult(result: LinkResult) {
         repository.deleteSavedResults(result)
     }

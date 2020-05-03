@@ -57,7 +57,6 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
             itemView.tv_location.text = result.location
             itemView.tv_price.text = result.price
-
             itemView.iv_result_menu.setOnClickListener {
                 showResultContextPopup(result)
             }
@@ -65,11 +64,24 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
         private fun showResultContextPopup(result: LinkResult) {
             val popup = PopupMenu(itemView.context, itemView.iv_result_menu)
-            popup.menuInflater.inflate(R.menu.found_result_context_menu, popup.menu)
+            if (result.isSaved) {
+                popup.menuInflater.inflate(R.menu.saved_result_context_menu, popup.menu)
+            } else {
+                popup.menuInflater.inflate(R.menu.found_result_context_menu, popup.menu)
+            }
+
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.save -> {
                         listener.onResultSave(result)
+                        result.isSaved = true
+                        notifyItemChanged(adapterPosition)
+                        true
+                    }
+                    R.id.remove_from_saved -> {
+                        listener.onResultUnsave(result)
+                        result.isSaved = false
+                        notifyItemChanged(adapterPosition)
                         true
                     }
                     else -> false
@@ -84,5 +96,7 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
         fun onResultClick(result: LinkResult)
 
         fun onResultSave(result: LinkResult)
+
+        fun onResultUnsave(result: LinkResult)
     }
 }
