@@ -40,9 +40,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         fun newInstance(link: Link): AddLinkFragment {
             val fragment = AddLinkFragment()
             val args = Bundle()
-
             args.putSerializable(LINK_ARG_KEY, link)
-
             fragment.arguments = args
             return fragment
         }
@@ -88,13 +86,13 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                                     view.tv_market.text = parser.getMarketName()
                                     view.iv_status.setImageResource(R.drawable.ic_success)
                                 } else {
-                                    view.tv_market.text = "Invalid url"
+                                    view.tv_market.text = getString(R.string.invalid_url)
                                     view.iv_status.setImageResource(R.drawable.ic_error)
                                 }
                             }
                         } else {
                             activity!!.runOnUiThread {
-                                view.tv_market.text = "Invalid url"
+                                view.tv_market.text = getString(R.string.invalid_url)
                                 view.iv_status.setImageResource(R.drawable.ic_error)
                             }
                         }
@@ -121,13 +119,18 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
             try {
                 val name = et_name.getText()
                 val url = et_url.getText()
-                val periodicity = spinner_periodicity.selectedItem as Int
-                val isObserve = switch_observe.isChecked
-                val link = Link(url, name, periodicity, isObserve)
-                if (!isEdit) {
-                    presenter.addLink(link)
+
+                if (validateInputs(name, url)) {
+                    val periodicity = spinner_periodicity.selectedItem as Int
+                    val isObserve = switch_observe.isChecked
+                    val link = Link(url, name, periodicity, isObserve)
+                    if (!isEdit) {
+                        presenter.addLink(link)
+                    } else {
+                        presenter.editLink(link)
+                    }
                 } else {
-                    presenter.editLink(link)
+                    showShortToast(R.string.invalid_data)
                 }
             } catch (e: Exception) {
                 showShortToast(R.string.invalid_data)
@@ -140,6 +143,10 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         if (isEdit) {
             setEditData(view, link!!)
         }
+    }
+
+    private fun validateInputs(name: String, url: String): Boolean {
+        return name.isNotEmpty() && url.isNotEmpty()
     }
 
     private fun setEditData(view: View, link: Link) {

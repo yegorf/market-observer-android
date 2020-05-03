@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".domain.service.MonitoringService" />
+        <service android:name=".domain.service.MonitoringService"
+            android:launchMode="singleTop"/>
         <activity android:name=".presentation.activity.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

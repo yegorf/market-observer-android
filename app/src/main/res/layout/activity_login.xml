@@ -19,7 +19,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="35dp"/>
 
     <com.example.market_observer_android.presentation.view.StyledEditText
         android:id="@+id/et_email"
