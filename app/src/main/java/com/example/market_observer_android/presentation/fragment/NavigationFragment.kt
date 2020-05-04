@@ -4,48 +4,54 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.market_observer_android.R
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
-import kotlinx.android.synthetic.main.fragment_navigation.*
+import kotlinx.android.synthetic.main.fragment_navigation.view.*
 
 class NavigationFragment : BaseFragment() {
 
-    private val list = mutableListOf<View>()
+    private lateinit var list: List<View>
+
+    private lateinit var homeButton: ImageView
+    private lateinit var historyButton: ImageView
+    private lateinit var settingsButton: ImageView
+    private lateinit var infoButton: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_navigation, container, false)
+        val view = inflater.inflate(R.layout.fragment_navigation, container, false)
+        initViews(view)
+        chooseSection(homeButton)
+        setOnClickListeners()
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        list.add(btn_home)
-        list.add(btn_history)
-        list.add(btn_settings)
-        list.add(btn_info)
-
-        chooseSection(btn_home)
-        setOnClickListeners()
+    private fun initViews(view: View) {
+        homeButton = view.btn_home
+        historyButton = view.btn_settings
+        settingsButton = view.btn_history
+        infoButton = view.btn_info
+        list = listOf(homeButton, historyButton, settingsButton, infoButton)
     }
 
     private fun setOnClickListeners() {
-        btn_home.setOnClickListener {
+        homeButton.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openHome()
         }
-        btn_settings.setOnClickListener {
+        historyButton.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.SETTINGS)
         }
-        btn_history.setOnClickListener {
+        settingsButton.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.SAVED_RESULTS)
         }
-        btn_info.setOnClickListener {
+        infoButton.setOnClickListener {
             chooseSection(it)
             FragmentNavigator(activity!!.supportFragmentManager).openFragment(FragmentNavigator.Screen.INFO)
         }

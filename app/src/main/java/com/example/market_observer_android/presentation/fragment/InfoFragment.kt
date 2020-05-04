@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.market_observer_android.BuildConfig
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.util.AssetsManager
@@ -13,6 +15,9 @@ import com.example.market_observer_android.presentation.mvp_view.InfoView
 import kotlinx.android.synthetic.main.fragment_info.view.*
 
 class InfoFragment : BaseFragment(), InfoView {
+
+    private lateinit var versionText: TextView
+    private lateinit var marketsRecyclerView: RecyclerView
 
     companion object {
         fun newInstance(): InfoFragment {
@@ -26,14 +31,20 @@ class InfoFragment : BaseFragment(), InfoView {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_info, container, false)
-        init(view)
+        initViews(view)
+        init()
         return view
     }
 
-    private fun init(view: View) {
-        view.tv_info_version.text = BuildConfig.VERSION_NAME
-        view.rv_info_market_list.layoutManager = LinearLayoutManager(context)
-        view.rv_info_market_list.adapter = MarketAdapter(AssetsManager.getMarketsList(context!!))
+    private fun initViews(view: View) {
+        versionText = view.tv_info_version
+        marketsRecyclerView = view.rv_info_market_list
+    }
+
+    private fun init() {
+        versionText.text = BuildConfig.VERSION_NAME
+        marketsRecyclerView.layoutManager = LinearLayoutManager(context)
+        marketsRecyclerView.adapter = MarketAdapter(AssetsManager.getMarketsList(context!!))
     }
 
     override fun hasNavigationArrow() = false

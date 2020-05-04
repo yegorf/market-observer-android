@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
@@ -15,8 +18,7 @@ import com.example.market_observer_android.presentation.adapter.LinkResultAdapte
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.LinkDetailPresenter
-import kotlinx.android.synthetic.main.fragment_link_detail.*
-import kotlinx.android.synthetic.main.fragment_progress.*
+import kotlinx.android.synthetic.main.fragment_link_detail.view.*
 import javax.inject.Inject
 
 
@@ -26,6 +28,11 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
     @Inject
     lateinit var presenter: LinkDetailPresenter
     private val adapter = LinkResultAdapter(this)
+
+    private lateinit var resultsRecycler: RecyclerView
+    private lateinit var editButton: ImageView
+    private lateinit var deleteButton: ImageView
+    private lateinit var resultsProgressBar: ProgressBar
 
     companion object {
         private const val LINK_ARG_KEY = "LINK_ARG_KEY"
@@ -44,32 +51,36 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_link_detail, container, false)
+        initViews(view)
         getComponent().inject(this)
-        presenter.onCreate(this)
-        return inflater.inflate(R.layout.fragment_link_detail, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link
         (activity as MainActivity).setToolbarTitle(link.name!!, link.url!!)
         init(link)
+        return view
+    }
+
+    private fun initViews(view: View) {
+        resultsRecycler = view.rv_link_results
+        editButton = view.btn_edit
+        deleteButton = view.btn_delete
+        resultsProgressBar = view.results_progress_bar
     }
 
     private fun init(activeLink: Link) {
-        btn_edit.setOnClickListener {
+        editButton.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).openEditLink(activeLink)
         }
-        btn_delete.setOnClickListener {
+        deleteButton.setOnClickListener {
             if (activeLink.url != null) {
                 presenter.deleteLink(activeLink.url as String)
             }
         }
 
         val manager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_link_results.layoutManager = manager
-        rv_link_results.adapter = adapter
+        resultsRecycler.layoutManager = manager
+        resultsRecycler.adapter = adapter
         presenter.getResults(activeLink.url!!)
     }
 
@@ -79,7 +90,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
 
     override fun setResults(results: List<LinkResult>) {
         adapter.setData(results)
-        results_progress_bar.visibility = View.GONE
+        resultsProgressBar.visibility = View.GONE
     }
 
     override fun onResultClick(result: LinkResult) {

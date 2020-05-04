@@ -1,11 +1,11 @@
 package com.example.market_observer_android.presentation.adapter
 
 import android.text.SpannableString
-import android.text.method.LinkMovementMethod
 import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.util.Market
@@ -32,11 +32,20 @@ class MarketAdapter(private val data: List<Market>) :
 
     inner class MarketHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var urlText: TextView
+        private lateinit var nameText: TextView
+
         fun init(market: Market) {
+            initViews()
             val spannable = SpannableString(market.url)
             spannable.setSpan(UnderlineSpan(), 0, spannable.length, 0)
-            itemView.tv_market_url.text = spannable
-            itemView.tv_market_name.text = "${market.name} - "
+            urlText.text = spannable
+            nameText.text = "${market.name} - "
+        }
+
+        private fun initViews() {
+            urlText = itemView.tv_market_url
+            nameText = itemView.tv_market_name
         }
     }
 }

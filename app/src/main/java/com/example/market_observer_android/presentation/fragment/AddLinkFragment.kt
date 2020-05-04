@@ -7,10 +7,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.util.AssetsManager
 import com.example.market_observer_android.domain.model.Link
@@ -21,7 +20,8 @@ import com.example.market_observer_android.presentation.mvp_view.AddLinkView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
 import com.example.market_observer_android.presentation.presenter.AddLinkPresenter
 import com.example.market_observer_android.presentation.util.showShortToast
-import kotlinx.android.synthetic.main.fragment_add_link.*
+import com.example.market_observer_android.presentation.view.StyledButton
+import com.example.market_observer_android.presentation.view.StyledEditText
 import kotlinx.android.synthetic.main.fragment_add_link.view.*
 import javax.inject.Inject
 
@@ -29,6 +29,16 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
 
     @Inject
     lateinit var presenter: AddLinkPresenter
+
+    private lateinit var marketsRecycler: RecyclerView
+    private lateinit var statusImage: ImageView
+    private lateinit var nameInput: StyledEditText
+    private lateinit var urlInput: StyledEditText
+    private lateinit var marketTextView: TextView
+    private lateinit var periodicitySpinner: Spinner
+    private lateinit var observeSwitch: Switch
+    private lateinit var addLinkButton: StyledButton
+    private lateinit var cancelLinkButton: StyledButton
 
     companion object {
         private const val LINK_ARG_KEY = "LINK_ARG_KEY"
@@ -54,17 +64,30 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_link, container, false)
+        initViews(view)
         getComponent().inject(this)
         presenter.onCreate(this)
-        init(view)
+        init()
         return view
     }
 
-    private fun init(view: View) {
-        view.rv_add_link_market_list.layoutManager = LinearLayoutManager(context)
-        view.rv_add_link_market_list.adapter = MarketAdapter(AssetsManager.getMarketsList(context!!))
+    private fun initViews(view: View) {
+        marketsRecycler = view.rv_add_link_market_list
+        statusImage = view.iv_status
+        nameInput = view.et_name
+        urlInput = view.et_url
+        marketTextView = view.tv_market
+        periodicitySpinner = view.spinner_periodicity
+        observeSwitch = view.switch_observe
+        addLinkButton = view.btn_add_link
+        cancelLinkButton = view.btn_cancel_link
+    }
 
-        view.et_url.addTextChangeListener(object : TextWatcher {
+    private fun init() {
+        marketsRecycler.layoutManager = LinearLayoutManager(context)
+        marketsRecycler.adapter = MarketAdapter(AssetsManager.getMarketsList(context!!))
+
+        urlInput.addTextChangeListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -76,24 +99,24 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Thread {
                     try {
-                        val url = view.et_url.getText()
+                        val url = urlInput.getText()
                         val parser = MarketParserFactory.createParser(url)
                         if (parser != null) {
                             val title = parser.parseTitle(url)
                             activity!!.runOnUiThread {
                                 if (title.isNotEmpty()) {
-                                    view.et_name.setText(title)
-                                    view.tv_market.text = parser.getMarketName()
-                                    view.iv_status.setImageResource(R.drawable.ic_success)
+                                    nameInput.setText(title)
+                                    marketTextView.text = parser.getMarketName()
+                                    statusImage.setImageResource(R.drawable.ic_success)
                                 } else {
-                                    view.tv_market.text = getString(R.string.invalid_url)
-                                    view.iv_status.setImageResource(R.drawable.ic_error)
+                                    marketTextView.text = getString(R.string.invalid_url)
+                                    statusImage.setImageResource(R.drawable.ic_error)
                                 }
                             }
                         } else {
                             activity!!.runOnUiThread {
-                                view.tv_market.text = getString(R.string.invalid_url)
-                                view.iv_status.setImageResource(R.drawable.ic_error)
+                                marketTextView.text = getString(R.string.invalid_url)
+                                statusImage.setImageResource(R.drawable.ic_error)
                             }
                         }
                     } catch (_: Exception) {
@@ -113,16 +136,16 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 android.R.layout.simple_spinner_item,
                 spinnerValues
             )
-        view.spinner_periodicity.adapter = adapter
-        view.switch_observe.isChecked = PreferenceManager.isObserveNewLink()
-        view.btn_add_link.setOnClickListener {
+        periodicitySpinner.adapter = adapter
+        observeSwitch.isChecked = PreferenceManager.isObserveNewLink()
+        addLinkButton.setOnClickListener {
             try {
-                val name = et_name.getText()
-                val url = et_url.getText()
+                val name = nameInput.getText()
+                val url = urlInput.getText()
 
                 if (validateInputs(name, url)) {
-                    val periodicity = spinner_periodicity.selectedItem as Int
-                    val isObserve = switch_observe.isChecked
+                    val periodicity = periodicitySpinner.selectedItem as Int
+                    val isObserve = observeSwitch.isChecked
                     val link = Link(url, name, periodicity, isObserve)
                     if (!isEdit) {
                         presenter.addLink(link)
@@ -136,12 +159,12 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 showShortToast(R.string.invalid_data)
             }
         }
-        view.btn_cancel_link.setOnClickListener {
+        cancelLinkButton.setOnClickListener {
             FragmentNavigator(activity!!.supportFragmentManager).navigateBack(activity!!)
         }
 
         if (isEdit) {
-            setEditData(view, link!!)
+            setEditData(link!!)
         }
     }
 
@@ -149,9 +172,9 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         return name.isNotEmpty() && url.isNotEmpty()
     }
 
-    private fun setEditData(view: View, link: Link) {
-        view.et_name.setText(link.name!!)
-        view.et_url.setText(link.url!!)
+    private fun setEditData(link: Link) {
+        nameInput.setText(link.name!!)
+        urlInput.setText(link.url!!)
 
         val selection = when (link.periodicity) {
             5 -> 0
@@ -159,7 +182,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
             60 -> 2
             else -> 0
         }
-        view.spinner_periodicity.setSelection(selection)
+        periodicitySpinner.setSelection(selection)
     }
 
     override fun onSuccess() {
