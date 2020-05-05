@@ -30,12 +30,8 @@
 
             <ImageView
                 android:id="@+id/iv_result_menu"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="14dp"
-                android:src="@drawable/ic_menu_dots"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

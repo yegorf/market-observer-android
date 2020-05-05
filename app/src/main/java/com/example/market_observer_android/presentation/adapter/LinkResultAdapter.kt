@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.market_observer_android.R
@@ -46,14 +45,14 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
         private lateinit var titleText: TextView
         private lateinit var locationText: TextView
         private lateinit var priceText: TextView
-        private lateinit var menuButton: ImageView
+        private lateinit var saveBtn: ImageView
         private lateinit var image: ImageView
 
         private fun initViews() {
             titleText = itemView.tv_title
             locationText = itemView.tv_location
             priceText = itemView.tv_price
-            menuButton = itemView.iv_result_menu
+            saveBtn = itemView.iv_result_menu
             image = itemView.iv_image
         }
 
@@ -74,11 +73,24 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
             locationText.text = result.location
             priceText.text = result.price
-            menuButton.setOnClickListener {
-                showResultContextPopup(result)
+
+            if (result.isSaved) {
+                saveBtn.setImageResource(R.drawable.devele_fav)
+            } else {
+                saveBtn.setImageResource(R.drawable.add_fav)
+            }
+            saveBtn.setOnClickListener {
+                if (result.isSaved) {
+                    listener.onResultUnsave(result)
+                } else {
+                    listener.onResultSave(result)
+                }
+                result.isSaved = !result.isSaved
+                notifyItemChanged(adapterPosition)
             }
         }
 
+        /*
         private fun showResultContextPopup(result: LinkResult) {
             val popup = PopupMenu(itemView.context, menuButton)
             if (result.isSaved) {
@@ -106,6 +118,7 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
             }
             popup.show()
         }
+        */
     }
 
     interface LinkResultListener {
