@@ -3,9 +3,12 @@ package com.example.market_observer_android.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
+import com.example.market_observer_android.presentation.view.CircleCountView
 import kotlinx.android.synthetic.main.item_active_link.view.*
 
 
@@ -40,9 +43,22 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
     inner class LinkHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var nameText: TextView
+        private lateinit var urlText: TextView
+        private lateinit var activateButton: ImageView
+        private lateinit var countView: CircleCountView
+
+        private fun initViews() {
+            nameText = itemView.tv_name
+            urlText = itemView.tv_url
+            activateButton = itemView.btn_activate_link
+            countView = itemView.v_circle
+        }
+
         fun bind(link: Link) {
-            itemView.tv_name.text = link.name
-            itemView.tv_url.text = link.url
+            initViews()
+            nameText.text = link.name
+            urlText.text = link.url
 
             setCircleCount(link)
 
@@ -55,7 +71,7 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
             }
 
             setEyeImage(link.isActive)
-            itemView.btn_activate_link.setOnClickListener {
+            activateButton.setOnClickListener {
                 link.isActive = !link.isActive
                 listener.onEyeClick(link)
             }
@@ -64,18 +80,18 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
         private fun setCircleCount(link: Link) {
             if (link.results.isNotEmpty()) {
                 val newResults = link.results.filter { !it.isViewed }
-                itemView.v_circle.visibility = View.VISIBLE
-                itemView.v_circle.setCount(newResults.size)
+                countView.visibility = View.VISIBLE
+                countView.setCount(newResults.size)
             } else {
-                itemView.v_circle.visibility = View.GONE
+                countView.visibility = View.GONE
             }
         }
 
         private fun setEyeImage(isActive: Boolean) {
             if (isActive) {
-                itemView.btn_activate_link.setImageResource(R.drawable.ic_eye_opened)
+                activateButton.setImageResource(R.drawable.ic_eye_opened)
             } else {
-                itemView.btn_activate_link.setImageResource(R.drawable.ic_eye_closed)
+                activateButton.setImageResource(R.drawable.ic_eye_closed)
             }
         }
     }

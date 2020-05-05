@@ -3,6 +3,8 @@ package com.example.market_observer_android.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -41,12 +43,27 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
 
     inner class LinkResultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var titleText: TextView
+        private lateinit var locationText: TextView
+        private lateinit var priceText: TextView
+        private lateinit var menuButton: ImageView
+        private lateinit var image: ImageView
+
+        private fun initViews() {
+            titleText = itemView.tv_title
+            locationText = itemView.tv_location
+            priceText = itemView.tv_price
+            menuButton = itemView.iv_result_menu
+            image = itemView.iv_image
+        }
+
         fun bind(result: LinkResult) {
-            itemView.tv_title.text = result.title
+            initViews()
+            titleText.text = result.title
             if (result.imageUrl != null) {
                 Glide.with(itemView)
                     .load(result.imageUrl)
-                    .into(itemView.iv_image)
+                    .into(image)
             }
 
             itemView.setOnClickListener {
@@ -55,15 +72,15 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
                 }
             }
 
-            itemView.tv_location.text = result.location
-            itemView.tv_price.text = result.price
-            itemView.iv_result_menu.setOnClickListener {
+            locationText.text = result.location
+            priceText.text = result.price
+            menuButton.setOnClickListener {
                 showResultContextPopup(result)
             }
         }
 
         private fun showResultContextPopup(result: LinkResult) {
-            val popup = PopupMenu(itemView.context, itemView.iv_result_menu)
+            val popup = PopupMenu(itemView.context, menuButton)
             if (result.isSaved) {
                 popup.menuInflater.inflate(R.menu.saved_result_context_menu, popup.menu)
             } else {
