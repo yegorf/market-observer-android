@@ -1,8 +1,8 @@
 package com.example.market_observer_android.data.mapper
 
+import com.example.market_observer_android.data.entity.SavedResultEntity
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
-import com.example.market_observer_android.data.util.SavedResultStructure
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.realm.RealmList
@@ -99,17 +99,17 @@ class MapperFactory {
         }
     }
 
-    fun resultToMapMapper(): Mapper<LinkResult, HashMap<String, String?>> {
-        return object : Mapper<LinkResult, HashMap<String, String?>> {
-            override fun transform(entity: LinkResult): HashMap<String, String?> {
-                return hashMapOf(
-                    SavedResultStructure.URL to entity.url,
-                    SavedResultStructure.TITLE to entity.title,
-                    SavedResultStructure.IMAGE_URL to entity.imageUrl,
-                    SavedResultStructure.PRICE to entity.price,
-                    SavedResultStructure.LOCATION to entity.location,
-                    SavedResultStructure.TIME to entity.time
-                )
+    fun resultToSavedEntityMapper(): Mapper<LinkResult, SavedResultEntity> {
+        return object : Mapper<LinkResult, SavedResultEntity> {
+            override fun transform(entity: LinkResult): SavedResultEntity {
+                val saved = SavedResultEntity()
+                saved.url = entity.url
+                saved.title = entity.title
+                saved.imageUrl = entity.imageUrl
+                saved.location = entity.location
+                saved.price = entity.price
+                saved.time = entity.time
+                return saved
             }
         }
     }

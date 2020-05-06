@@ -9,8 +9,7 @@ data class LinkResult(
     var time: String? = null,
     var location: String? = null,
     var price: String? = null,
-    var isSaved: Boolean = false,
-    var isViewed: Boolean = false
+    var isSaved: Boolean = false
 ) : Serializable {
 
     override fun toString(): String {

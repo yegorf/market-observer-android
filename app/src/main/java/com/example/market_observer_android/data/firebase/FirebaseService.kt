@@ -1,15 +1,16 @@
 package com.example.market_observer_android.data.firebase
 
 import android.util.Log
+import com.example.market_observer_android.data.entity.SavedResultEntity
 import com.example.market_observer_android.data.entity.SettingsEntity
-import com.example.market_observer_android.data.util.SavedResultStructure
-import com.example.market_observer_android.data.util.SettingsStructure
+import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import io.realm.RealmResults
 
 class FirebaseService {
 
@@ -43,8 +44,8 @@ class FirebaseService {
         return observable
     }
 
-    fun addSavedResult(result: HashMap<String, String?>) {
-        result[SavedResultStructure.USER_UID] = FirebaseAuth.getInstance().currentUser?.uid
+    fun addSavedResult(result: SavedResultEntity) {
+        result.userUid = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
             .add(result)
@@ -62,7 +63,7 @@ class FirebaseService {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
-            .whereEqualTo(SavedResultStructure.USER_UID, user)
+            .whereEqualTo(SavedResultEntity.USER_UID, user)
             .get()
             .addOnSuccessListener { result ->
                 val results = result.map {
@@ -81,8 +82,8 @@ class FirebaseService {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection("saved")
-            .whereEqualTo(SavedResultStructure.USER_UID, user)
-            .whereEqualTo(SavedResultStructure.URL, result.url)
+            .whereEqualTo(SavedResultEntity.USER_UID, user)
+            .whereEqualTo(SavedResultEntity.URL, result.url)
             .get()
             .addOnSuccessListener { res ->
                 res.documents.forEach {
@@ -92,26 +93,18 @@ class FirebaseService {
     }
 
     fun saveSettings(settings: SettingsEntity) {
-        val settingsMap = hashMapOf(
-            SettingsStructure.USER_UID to FirebaseAuth.getInstance().currentUser?.uid,
-            SettingsStructure.APP_NOTIFICATIONS to settings.appNotificationsOn,
-            SettingsStructure.EMAIL_NOTIFICATIONS to settings.emailNotificationsOn,
-            SettingsStructure.OBSERVE_NEW_LINK to settings.observeNewLinkOn,
-            SettingsStructure.AUTO_BACKUP to settings.autoBackupOn
-        )
-
         Firebase.firestore
-            .collection(SettingsStructure.NAME)
+            .collection(SettingsEntity.NAME)
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
-            .set(settingsMap)
+            .set(settings)
     }
 
     fun getSettings(): Observable<SettingsEntity> {
         val observable = PublishSubject.create<SettingsEntity>()
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
-            .collection(SettingsStructure.NAME)
-            .whereEqualTo(SettingsStructure.USER_UID, user)
+            .collection(SettingsEntity.NAME)
+            .whereEqualTo(SettingsEntity.USER_UID, user)
             .get()
             .addOnSuccessListener { result ->
                 val map = result.map {
@@ -127,5 +120,18 @@ class FirebaseService {
                 observable.onError(it)
             }
         return observable
+    }
+
+    fun addLink(link: HashMap<String, String>) {
+        //todo
+    }
+
+    fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
+        //todo
+        return Observable.empty()
+    }
+
+    fun deleteLink(url: String) {
+        //todo
     }
 }

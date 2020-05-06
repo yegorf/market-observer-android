@@ -19,7 +19,7 @@ class RemoteDataStore(
     }
 
     override fun addSavedResult(result: LinkResult) {
-        firebaseService.addSavedResult(mapper.resultToMapMapper().transform(result))
+        firebaseService.addSavedResult(mapper.resultToSavedEntityMapper().transform(result))
     }
 
     override fun getSavedResults(): Observable<List<LinkResult>> {

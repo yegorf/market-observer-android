@@ -41,15 +41,10 @@ class DataStoreProxy(
 
     override fun addSavedResult(result: LinkResult) {
         localDataStore.addSavedResult(result)
-        if (PreferenceManager.isStoreRemote()) {
-            remoteDataStore.addSavedResult(result)
-        }
+        remoteDataStore.addSavedResult(result)
     }
 
     override fun getSavedResults(): Observable<List<LinkResult>> {
-//        if (PreferenceManager.isStoreRemote()) {
-//            return remoteDataStore.getSavedResults()
-//        }
         return localDataStore.getSavedResults()
     }
 

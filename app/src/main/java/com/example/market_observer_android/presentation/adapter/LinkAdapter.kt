@@ -79,9 +79,8 @@ class LinkAdapter(private val listener: LinkAdapterListener) :
 
         private fun setCircleCount(link: Link) {
             if (link.results.isNotEmpty()) {
-                val newResults = link.results.filter { !it.isViewed }
                 countView.visibility = View.VISIBLE
-                countView.setCount(newResults.size)
+                countView.setCount(link.results.size)
             } else {
                 countView.visibility = View.GONE
             }
