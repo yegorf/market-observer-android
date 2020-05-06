@@ -49,9 +49,9 @@
         android:id="@+id/btn_info"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:padding="5dp"
+        android:padding="3dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_info"
+        android:src="@drawable/ic_app_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_settings"
         app:layout_constraintTop_toTopOf="parent"/>
