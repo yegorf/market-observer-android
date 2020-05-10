@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import com.example.market_observer_android.R
@@ -13,6 +14,7 @@ import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
+import kotlinx.android.synthetic.main.fragment_progress.view.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import javax.inject.Inject
 
@@ -29,6 +31,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
     private lateinit var emailTextView: TextView
     private lateinit var signOutButton: TextView
     private lateinit var uploadDataButton: LinearLayout
+    private lateinit var progressBar: ProgressBar
 
     companion object {
         fun newInstance(): SettingsFragment {
@@ -57,6 +60,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
         emailTextView = view.tv_email
         signOutButton = view.btn_sign_out
         uploadDataButton = view.btn_upload_cloud
+        progressBar = view.download_progress_bar
     }
 
     private fun initSwitches() {
@@ -85,6 +89,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
         }
 
         uploadDataButton.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             presenter.uploadCloud()
         }
     }
@@ -113,6 +118,10 @@ class SettingsFragment : BaseFragment(), SettingsView {
 
     override fun openLoginScreen() {
         ActivityNavigator.navigateToLoginActivity(activity!!)
+    }
+
+    override fun onDownloadFinish() {
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun hasNavigationArrow() = false

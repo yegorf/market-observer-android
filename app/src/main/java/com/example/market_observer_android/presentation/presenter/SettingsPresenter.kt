@@ -10,4 +10,6 @@ interface SettingsPresenter : BasePresenter<SettingsView> {
     fun saveSettings(settings: SettingsEntity)
 
     fun uploadCloud()
+
+    fun onRelease()
 }

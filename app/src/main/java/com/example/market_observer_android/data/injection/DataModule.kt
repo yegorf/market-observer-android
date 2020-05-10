@@ -8,6 +8,7 @@ import com.example.market_observer_android.data.local.RealmService
 import com.example.market_observer_android.data.mapper.MapperFactory
 import com.example.market_observer_android.data.repository.Repository
 import com.example.market_observer_android.data.repository.RepositoryImpl
+import com.example.market_observer_android.data.util.RemoteDownloadManager
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
@@ -16,7 +17,10 @@ import io.realm.Realm
 class DataModule {
 
     @Provides
-    fun provideRemoteDataStore(firebaseService: FirebaseService, mapperFactory: MapperFactory): RemoteDataStore {
+    fun provideRemoteDataStore(
+        firebaseService: FirebaseService,
+        mapperFactory: MapperFactory
+    ): RemoteDataStore {
         return RemoteDataStore(firebaseService, mapperFactory)
     }
 
@@ -53,4 +57,10 @@ class DataModule {
     ): Repository {
         return RepositoryImpl(dataStoreProxy, mapperFactory)
     }
+
+    @Provides
+    fun provideRemoteDownloadManager(
+        localDataStore: LocalDataStore,
+        remoteDataStore: RemoteDataStore
+    ) = RemoteDownloadManager(localDataStore, remoteDataStore)
 }

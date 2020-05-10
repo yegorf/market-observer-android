@@ -2,6 +2,7 @@ package com.example.market_observer_android.presentation.injection
 
 import com.example.market_observer_android.data.injection.DataModule
 import com.example.market_observer_android.data.repository.Repository
+import com.example.market_observer_android.data.util.RemoteDownloadManager
 import com.example.market_observer_android.domain.usecase.GetActiveLinksUseCase
 import com.example.market_observer_android.presentation.presenter.*
 import dagger.Module
@@ -16,7 +17,10 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideHomePresenter(repository: Repository, getActiveLinksUseCase: GetActiveLinksUseCase): HomePresenter {
+    fun provideHomePresenter(
+        repository: Repository,
+        getActiveLinksUseCase: GetActiveLinksUseCase
+    ): HomePresenter {
         return HomePresenterImpl(repository, getActiveLinksUseCase)
     }
 
@@ -31,8 +35,11 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideSettingsPresenter(repository: Repository): SettingsPresenter {
-        return SettingsPresenterImpl(repository)
+    fun provideSettingsPresenter(
+        repository: Repository,
+        manager: RemoteDownloadManager
+    ): SettingsPresenter {
+        return SettingsPresenterImpl(repository, manager)
     }
 
     @Provides

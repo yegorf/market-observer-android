@@ -28,6 +28,15 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/global_text_size" />
 
+        <ProgressBar
+            android:id="@+id/download_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="true"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
     </LinearLayout>
 
     <TextView

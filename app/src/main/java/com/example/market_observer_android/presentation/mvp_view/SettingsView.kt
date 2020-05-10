@@ -5,4 +5,6 @@ interface SettingsView {
     fun setUserData(email: String)
 
     fun openLoginScreen()
+
+    fun onDownloadFinish()
 }
