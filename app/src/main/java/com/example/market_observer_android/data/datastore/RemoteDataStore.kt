@@ -3,6 +3,7 @@ package com.example.market_observer_android.data.datastore
 import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.data.firebase.FirebaseService
 import com.example.market_observer_android.data.mapper.MapperFactory
+import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
 
@@ -36,5 +37,26 @@ class RemoteDataStore(
 
     fun getSettings(): Observable<SettingsEntity> {
         return firebaseService.getSettings()
+    }
+
+    fun getLinks(): Observable<List<Link>> {
+        return firebaseService.getAllLinks()
+            .map { list ->
+                list.map {
+                    mapper.entityToLinkMapper().transform(it)
+                }
+            }
+    }
+
+    fun addLink(link: Link) {
+        firebaseService.addLink(mapper.linkToEntityMapper().transform(link))
+    }
+
+    fun deleteLink(url: String) {
+        firebaseService.deleteLink(url)
+    }
+
+    fun updateResults(url: String, results: List<LinkResult>) {
+        firebaseService.updateResults(url, results)
     }
 }

@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.market_observer_android.BuildConfig
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.util.AssetsManager
 import com.example.market_observer_android.domain.model.Link
@@ -119,8 +121,10 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                                 statusImage.setImageResource(R.drawable.ic_error)
                             }
                         }
-                    } catch (_: Exception) {
-
+                    } catch (e: Exception) {
+                        if (BuildConfig.DEBUG) {
+                            Log.e(tag, e.message)
+                        }
                     }
                 }.start()
             }

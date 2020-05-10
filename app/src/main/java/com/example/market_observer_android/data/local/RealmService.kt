@@ -1,7 +1,7 @@
 package com.example.market_observer_android.data.local
 
 import com.example.market_observer_android.data.entity.LinkEntity
-import com.example.market_observer_android.data.entity.SavedResultEntity
+import com.example.market_observer_android.data.entity.ResultEntity
 import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
@@ -82,8 +82,8 @@ class RealmService(private var realm: Realm) {
     fun deleteSavedResult(result: LinkResult) {
         realm.executeTransaction {
             it.where(SavedResultRealm::class.java)
-                .equalTo(SavedResultEntity.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
-                .equalTo(SavedResultEntity.URL, result.url)
+                .equalTo(ResultEntity.USER_UID, FirebaseAuth.getInstance().currentUser?.uid)
+                .equalTo(ResultEntity.URL, result.url)
                 .findAll()
                 .deleteAllFromRealm()
         }

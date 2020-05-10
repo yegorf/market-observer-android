@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import com.example.market_observer_android.R
@@ -27,6 +28,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
     private lateinit var dataStorageSwitch: Switch
     private lateinit var emailTextView: TextView
     private lateinit var signOutButton: TextView
+    private lateinit var uploadDataButton: LinearLayout
 
     companion object {
         fun newInstance(): SettingsFragment {
@@ -54,6 +56,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
         dataStorageSwitch = view.switch_data_storage
         emailTextView = view.tv_email
         signOutButton = view.btn_sign_out
+        uploadDataButton = view.btn_upload_cloud
     }
 
     private fun initSwitches() {
@@ -79,6 +82,10 @@ class SettingsFragment : BaseFragment(), SettingsView {
         dataStorageSwitch.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.setStoreRemote(isChecked)
             saveSettings()
+        }
+
+        uploadDataButton.setOnClickListener {
+            presenter.uploadCloud()
         }
     }
 

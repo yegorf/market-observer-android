@@ -29,6 +29,7 @@ class MonitoringService : Service() {
     private val tag = MonitoringService::class.java.simpleName
     private val bus = RxBus
     private val busDisposables = CompositeDisposable()
+    private val repositoryDisposables = CompositeDisposable()
     private val subscriptions = mutableMapOf<String, Disposable>()
 
     companion object {
@@ -54,13 +55,10 @@ class MonitoringService : Service() {
     }
 
     private fun onResultsFound(url: String, results: List<LinkResult>) {
-        val newResults = mutableListOf<LinkResult>()
-        repository.getResults(url)
+        val subscribe = repository.getResults(url)
             .subscribe {
-                results.forEach { result ->
-                    if (!it!!.contains(result)) {
-                        newResults.add(result)
-                    }
+                val newResults = results.filter { result ->
+                    !it.contains(result)
                 }
 
                 if (newResults.isNotEmpty()) {
@@ -76,14 +74,16 @@ class MonitoringService : Service() {
                     }
                 }
             }
+        repositoryDisposables.add(subscribe)
     }
 
     private fun startObserve() {
-        repository.getActiveLinks()
+        val subscribe = repository.getActiveLinks()
             .subscribe { list ->
                 list.filter { it.isActive }
                     .forEach { addLinkToObserve(it) }
             }
+        repositoryDisposables.add(subscribe)
     }
 
     private fun addLinkToObserve(link: Link) {
@@ -141,10 +141,7 @@ class MonitoringService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unsubscribeBus()
-    }
-
-    private fun unsubscribeBus() {
         busDisposables.clear()
+        repositoryDisposables.clear()
     }
 }

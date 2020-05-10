@@ -8,4 +8,6 @@ interface SettingsPresenter : BasePresenter<SettingsView> {
     fun signOut()
 
     fun saveSettings(settings: SettingsEntity)
+
+    fun uploadCloud()
 }

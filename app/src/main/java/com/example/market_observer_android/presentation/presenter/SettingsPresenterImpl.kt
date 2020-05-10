@@ -24,4 +24,8 @@ class SettingsPresenterImpl(private val repository: Repository) : SettingsPresen
     override fun saveSettings(settings: SettingsEntity) {
         repository.saveSettings(settings)
     }
+
+    override fun uploadCloud() {
+        //todo: upload all remote data to realm
+    }
 }

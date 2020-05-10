@@ -13,18 +13,22 @@ class DataStoreProxy(
 
     fun getAllLinks(): Observable<List<Link>> {
         return localDataStore.getAllLinks()
+        //return remoteDataStore.getLinks()
     }
 
     fun addLink(link: Link) {
         localDataStore.addLink(link)
+        //remoteDataStore.addLink(link)
     }
 
     fun deleteLink(url: String) {
         localDataStore.deleteLink(url)
+        //remoteDataStore.deleteLink(url)
     }
 
     fun addResults(url: String, results: List<LinkResult>) {
         localDataStore.addResults(url, results)
+        //remoteDataStore.updateResults(url, results)
     }
 
     fun getResults(url: String): Observable<List<LinkResult>> {
@@ -41,16 +45,17 @@ class DataStoreProxy(
 
     override fun addSavedResult(result: LinkResult) {
         localDataStore.addSavedResult(result)
-        remoteDataStore.addSavedResult(result)
+        //remoteDataStore.addSavedResult(result)
     }
 
     override fun getSavedResults(): Observable<List<LinkResult>> {
         return localDataStore.getSavedResults()
+        //return remoteDataStore.getSavedResults()
     }
 
     override fun deleteSavedResults(result: LinkResult) {
         localDataStore.deleteSavedResults(result)
-        remoteDataStore.deleteSavedResults(result)
+        //remoteDataStore.deleteSavedResults(result)
     }
 
     fun saveSettings(settings: SettingsEntity) {

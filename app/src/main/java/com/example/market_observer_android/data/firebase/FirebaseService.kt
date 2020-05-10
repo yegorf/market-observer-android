@@ -1,16 +1,15 @@
 package com.example.market_observer_android.data.firebase
 
 import android.util.Log
-import com.example.market_observer_android.data.entity.SavedResultEntity
+import com.example.market_observer_android.data.entity.LinkEntity
+import com.example.market_observer_android.data.entity.ResultEntity
 import com.example.market_observer_android.data.entity.SettingsEntity
-import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.domain.model.LinkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import io.realm.RealmResults
 
 class FirebaseService {
 
@@ -44,10 +43,10 @@ class FirebaseService {
         return observable
     }
 
-    fun addSavedResult(result: SavedResultEntity) {
+    fun addSavedResult(result: ResultEntity) {
         result.userUid = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
-            .collection("saved")
+            .collection(ResultEntity.TABLE_NAME)
             .add(result)
             .addOnSuccessListener {
                 Log.d(tag, "Added")
@@ -59,15 +58,17 @@ class FirebaseService {
 
     fun getSavedResults(): Observable<List<LinkResult>> {
         val observable = PublishSubject.create<List<LinkResult>>()
-
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
-            .collection("saved")
-            .whereEqualTo(SavedResultEntity.USER_UID, user)
+            .collection(ResultEntity.TABLE_NAME)
+            .whereEqualTo(ResultEntity.USER_UID, user)
             .get()
             .addOnSuccessListener { result ->
                 val results = result.map {
                     it.toObject(LinkResult::class.java)
+                }
+                results.forEach {
+                    it.isSaved = true
                 }
                 observable.onNext(results)
             }
@@ -81,13 +82,15 @@ class FirebaseService {
     fun deleteSavedResult(result: LinkResult) {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
-            .collection("saved")
-            .whereEqualTo(SavedResultEntity.USER_UID, user)
-            .whereEqualTo(SavedResultEntity.URL, result.url)
+            .collection(ResultEntity.TABLE_NAME)
+            .whereEqualTo(ResultEntity.USER_UID, user)
+            .whereEqualTo(ResultEntity.URL, result.url)
             .get()
             .addOnSuccessListener { res ->
                 res.documents.forEach {
-                    Firebase.firestore.collection("saved").document(it.id).delete()
+                    Firebase.firestore.collection(ResultEntity.TABLE_NAME)
+                        .document(it.id)
+                        .delete()
                 }
             }
     }
@@ -122,16 +125,69 @@ class FirebaseService {
         return observable
     }
 
-    fun addLink(link: HashMap<String, String>) {
-        //todo
+    fun addLink(link: LinkEntity) {
+        link.userUid = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection(LinkEntity.TABLE_NAME)
+            .add(link)
+            .addOnSuccessListener {
+                Log.d(tag, "Added")
+            }
+            .addOnFailureListener {
+                Log.d(tag, "Cant add: ${it.message} -> ${it.cause}")
+            }
     }
 
-    fun getAllLinks(): Observable<RealmResults<LinkRealm>> {
-        //todo
-        return Observable.empty()
+    fun getAllLinks(): Observable<List<LinkEntity>> {
+        val observable = PublishSubject.create<List<LinkEntity>>()
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection(LinkEntity.TABLE_NAME)
+            .whereEqualTo(LinkEntity.USER_UID, user)
+            .get()
+            .addOnSuccessListener { result ->
+                val results = result.map {
+                    it.toObject(LinkEntity::class.java)
+                }
+                observable.onNext(results)
+            }
+            .addOnFailureListener { exception ->
+                observable.onError(exception)
+            }
+
+        return observable
     }
 
     fun deleteLink(url: String) {
-        //todo
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection(LinkEntity.TABLE_NAME)
+            .whereEqualTo(LinkEntity.USER_UID, user)
+            .whereEqualTo(LinkEntity.URL, url)
+            .get()
+            .addOnSuccessListener { res ->
+                res.documents.forEach {
+                    Firebase.firestore.collection(LinkEntity.TABLE_NAME)
+                        .document(it.id)
+                        .delete()
+                }
+            }
+    }
+
+    fun updateResults(url: String, results: List<LinkResult>) {
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        Firebase.firestore
+            .collection(LinkEntity.TABLE_NAME)
+            .whereEqualTo(LinkEntity.USER_UID, user)
+            .whereEqualTo(LinkEntity.URL, url)
+            .get()
+            .addOnSuccessListener {
+                Firebase.firestore
+                    .collection(LinkEntity.TABLE_NAME)
+                    .document(it.first().id)
+                    .update(
+                        mapOf(LinkEntity.RESULTS to results)
+                    )
+            }
     }
 }

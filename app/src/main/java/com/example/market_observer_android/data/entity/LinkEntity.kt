@@ -7,9 +7,11 @@ data class LinkEntity(
     var name: String? = null,
     var periodicity: Int = 0,
     var isActive: Boolean = true,
-    var results: List<LinkResult> = mutableListOf()
+    var results: List<LinkResult> = mutableListOf(),
+    var userUid: String? = null
 ) {
     companion object {
+        const val TABLE_NAME = "links"
         const val USER_UID = "userUid"
         const val URL = "url"
         const val NAME = "name"
