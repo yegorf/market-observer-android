@@ -56,7 +56,7 @@ class RemoteDataStore(
         firebaseService.deleteLink(url)
     }
 
-    fun updateResults(url: String, results: List<LinkResult>) {
-        firebaseService.updateResults(url, results)
+    fun addResults(url: String, results: List<LinkResult>) {
+        firebaseService.addResults(url, results)
     }
 }

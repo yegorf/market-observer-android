@@ -174,7 +174,7 @@ class FirebaseService {
             }
     }
 
-    fun updateResults(url: String, results: List<LinkResult>) {
+    fun addResults(url: String, newResults: List<LinkResult>) {
         val user = FirebaseAuth.getInstance().currentUser?.uid
         Firebase.firestore
             .collection(LinkEntity.TABLE_NAME)
@@ -182,6 +182,10 @@ class FirebaseService {
             .whereEqualTo(LinkEntity.URL, url)
             .get()
             .addOnSuccessListener {
+                val link = it.first().toObject(LinkEntity::class.java)
+                val results = mutableListOf<LinkResult>()
+                results.addAll(link.results)
+                results.addAll(newResults)
                 Firebase.firestore
                     .collection(LinkEntity.TABLE_NAME)
                     .document(it.first().id)
