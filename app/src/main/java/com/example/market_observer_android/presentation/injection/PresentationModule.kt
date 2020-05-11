@@ -46,4 +46,9 @@ class PresentationModule {
     fun provideSavedResultsPresenter(repository: Repository): SavedResultsPresenter {
         return SavedResultsPresenterImpl(repository)
     }
+
+    @Provides
+    fun provideInfoPresenter(): InfoPresenter {
+        return InfoPresenterImpl()
+    }
 }

@@ -18,4 +18,6 @@ interface PresentationComponent {
     fun inject(settingsFragment: SettingsFragment)
 
     fun inject(savedResultsFragment: SavedResultsFragment)
+
+    fun inject(infoFragment: InfoFragment)
 }

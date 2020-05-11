@@ -12,7 +12,7 @@
     <string name="app_notifications">App notifications</string>
     <string name="email_notifications">Email notifications</string>
     <string name="have_a_question_complaint_or_suggestion">Have a question, complaint or suggestion?</string>
-    <string name="contact_us">contact us</string>
+    <string name="contact_us"><u>contact us</u></string>
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="sign_in">sign in</string>

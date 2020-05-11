@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.example.market_observer_android.BuildConfig
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.data.injection.DataModule
@@ -97,7 +98,9 @@ class MonitoringService : Service() {
                             onResultsFound(link.url as String, results)
                         }
                     } catch (e: Exception) {
-                        Log.e(tag, e.message!!)
+                        if (BuildConfig.DEBUG) {
+                            Log.e(tag, e.message!!)
+                        }
                     }
                 }
     }

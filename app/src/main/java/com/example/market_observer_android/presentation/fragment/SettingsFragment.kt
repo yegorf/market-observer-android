@@ -1,20 +1,19 @@
 package com.example.market_observer_android.presentation.fragment
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import com.example.market_observer_android.R
 import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.domain.util.PreferenceManager
 import com.example.market_observer_android.presentation.mvp_view.SettingsView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.SettingsPresenter
-import kotlinx.android.synthetic.main.fragment_progress.view.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import javax.inject.Inject
 
