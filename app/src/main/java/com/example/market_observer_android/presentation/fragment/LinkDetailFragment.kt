@@ -56,7 +56,9 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         getComponent().inject(this)
         presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link
-        (activity as MainActivity).setToolbarTitle(link.name!!, link.url!!)
+        if (activity is MainActivity) {
+            (activity as MainActivity).setToolbarTitle(link.name!!, link.url!!)
+        }
         init(link)
         return view
     }
@@ -109,7 +111,9 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
 
     override fun onStop() {
         super.onStop()
-        (activity as MainActivity).removeToolbarTitle()
+        if (activity is MainActivity) {
+            (activity as MainActivity).removeToolbarTitle()
+        }
     }
 
     override fun hasNavigationArrow() = true

@@ -6,8 +6,8 @@
         <item name="colorAccent">@color/colorDarkBlue</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:ambientShadowAlpha">0.15</item>
-        <item name="android:spotShadowAlpha">0.15</item>
+        <item name="android:ambientShadowAlpha">0.2</item>
+        <item name="android:spotShadowAlpha">0.2</item>
     </style>
 
 </resources>

@@ -5,7 +5,7 @@ import org.jsoup.Jsoup
 
 class BesplatkaParser: MarketParser {
 
-    override fun getMarketName() = "besplatka.ua"
+    override fun getMarketName() = MarketConfig.BESPLATKA
 
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)

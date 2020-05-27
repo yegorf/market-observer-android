@@ -5,7 +5,7 @@ import org.jsoup.Jsoup
 
 class PromParser : MarketParser {
 
-    override fun getMarketName() = "prom.ua"
+    override fun getMarketName() = MarketConfig.PROM
 
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)

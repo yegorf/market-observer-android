@@ -5,7 +5,7 @@ import org.jsoup.Jsoup
 
 class PlaceUAParser : MarketParser {
 
-    override fun getMarketName() = "place.ua"
+    override fun getMarketName() = MarketConfig.PLACE
 
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)

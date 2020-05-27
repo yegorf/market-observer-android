@@ -5,7 +5,7 @@ import org.jsoup.Jsoup
 
 class RiaParser : MarketParser {
 
-    override fun getMarketName() = "ria.com"
+    override fun getMarketName() = MarketConfig.RIA
 
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)

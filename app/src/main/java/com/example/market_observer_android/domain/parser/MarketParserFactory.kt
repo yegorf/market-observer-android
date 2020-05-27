@@ -6,12 +6,12 @@ object MarketParserFactory {
 
     fun createParser(url: String): MarketParser? {
         return when (getName(url)) {
-            "place.ua" -> PlaceUAParser()
-            "olx.ua" -> OlxParser()
-            "m.olx.ua" -> OlxParser()
-            "besplatka.ua" -> BesplatkaParser()
-            "ria.com" -> RiaParser()
-            "prom.ua" -> PromParser()
+            MarketConfig.PLACE -> PlaceUAParser()
+            MarketConfig.BESPLATKA -> BesplatkaParser()
+            MarketConfig.RIA -> RiaParser()
+            MarketConfig.PROM -> PromParser()
+            MarketConfig.OLX -> OlxParser()
+            MarketConfig.OLX_MOBILE -> OlxParser()
             else -> return null
         }
     }
