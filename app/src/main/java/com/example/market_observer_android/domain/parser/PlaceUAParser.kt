@@ -22,11 +22,11 @@ class PlaceUAParser : MarketParser {
         val results = mutableListOf<LinkResult>()
         rows.forEach {
             val result = LinkResult()
-            result.title = it.select("div.sr-page__list__item_title").select("a").text() //+
-            result.price = it.select("td.sr-page__list__item_price").select("strong").text() //+
-            result.location = it.select("i.fa fa-map-marker").text() //+
-            result.url = it.select("div.sr-page__list__item_title").select("a").attr("href") //+
-            result.imageUrl = it.select("img.rel br2 zi3 shadow").attr("src") //+
+            result.title = it.select("div.sr-page__list__item_title").select("a").text()
+            result.price = it.select("td.sr-page__list__item_price").select("strong").text()
+            result.location = it.select("i.fa fa-map-marker").text()
+            result.url = it.select("div.sr-page__list__item_title").select("a").attr("href")
+            result.imageUrl = it.select("img.rel br2 zi3 shadow").attr("src")
             results.add(result)
         }
         return results

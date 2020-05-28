@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_link_result.view.*
 
 
-class MainActivity : BaseActivity() {
+class GlobalActivity : BaseActivity() {
 
     lateinit var toolbar: Toolbar
 

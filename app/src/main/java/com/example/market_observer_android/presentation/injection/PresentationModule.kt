@@ -8,7 +8,7 @@ import com.example.market_observer_android.presentation.presenter.*
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [DataModule::class]) //todo: not include DataModule
+@Module(includes = [DataModule::class])
 class PresentationModule {
 
     @Provides

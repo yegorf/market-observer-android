@@ -7,7 +7,6 @@ import com.google.gson.Gson
 object AssetsManager {
 
     fun getMarketsList(context: Context): List<Market> {
-        val manager = context.assets
         val json = context.assets
             .open("markets.json")
             .bufferedReader()

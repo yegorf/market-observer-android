@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import com.example.market_observer_android.BuildConfig
+import com.example.market_observer_android.R
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
 import com.example.market_observer_android.data.injection.DataModule
@@ -69,8 +70,11 @@ class MonitoringService : Service() {
                     if (PreferenceManager.isNotificationsOn()) {
                         NotificationHelper(applicationContext as Context)
                             .sendResultNotification(
-                                "New results found!",
-                                "Found ${newResults.size} results!"
+                                getString(R.string.new_results_found),
+                                String.format(
+                                    getString(R.string.found_results_count),
+                                    newResults.size
+                                )
                             )
                     }
                 }

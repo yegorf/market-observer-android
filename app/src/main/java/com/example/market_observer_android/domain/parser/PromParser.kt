@@ -11,7 +11,7 @@ class PromParser : MarketParser {
         return Jsoup.connect(url)
             .get()
             .select("input.ps-search__field--3s5Te")
-            .attr("value") //cant parse
+            .attr("value")
     }
 
     override fun parseUrl(url: String): List<LinkResult> {

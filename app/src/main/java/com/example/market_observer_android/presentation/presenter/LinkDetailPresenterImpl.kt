@@ -9,7 +9,6 @@ class LinkDetailPresenterImpl(private val repository: Repository) : LinkDetailPr
     BasePresenterImpl<LinkDetailView>() {
 
     override fun deleteLink(url: String) {
-        PreferenceManager.setLinksRemainingCount(PreferenceManager.getLinksRemainingCount() + 1)
         repository.deleteLink(url)
         view?.onDeleteLink()
     }

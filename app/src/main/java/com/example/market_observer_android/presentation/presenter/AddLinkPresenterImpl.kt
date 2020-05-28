@@ -13,7 +13,6 @@ class AddLinkPresenterImpl(val repository: Repository) : AddLinkPresenter,
     private val bus = RxBus
 
     override fun addLink(link: Link) {
-        PreferenceManager.setLinksRemainingCount(PreferenceManager.getLinksRemainingCount() - 1)
         repository.addLink(link)
         if (link.isActive) {
             bus.sendData(Event.ADD_LINK_TO_OBSERVE, link)

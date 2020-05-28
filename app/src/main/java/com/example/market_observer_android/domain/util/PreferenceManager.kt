@@ -30,14 +30,6 @@ object PreferenceManager {
         return getPreference().getBoolean(EMAIL_NOTIFICATIONS_ON, true)
     }
 
-    fun setLinksRemainingCount(count: Int) {
-        getPreference().edit().putInt(LINKS_REMAINING_COUNT, count).apply()
-    }
-
-    fun getLinksRemainingCount(): Int {
-        return 5//getPreference().getInt(LINKS_REMAINING_COUNT, 5)
-    }
-
     fun setObserveNewLink(isObserveNewLink: Boolean) {
         getPreference().edit().putBoolean(OBSERVE_NEW_LINK, isObserveNewLink).apply()
     }

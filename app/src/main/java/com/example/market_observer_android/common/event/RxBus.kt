@@ -21,7 +21,6 @@ object RxBus {
             .filter { it == event }
     }
 
-    //todo: add data type check
     fun <T> listenData(event: Event, type: Class<T>): Observable<T> {
         return publisher.ofType(DataEvent::class.java)
             .filter { it.event == event }

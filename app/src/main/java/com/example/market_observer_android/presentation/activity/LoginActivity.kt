@@ -1,13 +1,14 @@
 package com.example.market_observer_android.presentation.activity
 
 import android.os.Bundle
-import android.widget.Button
 import com.example.market_observer_android.R
 import com.example.market_observer_android.presentation.mvp_view.LoginView
 import com.example.market_observer_android.presentation.navigation.ActivityNavigator
 import com.example.market_observer_android.presentation.presenter.LoginPresenter
 import com.example.market_observer_android.presentation.util.showLongToast
 import com.example.market_observer_android.presentation.util.showShortToast
+import com.example.market_observer_android.presentation.view.StyledButton
+import com.example.market_observer_android.presentation.view.StyledEditText
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -16,26 +17,39 @@ class LoginActivity : BaseActivity(), LoginView {
     @Inject
     lateinit var presenter: LoginPresenter
 
+    lateinit var emailInput: StyledEditText
+    lateinit var passwordInput: StyledEditText
+    lateinit var loginButton: StyledButton
+    lateinit var registerButton: StyledButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         component.inject(this)
         presenter.onCreate(this)
         initViews()
+        setOnClickListeners()
     }
 
     private fun initViews() {
-        btn_login.setOnClickListener {
+        emailInput = login_email_input
+        passwordInput = login_password_input
+        loginButton = login_button
+        registerButton = register_button
+    }
+
+    private fun setOnClickListeners() {
+        loginButton.setOnClickListener {
             signIn()
         }
-        btn_register.setOnClickListener {
+        registerButton.setOnClickListener {
             signUp()
         }
     }
 
     private fun signUp() {
-        val email = et_email.getText()
-        val password = et_password.getText()
+        val email = emailInput.getText()
+        val password = passwordInput.getText()
 
         if (validateInputs(email, password)) {
             showProgressDialog()
@@ -46,8 +60,8 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     private fun signIn() {
-        val email = et_email.getText()
-        val password = et_password.getText()
+        val email = emailInput.getText()
+        val password = passwordInput.getText()
 
         if (validateInputs(email, password)) {
             showProgressDialog()

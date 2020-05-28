@@ -10,7 +10,8 @@ class RiaParser : MarketParser {
     override fun parseTitle(url: String): String {
         return Jsoup.connect(url)
             .get()
-            .select("span.item-selected-name").text()
+            .select("span.item-selected-name")
+            .text()
     }
 
     override fun parseUrl(url: String): List<LinkResult> {
@@ -21,11 +22,11 @@ class RiaParser : MarketParser {
         val results = mutableListOf<LinkResult>()
         rows.forEach {
             val result = LinkResult()
-            result.title = it.select("a.ticket-title").text() //done
-            result.price = it.select("strong.price.size20").text() //done (without currency)
-            result.location = it.select("div.location.grey").text() //done
-            result.url = it.select("a.ticket-title").attr("href") //done
-            result.imageUrl = it.select("a.photo-185x120.loaded").attr("href") //done
+            result.title = it.select("a.ticket-title").text()
+            result.price = it.select("strong.price.size20").text()
+            result.location = it.select("div.location.grey").text()
+            result.url = it.select("a.ticket-title").attr("href")
+            result.imageUrl = it.select("a.photo-185x120.loaded").attr("href")
             results.add(result)
         }
         return results

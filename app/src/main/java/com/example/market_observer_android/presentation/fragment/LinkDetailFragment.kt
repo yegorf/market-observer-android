@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
-import com.example.market_observer_android.presentation.activity.MainActivity
+import com.example.market_observer_android.presentation.activity.GlobalActivity
 import com.example.market_observer_android.presentation.adapter.LinkResultAdapter
 import com.example.market_observer_android.presentation.mvp_view.LinkDetailView
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
@@ -56,8 +56,8 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         getComponent().inject(this)
         presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link
-        if (activity is MainActivity) {
-            (activity as MainActivity).setToolbarTitle(link.name!!, link.url!!)
+        if (activity is GlobalActivity) {
+            (activity as GlobalActivity).setToolbarTitle(link.name!!, link.url!!)
         }
         init(link)
         return view
@@ -111,8 +111,8 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
 
     override fun onStop() {
         super.onStop()
-        if (activity is MainActivity) {
-            (activity as MainActivity).removeToolbarTitle()
+        if (activity is GlobalActivity) {
+            (activity as GlobalActivity).removeToolbarTitle()
         }
     }
 

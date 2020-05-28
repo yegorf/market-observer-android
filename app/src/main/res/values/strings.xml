@@ -35,4 +35,6 @@
     <string name="supported_languages">Supported languages:</string>
     <string name="invalid_data">Invalid data!</string>
     <string name="invalid_url">Invalid url</string>
+    <string name="new_results_found">New results found!</string>
+    <string name="found_results_count">Found %d new results</string>
 </resources>
