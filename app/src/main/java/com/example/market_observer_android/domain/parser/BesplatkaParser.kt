@@ -3,7 +3,7 @@ package com.example.market_observer_android.domain.parser
 import com.example.market_observer_android.domain.model.LinkResult
 import org.jsoup.Jsoup
 
-class BesplatkaParser: MarketParser {
+class BesplatkaParser : MarketParser {
 
     override fun getMarketName() = MarketConfig.BESPLATKA
 

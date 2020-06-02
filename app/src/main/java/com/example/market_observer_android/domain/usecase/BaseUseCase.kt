@@ -11,7 +11,6 @@ abstract class BaseUseCase<T> {
 
     fun execute(observer: UseCaseObserver<T>) {
         getObservable()
-            //.subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
                 disposable = it

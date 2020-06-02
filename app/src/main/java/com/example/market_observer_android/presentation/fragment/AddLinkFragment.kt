@@ -70,6 +70,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
         getComponent().inject(this)
         presenter.onCreate(this)
         init()
+        setToolbarTitle(getString(R.string.add_link_title), null)
         return view
     }
 
@@ -123,7 +124,7 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                         }
                     } catch (e: Exception) {
                         if (BuildConfig.DEBUG) {
-                            Log.e(tag, e.message)
+                            Log.e(tag, e.message!!)
                         }
                     }
                 }.start()
@@ -150,11 +151,11 @@ class AddLinkFragment : BaseFragment(), AddLinkView {
                 if (validateInputs(name, url)) {
                     val periodicity = periodicitySpinner.selectedItem as Int
                     val isObserve = observeSwitch.isChecked
-                    val link = Link(url, name, periodicity, isObserve)
+                    val newLink = Link(url, name, periodicity, isObserve)
                     if (!isEdit) {
-                        presenter.addLink(link)
+                        presenter.addLink(newLink)
                     } else {
-                        presenter.editLink(link)
+                        presenter.editLink(newLink)
                     }
                 } else {
                     showShortToast(R.string.invalid_data)

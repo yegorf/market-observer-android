@@ -35,7 +35,6 @@ class SettingsPresenterImpl(
     }
 
     override fun uploadCloud() {
-        //fixme
         val subscribe = backupManager.downloadRemote()
             .subscribe {
                 Log.d(tag, it)

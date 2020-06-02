@@ -6,10 +6,8 @@ import androidx.appcompat.widget.Toolbar
 import com.example.market_observer_android.R
 import com.example.market_observer_android.domain.service.MonitoringService
 import com.example.market_observer_android.presentation.navigation.FragmentNavigator
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.item_link_result.view.*
 
 
 class GlobalActivity : BaseActivity() {

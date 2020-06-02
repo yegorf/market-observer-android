@@ -34,5 +34,11 @@ abstract class BaseFragment : Fragment() {
         (activity as GlobalActivity).hideArrow()
     }
 
+    fun setToolbarTitle(title: String, subTitle: String?) {
+        if (activity is GlobalActivity) {
+            (activity as GlobalActivity).setToolbarTitle(title, subTitle)
+        }
+    }
+
     abstract fun hasNavigationArrow(): Boolean
 }

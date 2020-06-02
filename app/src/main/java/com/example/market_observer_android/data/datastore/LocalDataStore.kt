@@ -3,6 +3,7 @@ package com.example.market_observer_android.data.datastore
 import com.example.market_observer_android.data.local.RealmService
 import com.example.market_observer_android.data.local.realm_entity.SavedResultRealm
 import com.example.market_observer_android.data.mapper.MapperFactory
+import com.example.market_observer_android.data.mapper.RealmListMapper
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
 import io.reactivex.Observable
@@ -14,7 +15,7 @@ class LocalDataStore(private val realmService: RealmService, private val mapper:
     fun getAllLinks(): Observable<List<Link>> {
         return realmService.getAllLinks()
             .map {
-                mapper.mapRealmListToList(it)
+                RealmListMapper.mapRealmListToList(it)
             }
             .map { list ->
                 list.map {

@@ -1,8 +1,6 @@
 package com.example.market_observer_android.presentation.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +42,7 @@ class InfoFragment : BaseFragment(), InfoView {
         initViews(view)
         init()
         setListeners()
+        setToolbarTitle(getString(R.string.app_info_title), null)
         return view
     }
 

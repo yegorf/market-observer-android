@@ -43,6 +43,7 @@ class HomeFragment : BaseFragment(), HomeView, LinkAdapter.LinkAdapterListener {
         getComponent().inject(this)
         presenter.onCreate(this)
         init()
+        setToolbarTitle(getString(R.string.app_name), null)
         return view
     }
 

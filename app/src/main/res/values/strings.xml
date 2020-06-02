@@ -36,5 +36,10 @@
     <string name="invalid_data">Invalid data!</string>
     <string name="invalid_url">Invalid url</string>
     <string name="new_results_found">New results found!</string>
-    <string name="found_results_count">Found %d new results</string>
+    <string name="found_results_count">Found %d new results for %s</string>
+    <string name="settings_title">Settings</string>
+    <string name="add_link_title">New link</string>
+    <string name="app_info_title">App info</string>
+    <string name="saved_results_title">Favorites</string>
+    <string name="digit_warning">Password must contain al least one digit!</string>
 </resources>

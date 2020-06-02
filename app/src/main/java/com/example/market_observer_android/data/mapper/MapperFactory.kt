@@ -6,23 +6,9 @@ import com.example.market_observer_android.data.local.realm_entity.LinkRealm
 import com.example.market_observer_android.data.local.realm_entity.LinkResultRealm
 import com.example.market_observer_android.domain.model.Link
 import com.example.market_observer_android.domain.model.LinkResult
-import io.realm.RealmList
-import io.realm.RealmResults
 import java.util.*
 
 class MapperFactory {
-
-    fun <T> mapRealmListToList(results: RealmResults<T>): List<T> {
-        val list = mutableListOf<T>()
-        list.addAll(results)
-        return list
-    }
-
-    fun <T> mapListToRealmList(list: List<T>): RealmList<T> {
-        val realm = RealmList<T>()
-        realm.addAll(list)
-        return realm
-    }
 
     fun linkToRealmMapper(): Mapper<Link, LinkRealm> {
         return object : Mapper<Link, LinkRealm> {
@@ -38,7 +24,7 @@ class MapperFactory {
                     realms.add(resultToRealmMapper().transform(it))
                 }
 
-                realm.results = mapListToRealmList(
+                realm.results = RealmListMapper.mapListToRealmList(
                     source.results.map {
                         resultToRealmMapper().transform(it)
                     }

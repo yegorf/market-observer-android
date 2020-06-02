@@ -24,7 +24,8 @@ class PromParser : MarketParser {
             val result = LinkResult()
             result.title = it.select("span.ek-link.ek-link_style_multi-line").text()
             result.price = it.select("span.x-gallery-tile__price").attr("data-qaprice")
-            result.location = it.select("div.ek-text.ek-text_color_bluey-grey").select("span").text()
+            result.location =
+                it.select("div.ek-text.ek-text_color_bluey-grey").select("span").text()
             result.url = it.select("a.x-gallery-tile__tile-link").attr("href")
             result.imageUrl = it.select("img.x-gallery-tile__tile-link").attr("src")
             results.add(result)

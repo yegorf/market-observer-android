@@ -4,15 +4,14 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 
 
 class NotificationHelper(private val context: Context) {
 
-    private val channelId = "channel_id"
-    private val channelName = "channel_name"
+    private val channelId = "result_channel_id"
+    private val channelName = "result_channel_name"
 
     companion object {
         var id = 0

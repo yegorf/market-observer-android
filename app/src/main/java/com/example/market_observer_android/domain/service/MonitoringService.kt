@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.market_observer_android.BuildConfig
 import com.example.market_observer_android.R
 import com.example.market_observer_android.common.event.Event
 import com.example.market_observer_android.common.event.RxBus
@@ -70,10 +69,14 @@ class MonitoringService : Service() {
                     if (PreferenceManager.isNotificationsOn()) {
                         NotificationHelper(applicationContext as Context)
                             .sendResultNotification(
-                                getString(R.string.new_results_found),
+                                String.format(
+                                    getString(R.string.new_results_found),
+                                    newResults.size
+                                ),
                                 String.format(
                                     getString(R.string.found_results_count),
-                                    newResults.size
+                                    newResults.size,
+                                    url
                                 )
                             )
                     }
@@ -92,33 +95,28 @@ class MonitoringService : Service() {
     }
 
     private fun addLinkToObserve(link: Link) {
-        subscriptions[link.url as String] =
-            Observable.interval(link.periodicity.toLong(), TimeUnit.SECONDS)
-                .subscribe {
-                    try {
-                        val results = MarketParserFactory.createParser(link.url as String)
-                            ?.parseUrl(link.url as String)
-                        if (results != null) {
-                            onResultsFound(link.url as String, results)
-                        }
-                    } catch (e: Exception) {
-                        if (BuildConfig.DEBUG) {
+        val url = link.url
+        val periodicity = link.periodicity.toLong()
+        if (url != null) {
+            subscriptions[url] =
+                Observable.interval(periodicity, TimeUnit.SECONDS)
+                    .subscribe {
+                        try {
+                            val results = MarketParserFactory.createParser(url)
+                                ?.parseUrl(url)
+                            if (results != null) {
+                                onResultsFound(url, results)
+                            }
+                        } catch (e: Exception) {
                             Log.e(tag, e.message!!)
                         }
                     }
-                }
+        }
     }
 
     private fun removeLinkFromObserve(url: String) {
         subscriptions[url]?.dispose()
         subscriptions.remove(url)
-    }
-
-    private fun removeAllLinksFromObserve() {
-        subscriptions.forEach {
-            it.value.dispose()
-        }
-        subscriptions.clear()
     }
 
     private fun registerBus() {
@@ -130,11 +128,6 @@ class MonitoringService : Service() {
         busDisposables.add(
             bus.listenData(Event.REMOVE_LINK_FROM_OBSERVE, String::class.java)
                 .subscribe { removeLinkFromObserve(it) }
-        )
-
-        busDisposables.add(
-            bus.listenEvent(Event.REMOVE_ALL_LINK_FROM_OBSERVE)
-                .subscribe { removeAllLinksFromObserve() }
         )
     }
 

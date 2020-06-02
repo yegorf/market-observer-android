@@ -49,7 +49,7 @@ class FirebaseService {
             .collection(ResultEntity.TABLE_NAME)
             .add(result)
             .addOnSuccessListener {
-                Log.d(tag, "Added")
+                Log.d(tag, "Added result to saved")
             }
             .addOnFailureListener {
                 Log.d(tag, "Cant add: ${it.message} -> ${it.cause}")
@@ -131,10 +131,10 @@ class FirebaseService {
             .collection(LinkEntity.TABLE_NAME)
             .add(link)
             .addOnSuccessListener {
-                Log.d(tag, "Added")
+                Log.d(tag, "Added link")
             }
             .addOnFailureListener {
-                Log.d(tag, "Cant add: ${it.message} -> ${it.cause}")
+                Log.d(tag, "Cant add link: ${it.message} -> ${it.cause}")
             }
     }
 

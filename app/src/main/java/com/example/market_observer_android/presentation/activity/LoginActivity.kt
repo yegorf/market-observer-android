@@ -52,8 +52,12 @@ class LoginActivity : BaseActivity(), LoginView {
         val password = passwordInput.getText()
 
         if (validateInputs(email, password)) {
-            showProgressDialog()
-            presenter.signUp(email, password)
+            if (validatePassword(password)) {
+                showProgressDialog()
+                presenter.signUp(email, password)
+            } else {
+                showLongToast(getString(R.string.digit_warning))
+            }
         } else {
             showShortToast(R.string.invalid_data)
         }
@@ -73,6 +77,12 @@ class LoginActivity : BaseActivity(), LoginView {
 
     private fun validateInputs(email: String, password: String): Boolean {
         return email.isNotEmpty() && password.isNotEmpty()
+    }
+
+    private fun validatePassword(password: String): Boolean {
+        return password.any {
+            it.isDigit()
+        }
     }
 
     override fun openHomeScreen() {

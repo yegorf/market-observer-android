@@ -3,7 +3,6 @@ package com.example.market_observer_android.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import com.example.market_observer_android.R
 import kotlinx.android.synthetic.main.count_circle_view.view.*

@@ -1,13 +1,13 @@
 package com.example.market_observer_android.presentation.fragment
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.Switch
+import android.widget.TextView
 import com.example.market_observer_android.R
 import com.example.market_observer_android.data.entity.SettingsEntity
 import com.example.market_observer_android.domain.util.PreferenceManager
@@ -48,6 +48,7 @@ class SettingsFragment : BaseFragment(), SettingsView {
         initViews(view)
         initSwitches()
         presenter.onCreate(this)
+        setToolbarTitle(getString(R.string.settings_title), null)
         return view
     }
 

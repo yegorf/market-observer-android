@@ -26,7 +26,5 @@ class StyledButton : androidx.appcompat.widget.AppCompatButton {
     private fun init() {
         setTextColor(resources.getColor(R.color.colorWhite))
         setBackgroundResource(R.drawable.bg_button)
-
-        //inflate(context, R.layout.styled_button, null)
     }
 }

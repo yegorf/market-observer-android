@@ -62,5 +62,7 @@ class DataModule {
     fun provideRemoteDownloadManager(
         localDataStore: LocalDataStore,
         remoteDataStore: RemoteDataStore
-    ) = RemoteDownloadManager(localDataStore, remoteDataStore)
+    ): RemoteDownloadManager {
+        return RemoteDownloadManager(localDataStore, remoteDataStore)
+    }
 }

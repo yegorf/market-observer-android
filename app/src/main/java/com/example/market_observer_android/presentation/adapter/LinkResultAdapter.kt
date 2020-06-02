@@ -89,36 +89,6 @@ class LinkResultAdapter(private val listener: LinkResultListener) :
                 notifyItemChanged(adapterPosition)
             }
         }
-
-        /*
-        private fun showResultContextPopup(result: LinkResult) {
-            val popup = PopupMenu(itemView.context, menuButton)
-            if (result.isSaved) {
-                popup.menuInflater.inflate(R.menu.saved_result_context_menu, popup.menu)
-            } else {
-                popup.menuInflater.inflate(R.menu.found_result_context_menu, popup.menu)
-            }
-
-            popup.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.save -> {
-                        listener.onResultSave(result)
-                        result.isSaved = true
-                        notifyItemChanged(adapterPosition)
-                        true
-                    }
-                    R.id.remove_from_saved -> {
-                        listener.onResultUnsave(result)
-                        result.isSaved = false
-                        notifyItemChanged(adapterPosition)
-                        true
-                    }
-                    else -> false
-                }
-            }
-            popup.show()
-        }
-        */
     }
 
     interface LinkResultListener {

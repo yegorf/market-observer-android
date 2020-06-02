@@ -56,9 +56,7 @@ class LinkDetailFragment : BaseFragment(), LinkDetailView,
         getComponent().inject(this)
         presenter.onCreate(this)
         val link = arguments?.getSerializable(LINK_ARG_KEY) as Link
-        if (activity is GlobalActivity) {
-            (activity as GlobalActivity).setToolbarTitle(link.name!!, link.url!!)
-        }
+        setToolbarTitle(link.name!!, link.url!!)
         init(link)
         return view
     }

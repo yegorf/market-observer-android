@@ -42,6 +42,7 @@ class SavedResultsFragment : BaseFragment(), SavedResultsView,
         getComponent().inject(this)
         presenter.onCreate(this)
         init(view)
+        setToolbarTitle(getString(R.string.saved_results_title), null)
         return view
     }
 

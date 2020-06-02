@@ -18,7 +18,7 @@ object EmailSender {
             context.startActivity(Intent.createChooser(intent, "Send mail with"))
         } catch (e: Exception) {
             if (BuildConfig.DEBUG) {
-                Log.e(tag, e.message)
+                Log.e(tag, e.message!!)
             }
         }
     }

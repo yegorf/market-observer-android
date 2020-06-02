@@ -53,7 +53,7 @@ class LoginScreenTest {
         intended(hasComponent(GlobalActivity::class.java.name))
     }
 
-    @Test
+/*    @Test
     fun loginWithWrongEmail() {
         activityRule.launchActivity(Intent())
 
@@ -94,7 +94,7 @@ class LoginScreenTest {
 
         onView(withId(R.id.login_button)).perform(click())
     }
-
+*/
     private fun waitSeconds(seconds: Long) {
         Thread.sleep(seconds * 1000)
     }
